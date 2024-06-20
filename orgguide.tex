@@ -1,0 +1,2310 @@
+% Created 2024-06-19 Wed 12:11
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{The Org Mode Developers Luca Canali}
+\date{\today}
+\title{Org Mode Compact Guide\\\medskip
+\large Release 9.7}
+\hypersetup{
+ pdfauthor={The Org Mode Developers Luca Canali},
+ pdftitle={Org Mode Compact Guide},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.3 (Org mode 9.6.15)}, 
+ pdflang={Italian}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Copying}
+\label{sec:orgd8c88d7}
+Copyright \textcopyright{} 2004--2024  Free Software Foundation, Inc.
+
+\begin{quote}
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being ``A GNU Manual,''
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled ``GNU Free Documentation License.''
+in the full Org manual, which is distributed together with this
+compact guide.
+
+(a) The FSF's Back-Cover Text is: ``You have the freedom to copy and
+modify this GNU manual.''
+\end{quote}
+
+\section{Introduzione}
+\label{sec:orgf679320}
+Org é una modalità per prendere note, mantenere liste TODO ed a pianificare
+proggetti con un sistema di testo semplice veloce ed effettivo. È anche un
+sistema di creazione e publicazione e supporta il lavoro con i blocchi di
+codice per la programmazione letterale e la ricerca riproducibile.
+
+Questo documento é un derivato molto compresso dal più completo \href{https://www.gnu.org/software/emacs/manual/html\_mono/org.html\#Top}{manuale Org
+mode}. Contiene tutte le funzionalità ed i comandi di base, assieme a
+importanti suggerimenti per la personalizzazione. È destinato ai
+principianti che potrebbero tirarsi indietro, a causa delle dimensioni,
+davanti ad un manuale di 200 pagine.
+
+\subsection*{Installazione}
+\label{sec:org61fede0}
+\begin{quote}
+Se usi una versione di Org che fa parte della distribuzione di Emacs,
+perfavore salta questa sezione e vai direttamente a \hyperref[sec:org316fc0b]{Attivazione}.
+\end{quote}
+
+Se hai scaricato Org dal web, solitamente viene distribuito come file \texttt{.zip}
+o \texttt{.tar} oppure come archivio Git, é meglio avviarlo direttamente dalla
+directory di distribuzione. Hai bisogno di aggiungere la sottodirectory
+\texttt{lips/} alla path di Emacs. Per fare questo aggiungi la seguente linea nel
+tuo file di inizializzazione:
+
+\begin{verbatim}
+(add-to-list 'load-path "~/path/to/orgdir/lisp")
+\end{verbatim}
+
+
+Se hai usato git o tar ball per ottenere Org, hai bisogno di avviare il
+seguente comando per generare le informazioni di autoload.
+
+\begin{verbatim}
+make autoload
+\end{verbatim}
+
+\subsection*{Attivazione}
+\label{sec:org316fc0b}
+Aggiiungi le seguenti linee al tuo file di init per definire delle chiavi
+\emph{globali} per tre comandi che sono utili in ogni buffer Emacs, non solo nel
+buffer Org. Perfavore scegli le chiavi più comode per te.
+
+\begin{verbatim}
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+\end{verbatim}
+
+I file con estensione \texttt{.org} sono posti in modo automatico nella modalità
+Org.
+
+\subsection*{Feedback}
+\label{sec:orgdc26732}
+Se riscontri dei problemi con Org o se hai delle domande, osservazioni o
+idee a riguardo, perfavore invia una mail alla mailing list
+\url{mailto:emacs-orgmode@gnu.org}.  Per informazioni su come inviare dei report
+sui bug, guarda il \href{org}{manuale pricipale}.
+
+\section{Struttura del documento}
+\label{sec:orga976bef}
+Org è uno schematizzatore. La schematizzazione permette al documento di
+essere organizzato in strutture gerarchiche, che, almeno per me, sono la
+migliore rappresentazione delle note e dei pensieri. Un'osservazione di
+questa struttura si ottiene piegando, es, nascondendo larghe porzioni del
+documento per mostrarne solo la struttura generale e la parte dove al
+momento si sta. Org semplifica molto bene l'uso delle outline comprimendo
+l'intera vista e nascondendo le funzionalita in un singolo comando
+\texttt{org-cycle} che é legato al tasto TAB.
+
+\subsection{Intestazioni}
+\label{sec:orgf5b2a10}
+Le intestazioni definiscono la struttura di uno schema ad albero. Le
+intestazioni in Org iniziano dal margine sinistro\footnote{Guarda la variabile \texttt{org-special-ctrl-a/e} per configurare
+speciali comportamenti di C-a e C-e nei titoli.} con uno o più
+asterischi seguiti da uno spazio. Per esempio:
+
+\begin{verbatim}
+* Livello iniziale dei titoli
+** Secondo livello
+*** Terzo livello
+Un po di testo
+*** Terzo livello
+Altro testo
+* Un'altro livello iniziale
+\end{verbatim}
+
+Nota che un'intestazione nominata dopo \texttt{org-footnote-section}, che di default
+é detto \texttt{Footnotes}, é considerato come speciale. Un sottoalbero con questa
+intestazione sarà ignorata silenziosamente dalla funzione di esportazione.
+
+Alcune persone trovano i vari asterischi troppo fastidiosi e preferiscono
+uno schema con degli spazzi vuoti seguiti da un singolo asterisco. Guarda
+nelle \ref{sec:org62c1089} per un setup per realizzarlo.
+
+\subsection{Ciclo di visualizzazione}
+\label{sec:org7e708e6}
+Gli schemi rendono possibile nascondere parte del testo nel buffer. Org usa
+giusto due comandi, legati aTAB e S-TAB (\texttt{org-cycle} e
+\texttt{org-shifttab} ) per scambiare la visibilita nel buffer.
+
+\begin{description}
+\item[{TAB (\texttt{org-cycle})}] \emph{Ciclo del sottoalbero}: Ruota il sottoalbero corrente attraverso gli stai
+
+\begin{verbatim}
+,-> CHIUSO -> FIGLI -> SOTTOALBERO --.
+'------------------------------------'
+\end{verbatim}
+
+
+Quando viene chiamato con l'argomento prefisso (C-u TAB) o con
+il tasto Shitf, viene invocato il ciclo globale.
+
+\item[{S-TAB (\texttt{org-global-cycle}), C-u TAB (\texttt{org-cycle})}] \emph{Ciclo globale}: Ruota l'intero buffer attraverso gli stati
+
+\begin{verbatim}
+,-> OVERVIEW -> CONTENUTO -> MOSTRA TUTTO --.
+'-------------------------------------------'
+\end{verbatim}
+
+\item[{C-u C-u C-u TAB (\texttt{org-show-all})}] Mostra tutto incluso i drawer.
+
+Quando Emacs visita per la prima volta un file Org, lo stato globle é
+settato a OVERVIEW, es. solo i livelli più alti delle intestazione sono
+visibili. Questo può essere configurato tramite la variabile
+\texttt{org-startup-folder} o nell'intestazione del file aggiungendo una keyword
+\texttt{STARTUP} con \texttt{overview}, \texttt{content}, \texttt{shoall}, \texttt{showeverything} o \texttt{show<n>levels} (n
+= 2..5 ) tipo:
+
+\begin{verbatim}
+#+STARTUP: content
+\end{verbatim}
+\end{description}
+
+\subsection{Movimeto}
+\label{sec:org13b0ce1}
+I comandi seguenti ti fanno saltare ad altri titoli nel buffer
+
+\begin{description}
+\item[{C-c C-n (\texttt{org-next-visible-heading})}] Titolo sucessivo
+\item[{C-c C-p (\texttt{org-previous-visible-heading})}] Titolo precedente
+
+\item[{C-c C-f (\texttt{org-backward-headling-same-level})}] Titolo sucessivo nello stesso livello
+
+\item[{C-c C-b (\texttt{outline-backward-same-level})}] Titolo precedente nello stesso livello
+
+\item[{C-c C-u (\texttt{outline-up-heading})}] Torna al titolo più altro
+\end{description}
+
+\subsection{Modificare la struttura}
+\label{sec:org0b8d069}
+\begin{description}
+\item[{\textbf{M-RET} (\texttt{org-meta-return})}] Inserisce un nuovo titolo con lo stesso livello del corrente. Se il punto
+é una lista di oggetti, viene creato un nuovo oggetto (vedere \ref{sec:orgd18e700}). Quando questo comando viene usato nel mezzo di una linea, la
+linea viene divisa e il resto della linea diventa il nuovo titolo\footnote{Se non vuoi che la linea sia divisa, personalizza la variabile
+\texttt{org-M-RET-may-split-line}}
+
+\item[{M-S-RET (\texttt{org-inser-todo-heading})}] Inserisce un nuovo oggetto TODO con lo stesso livello del titolo corrente
+
+\item[{TAB (\texttt{org-cycle}) in un oggetto vuoto}] In un nuovo oggetto che non ha ancora del testo, il TAB cicla tra i vari
+livelli
+
+\item[{M-SINISTRA (\texttt{org-metaleft}), M-DESTRA (\texttt{org-metaright})}] Promuove o retrocede il titolo corrente di un livello
+
+\item[{M-SU (\texttt{org-move-subtree-up}), M-GIÙ (\texttt{org-move-subtree-down})}] Muove il sotttoalbero su o giù es. scambia con il precedente o il
+successivo sottoalbero con lo stesso livello.
+
+\item[{C-c C-w (\texttt{org-refile})}] Ricolloca un oggetto o una regione in una posizione differente. Vedere
+\ref{sec:org800e315}.
+
+\item[{C-x n s (\texttt{org-narrow-to-subtree}), C-x n w (\texttt{widen})}] Allarga il buffer al corrente sottoalbero e lo nasconde nuovamente
+\end{description}
+
+Quando c'é una regione attiva (Modalità Contrasegno di transito), promuove
+e retrocede lavorando su tutti i titoli nella regione.
+
+\subsection{Alberi sparsi}
+\label{sec:org7974999}
+Una funzionalità importante della modalità Org é l'abilità di costruire
+\emph{alberi sparsi} per le informazioni selezionate in una struttura ad albero,
+in modo che l'intero documento sia piegato il più possibile, ma le
+informazioni selezionate siano comunque visibili assieme alla struttura
+dell'intestazione sopra di esso\footnote{Vedi anche la variabile \texttt{org-show-context-detail} per decidere
+quanto contesto mostrare attorno ad ogni selezione.}. Provalo subito e vedrai immediatamente
+come lavora.
+
+La modalita Org contiene diversi comandi che creano questi alberi, a tutti
+questi comandi si può accedere attraverso uno dispacher.
+
+\begin{description}
+\item[{C-c / (\texttt{org-sparse-tree})}] Mostra un prompt in cui selezionare una chiave per creare un comando di
+sparse-tree
+
+\item[{C-c / r (\texttt{org-occur})}] Mostra un prompt per un'espressione regolare (regexp) e mostra un albero
+sparso con tutte le occorrenze trovate. Ogni occorrenza viene
+sottolineata; La sottolineatura svanisce se si preme C-c C-c.
+
+L'altro comando di sparse tree seleziona le intestazioni basandosi sulle
+chiavi dei TODO, tags o proprietà che verrà discusso più aventi in questo
+documento.
+\end{description}
+
+\subsection{Liste semplici}
+\label{sec:orgd18e700}
+Assieme gli oggetti della struttura ad albero, gli elenchi formattati
+manualmente possono fornire una struttura aggiuntiva. Inoltre
+forniscono un modo per creare liste selezionabili o caselle di
+controllo ( vedi [BROKEN LINK: *Checkboxes] ). Org supporta la modifica di queste
+liste ed ogni esportatore ( Vedi \ref{sec:orgc8db748}) può analizzarlo e
+formattarlo.
+
+Org riconosce le liste ordinate, non ordinate e descritte.
+
+\begin{itemize}
+\item Gli elementi di una lista \emph{non ordinata} iniziano con un \texttt{-}, \texttt{+} o
+un \texttt{*} come puntatore.
+\item Gli elementi di una lista \emph{ordinata} iniziano con un \texttt{1.} o \texttt{1)}.
+\item Le liste \emph{descritte} usano \texttt{::} per separare il \emph{termine} dalla
+descrizione.
+\end{itemize}
+
+Gli elementi appartenenti allo stesso elenco devono avere la stessa
+indentazione sulla prima riga. Un elemento termina prima della riga
+successiva che é rientrato come il su elenco/numero o meno. Un elenco
+termina quanto tutti gli elementi vengono chiusi o dopo due righe
+vuote.
+
+\begin{verbatim}
+* Lord of the Rings
+  My favorite scenes are (in this order)
+  1. The attack of the Rohirrim
+  2. Eowyn's fight with the witch king
+     + this was already my favorite scene in the book
+     + I really like Miranda Otto.
+  Important actors in this film are:
+  - Elijah Wood :: He plays Frodo
+  - Sean Astin :: He plays Sam, Frodo's friend.
+\end{verbatim}
+
+I seguenti comandi agiscono sugli elementi quando il punto si trova
+nella prima riga di un elemento (la riga con il punto elenco o il
+numero).
+
+\begin{description}
+\item[{TAB (\texttt{org-cycle})}] Gli elementi possono essere ripiegati come le intestazioni.
+
+\item[{M-RET (\texttt{org-insert-heading})}] Inserisce un nuovo elemento nel livello corrente. Con un argomento
+prefisso, forza una nuova intestazione ( vedere [BROKEN LINK: Modificare le strutture] ).
+
+\item[{M-S-RET (\texttt{org-insert-todo-heading})}] Inserisce un nuovo elemento con un casella di controllo ( vedere
+[BROKEN LINK: *Checkboxes] ).
+
+\item[{M-S-SU* (\texttt{org-move-item-up}), M-S-GIU (\texttt{org-move-item-down})}] Muove l'elemento, inclusi i sottoelementi, su/giù ( spostandoli con
+il precedente/successivo elemento nella medesima indentazione ). Se
+la lista é ordinata, la rinumera in automatico.
+
+\item[{M-SINISTRA (\texttt{org-do-promote}), M-DESTRA (\texttt{org-do-subtree})}] Aumenta/diminuisce l'indentazione dell'elemento, fatta esclusione
+per i figli.
+
+\item[{M-S-SINISTRA (\texttt{org-promote-subtree}), M-S-DESTRA (\texttt{org-demote-subtree})}] Aumenta/diminuisce l'indentazione dell'elemento, esclusi i figli.
+
+\item[{C-c C-c (\texttt{org-toggle-checkbox})}] Se c'é una casella di controllo ( vedere [BROKEN LINK: Checkboxes] ) nella linea
+degli elementi, cambia lo stato della checkbox. Verificando anche i
+puntatori e la consistenza del'indentazione in tutta la lista.
+
+\item[{C-c - (\texttt{org-cycle-list-bullet})}] Scorre tra la lisata dei livelli degli elementi attraverso
+differenti tipi di puntatori ( \texttt{-}, \texttt{+}, \texttt{*}, \texttt{1.}, \texttt{1)}).
+\end{description}
+
+\section{Tabelle}
+\label{sec:org08f7d33}
+Org ha un veloce ed intuitivo editor di tabelle. Come per i fogli di
+calcolo sono supportati i calcoli, in connessione con il pacchetto
+Emacs Calc (vedere \href{https://www.gnu.org/software/emacs/manual/html\_mono/calc.html\#Top}{GNU Emacs Calculator Manuale} ).
+
+Org rende facile formattare le tabelle in semplice ACSII. Ogni linea
+con \texttt{|} come primo carattere senza spazi viene considerato come parte
+di una tabella. Il carattere \texttt{|} é anche un separatore di colonne. Una
+tabella si presenta tipo questa:
+
+\begin{verbatim}
+| Name  | Phone | Age |
+|-------+-------+-----|
+| Peter |  1234 |  17 |
+| Anna  | 43212 |  25 |
+\end{verbatim}
+
+Una tabella viene riallineata automaticamente ogni volta che viene
+premuto TAB o RET oppure C-c C-c
+quando ci si trova all'interno della tabella. Il TAB
+inoltre muove il punto al campo successivo ( RET alla riga
+successiva ) e crea nuove righe alla fine della tabella o prima delle
+linee orrizontali. L'indentation di una tabella é settata nella prima
+linea. Ogni linea che inizia con un \texttt{|-} é considerata un separatore
+orrizzontale e viene espanso al successivo riallineamento per occupare
+tutta la lareghezza della tabella. Quindi per creare la tabella
+precedente devi solo digitare
+
+\begin{verbatim}
+|Name|Phone|Age|
+|-
+\end{verbatim}
+
+
+e premere TAB per allineare la tabella ed iniziare a
+riempire i campi. Per voler essere più veloce digita \texttt{|Name|Phone|Age}
+seguito da C-c RET.
+
+Quando digiti un testo in un campo, Org tratta DEL,
+Backspace e tutti gli altri caratteri, in un modo speciale,
+in modo che l'inserimento e la cancellazione non sposti gli altri
+campi. Inoltre quando digiti \emph{subito dopo che il punto viene mosso in
+un nuvo campo con TAB, S-TAB o RET},
+il campo viene automaticamente creato bianco.
+
+\subsection*{Creazione e conversione}
+\label{sec:org30163b6}
+\begin{description}
+\item[{C-c | (\texttt{org-table-create-or-convert-from-regio})}] Converte la regione attiva in una tabella. Se ogni linea contiene
+almeno un carattere TAB, la funzione assume che le cose
+siano separato da tab. Se ogni linea é separata da virgola (CSV)
+assume che sia un file separatoda virgole. Se no, le linee sono
+divise in capi tramite gli spazzi bianchi.
+
+Se non ci sono regioni attive, questo comando crea una tabella Org
+vuota. Ma é più facile inserendo | N a m e | P h o n e | A g e RET | - TAB.
+\end{description}
+
+\subsection*{Ri-allineamento e spostamento dei campi}
+\label{sec:orga223928}
+\begin{description}
+\item[{C-c C-c (\texttt{org-table-align})}] Ri-allinea la tabella senza spostare il punto.
+
+\item[{TAB (\texttt{org-table-next-field})}] Ri-allinea la tabella, muovendosi nel campo successivo. Crea una
+nuova riga se necessario.
+
+\item[{S-TAB (\texttt{org-table-previous-field})}] Ri-allinea la tabella, mouvendo nel campo precedente.
+
+\item[{RET (\texttt{org-table-next-row})}] Ri-allinea la tabella e muove in basso nella riga
+successiva. Creando una nuova riga se necessario.
+
+\item[{S-SU (\texttt{org-table-move-cell-up}), S-GIU (\texttt{org-table-move-cell-down}), S-SINISTRA (\texttt{org-table-move-cell-left}), S-DESTRA (\texttt{org-table-move-cell-right})}] Muove le celle su, giù, a sinistra e a destra spostando la cella adiacente.
+\end{description}
+
+\subsection*{Modifica colonne e righe}
+\label{sec:org55611b8}
+\begin{description}
+\item[{M-SINISTRA (\texttt{org-table-move-column-left}), M-DESTRA (\texttt{org-table-move-column-right})}] Muove la colonna corrente a sinista/destra.
+
+\item[{M-S-SINISTRA (\texttt{org-table-delete-column})}] Elimnina la colonna corrente.
+
+\item[{M-S-DESTRA (\texttt{org-table-insert-column})}] Inserisce una nuova colonna a sinistra della posizione del punto.
+
+\item[{M-SU (\texttt{org-tablet-move-row}), M-GIU (\texttt{org-tablet-move-row-down})}] Muove la riga corrente su/giù.
+
+\item[{M-S-SU (\texttt{org-table-kill-row})}] Elimina la riga corrente o la linea orrizzontale.
+
+\item[{M-S-GIU (\texttt{org-table-insert-row})}] Inserisce una nuova riga sopra la corrente. Con un argomento
+prefisso la linea viene creata sotto la corrente.
+
+\item[{C-c - (\texttt{org-table-insert-hline})}] Inserisce una linea sotto la corrente. Con un argomento prefisso la
+linea viene creata sopra la corrente.
+
+\item[{C-c RET (\texttt{org-table-hline-and-move})}] Inserise una line sotto la corrente e muove il punto nella riga
+sotto questa linea.
+
+\item[{C-c \^{} (\texttt{org-table-sort-lines})}] Ordina le linee della tabella in regioni. La posizione del punto
+indica la colonna da usare per l'ordinamento ed il range delle linee
+é il range delle linee tra le line orrizzontali più vicine o
+l'intera tabella.
+\end{description}
+
+\section{Collegamenti ipertestuali}
+\label{sec:org651b8f7}
+Come nell'HTML, Org fornisce i link all'interno di un file, link
+esterni ad altri file, articoli Usenet, email e moltro altro.
+
+Org riconosce i semplici URIs, é possibile racchiuderli tra parentesi
+quadrate ed attivarli come link cliccabili. Il formato generale dei
+link si presenta simile a questo:
+
+\begin{verbatim}
+[[LINK][DESCRIZIONE]]
+\end{verbatim}
+
+
+od in alternativa
+
+\begin{verbatim}
+[[LINK]]
+\end{verbatim}
+
+
+Quando un link nel buffer é completo, con tutte le parentesi, Org
+cambia la sua visualizzazione con \texttt{DESCRIZIONE} al posto di
+\texttt{[[LINK]DESCRIZIONE]]} e in \texttt{LINK} al posto di \texttt{[[LINK]]}. Per
+modificare la parte invisibile del LINK usa C-c C-l con il punto sul link.
+
+\subsection*{Link interni}
+\label{sec:org3026f41}
+Se i link non sono rappresentati come URL, vengono considerati come
+interni al file corrente. Il caso più importante é un link tipo
+\texttt{[[\#my-custom-id]]} che viene collegata ad un elemento con la
+proprietà \texttt{CUSTOM\_ID} settata a \texttt{my-custom-id}.
+
+Link tipo \texttt{[[My Target]]} o \texttt{[[My Targhet][Find my target]]} va, nel
+file corrente, alla ricerca di un testo che corrisponda al targhet
+come \texttt{<{}<{}My Target>{}>{}}.
+
+\subsection*{Link esterni}
+\label{sec:org42b0785}
+Org supporta i lin ai file, siti web, Usenet, messagi email, elementi
+BBDB database ed sia le conversazioni che i logs IRC. I collegamenti
+sono simili agli URL. Iniziano con una breve stringa di
+indentificazione se quita dai duepunti \textbf{:}. Non ci sono spazzi dopo i
+duepunti. Ecco alcuni esempi:
+
+\begin{center}
+\begin{tabular}{ll}
+\texttt{http://www.astro.uva.nl/=dominikper} & Nel web\\[0pt]
+\texttt{file:/home/dominik/images/jupiter.jpg} & file, path assoluta\\[0pt]
+\texttt{/home/dominik/images/jupiter.jpg} & come sopra\\[0pt]
+\texttt{file:papers/last.pdf} & file, path relativa\\[0pt]
+\texttt{./papaers/last.pdf} & come sopra\\[0pt]
+\texttt{file:project.org} & un'altro file org\\[0pt]
+\texttt{docview:papers/last.pdf::NNN} & apre in modalità DocView alla pagina NNN\\[0pt]
+\texttt{id:B7423F4D-2E8A-471B-8810-C40F074717E9} & link ad un titolo con ID\\[0pt]
+\texttt{news:comp.emacs} & Usenet link\\[0pt]
+\texttt{mailto:adent@galaxy.net} & link mail\\[0pt]
+\texttt{mhe:folder\#id} & link messaggio MH-E\\[0pt]
+\texttt{rmail:folder\#id} & link messaggio Rmail\\[0pt]
+\texttt{gnus:gruop\#id} & link articolo Gnus\\[0pt]
+\texttt{bbdb:R.*Stalman} & link BBDB (con regexp)\\[0pt]
+\texttt{irc:/irc.com/\#emacs/bob} & link IRC\\[0pt]
+\texttt{info:org\#Hyperlink} & link nodo Info\\[0pt]
+\end{tabular}
+\end{center}
+
+I collegamento ai file possono contenere informazioni addizionali per
+consetire ad Emacs di saltare ad una particolare posizione nel file
+quando si segue un link. Questa può essere un numero di linea o un
+opzione di ricerca dopo i due duepunti. Di seguito alcuni esempi,
+assime alle spiegazioni:
+
+\begin{center}
+\begin{tabular}{ll}
+\texttt{file:\textasciitilde{}/code/main.c::255} & Trova la linea 255\\[0pt]
+\texttt{file:\textasciitilde{}/xx.org::My Target} & Trova \texttt{=<{}<{}My Target>{}>{}=}\\[0pt]
+\texttt{[[file:\textasciitilde{}/xx.org::\#my-custom-id]]} & Trova l'elemento con l'ID personalizzato\\[0pt]
+\end{tabular}
+\end{center}
+
+\subsection*{Manipolare i collegamenti}
+\label{sec:org728b7ac}
+Org fornisce un modo per creare link con la sintassi corretta, per
+inserirla in un file Org e per seguire il link.
+
+La funzione principale é \texttt{org-store-link} richiamabile con M-x org-store-link. Per la sua importanza, suggeriamo di abbinarlo ad
+una combinazione più comoda ( vedere [BROKEN LINK: *Attivazioni] ). Salva un link
+nella posizione attuale. Il link viene salvato per essere
+successiavamente inserito in un buffer Org -- vedi sotto.
+
+Da un buffer Org, i comandi seguenti creano, navigano o, più
+generalmente, agiscono sui link.
+
+\begin{description}
+\item[{C-c C-l (\texttt{org-insert-link})}] Inserisce un link. Questo richiede un link che sarà inserito nel
+buffer. Puoi inserire il link o usare la history SU e
+GIU per accedere ai link salvati. Richiederà la parte di
+descrizione per il link.
+
+Quando chiamato con l'argomento perfisso C-u il
+completamento dei nomi viene usato per l'inserimento di un nome di
+file.
+
+\item[{C-c C-l (Che punta ad un link esistente) (\texttt{org-insert-link})}] Quando il punto é un link esistente, C-c C-l permette la
+modifica del link e della parte della descrizione.
+
+\item[{C-c C-o (\texttt{open-link-at-point})}] Apre il link su cui si si trova.
+
+\item[{C-c \& (\texttt{org-mark-ring-goto})}] Torna indietro a una posizione registrata. Una posizione é
+registrata tramite il comando di link interno e tramite C-c \%. Usando questo comando più volte in diretta successione si
+muove attraverso un anello di posizioni precedenti.
+\end{description}
+
+\section{Elementi TODO}
+\label{sec:org309cf1d}
+Org mode non necessita che le liste TODO risiedano in documenti
+separati. Tantè che gli elementi TODO sono parte delle file di note,
+perché gli elementi TODO vengono solitamente usati quando si prendono
+note! Con la modalità Org, semplicemente si marca un oggeto in un
+albero mettendo all'inizio un elemento TODO. In questo modo, le
+informazioni non vengono duplicate e gli elementi TODO rimangono nel
+contesto in modo che emergano.
+
+La modalità Org ti fornisce dei metodi per una visione di insieme
+delle cose che devi fare, raccogliendoli da diversi file.
+
+\subsection[TODO Basics]{Funzionalità base dei TODO}
+\label{sec:orgcd98aa1}
+Un'intestazione é un elemento TODO quando inizia con la parola \texttt{TODO},
+per esempio:
+
+\begin{verbatim}
+*** TODO Write letter to Sam Fortune
+\end{verbatim}
+
+
+I comandi più importanti quando si lavora con i TODO sono:
+
+\begin{description}
+\item[{C-c C-t (\texttt{org-todo})}] Cambia lo stato del TODO dell'elemento corrente
+
+\begin{verbatim}
+,-> (non segnato) -> TODO -> DONE --.
+'-----------------------------------'
+\end{verbatim}
+
+
+La stessa rotazione può anche essere fatta ``da remoto'', dal buffer
+dell'agenda, tramite la chiave t ( vedi \ref{sec:org15525c6} ).
+
+\item[{S-RIGHT (\texttt{org-shiftright}), S-LEFT (\texttt{org-shiftleft})}] Seleziona il seguente/precedente stato TODO, similmente al cilco.
+
+\item[{C-c / t (\texttt{org-show-todo-tree})}] Visualizza gli elementi TODO in un \emph{albero sparso} ( vedi \ref{sec:org7974999} ). Piega l'intero buffer ma mostra tutti gli elementi
+TODO - con uno stato non-DONE - e la gerarchia delle intestazioni
+sopra di loro.
+
+\item[{M-x org-agenda t (\texttt{org-todo-list})}] Mostra la lista globale dei TODO. Colleziona tutti gli elementi TODO
+( con stato non-DONE ) da tutti i file agenda ( vedi
+\ref{sec:org3ad7d0f} ) in un unico buffer. Vedi \ref{sec:org0f74436} per maggiori informazioni.
+
+\item[{S-M-RET (\texttt{org-insert-todo-heading})}] Inserisce un nuovo oggetto TODO sotto al corrente.
+\end{description}
+
+Cambiando lo stato di un TODO può anche cambiare i tag. Vedi la
+docstring dell'opzinoe \texttt{org-todo-state-tags-triggers} per dettagli.
+
+\subsection{Workflow multi-stato}
+\label{sec:org10fc35f}
+Puoi usare le parole chiave TODO per indicare un stato di lavoro
+\emph{sequenziale}:
+
+\begin{verbatim}
+(setq org-todo-keywords
+      '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+\end{verbatim}
+
+La barra verticale separa le keyword \texttt{TODO} ( stati che \emph{necessitano
+azioni} ) da quelle \texttt{DONE} ( che \emph{non necessitano future azioni} ). Se
+non fornisci una barra di separazione, l'ultimo stato viene usato come
+stato \texttt{DONE}. Con questo setup, il comando C-c C-t cicla un
+oggetto da \texttt{TODO} a \texttt{FEEDBACK} quindi \texttt{VERIFY} ed in fine \texttt{DONE} e
+\texttt{DELEGATED}.
+
+A volte vorresti usare, in parallelo, diversi insiemi di parole chiave
+TODO. Per esempio, potresti voler avere il basico \texttt{TODO=/=DONE}, ma
+anche un workflow per il bug fix. Il tuo setup potrebbe essere simile
+a questo:
+
+\begin{verbatim}
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")))
+\end{verbatim}
+
+Le keyword dovrebbero essere tutte differenti, questo aiuta Org mode a
+tenere traccia di quale sottosequenza debbe essere usata dall'oggetto
+dato. L'esempio mostra, anche, come definire delle chiavi per un
+accesso più veloce ad un particolare stato, aggiungendo una lettera
+tra parentesi dopo ogni parola chiave - riceverai un prompt dopo aver
+premuto C-c C-t.
+
+Per definire delle keyword TODO che siano valide solo in un singolo
+file, usa il seguente testo in una qualsiasi parte del file.
+
+\begin{verbatim}
+#+TODO: TODO(t) | DONE(d)
+#+TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)
+#+TODO: | CANCELED(c)
+\end{verbatim}
+
+Dopo aver cambiato una di queste linee, usa C-c C-c con il
+cursore nella linea dove hai fatto il cambiamento per farlo conoscere
+alla modalità Org.
+
+\subsection{Registrazioni dei progressi}
+\label{sec:org642a354}
+Per registrare un timestamp e una nota quando cambi lo stato di un
+TODO, esegui il comando \texttt{org-todo} con un argomento prefisso.
+
+\begin{description}
+\item[{C-u C-c C-t (\texttt{org-todo})}] Fornisce un prompt per una nota e registra il tempo in cui é stato
+cambiato lo stato del TODO.
+\end{description}
+
+Org mode può anche registrare automaticamente un timestamp e
+opzionalmente una nota quando segni un elemento TODO come DONE, o ogni
+volta che cambi lo stato di un elemento TODO. Questo sistema é
+altamente configurabile, le impostazioni possono essere basate su una
+parola chiave e possono essere localizzate in un file o ogni
+sottoalbero. Per maggiori informazioni su come cronometrare il tempo
+di lavoro vedi \ref{sec:orgc68efae}.
+
+\subsubsection*{Chiudere un elemento}
+\label{sec:org66339d3}
+La più semplice registrazione é tenere traccia di \emph{quando} un certo
+elemento TODO é segnato come completato. Questo può essere fatto
+con\footnote{L'impostazione corrispondente nel buffer é \texttt{\#+STARTUP: logdone}.}
+
+\begin{verbatim}
+(setq org-log-done 'time)
+\end{verbatim}
+
+Nel momento in cui modifichi lo stato di un oggetto da TODO ( non
+fatto ) in uno degli stati DONE, una linea \texttt{CLOSED: [timestamp]} viene
+inserita subito sotto l'intestazione.
+
+Se vuoi registrare una nota con il timestamp usa\footnote{L'impostazione corrispondente nel buffer é \texttt{\#+STARTUP:
+logenotedone}.}
+
+\begin{verbatim}
+(setq org-log-done 'note)
+\end{verbatim}
+
+Ti verrà mostrato un prompt dove inserire la note e questa nota sarà
+registrata sotto l'oggetto con un titolo \texttt{Closing Note}.
+
+\subsubsection*{Tenere traccia degli stati TODO}
+\label{sec:org76b4778}
+Potresti voler tenere traccia dello stato del TODO. Puoi registrare
+solo un timestamp o un time stamp con nota pre un cambiamento. Queste
+registrazioni sono inserite dopo il titolo come elemeneti di
+lista. Quando prendi una gran quantità di note, potresti volere tenere
+le note esternamente in un drawer. Per questa funzionalità customizza
+la variabile \texttt{org-log-into-drawer}.
+
+Per la registrazioni dello stato, Org mode si basa sulla
+configurazione delle parole chiave. Questo si ottiene aggiungendo un
+marker speciale \textbf{!} ( per il timestamp ) e \textbf{@} ( per le note ) tra
+parentesi dopo ogni parola chiave. Per esempio:
+
+\begin{verbatim}
+#+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELLED(c@)
+\end{verbatim}
+
+
+definedo le keyword TODO e le chiavi per l'accesso rapido, è anche
+richiesto che un tempo sia registrato quando un oggetto viene settato
+a \texttt{DONE}, e che una nota sia registrata quando si cambia a \texttt{WAIT} o
+\texttt{CANCELED}. La stessa sintassi funziona anche quando setti
+\texttt{org-todo-keywords}.
+
+\subsection{Priorità}
+\label{sec:org6fa8e75}
+Se usi la modalità Org in maniera estesa, potresti trovarti con tanti
+elementi TODO e quindi potrebbe aver senso dargli delle priorità. Si
+possono dare priorità mettendo una \emph{priority cookie} nel titolo
+dell'elemento TODO, tipo questo:
+
+\begin{verbatim}
+*** TODO [#A] Write letter to Sam Fortune
+\end{verbatim}
+
+
+Org mode supporta tre priorità \texttt{A}, \texttt{B} e \texttt{C}. \texttt{A} è la più alta, \texttt{B}
+quella di default se non specificata. Le priorita creano una
+differenza solo nell'agenda.
+
+\begin{description}
+\item[{C-c , (\texttt{org-priority})}] Imposta la priorità nel titolo corrente. Premi A,
+B o C per selezionare la priorità o \texttt{SPC} per
+rimuovere il cookie.
+
+\item[{S-SU (\texttt{org-priority-up}); S-GIU (\texttt{org-priority-down})}] Aumentano/diminuiscono la piorità del titolo corrente.
+\end{description}
+
+\subsection[Breaking Down Tasks]{Dividi i compiti in sotto compiti}
+\label{sec:org9d8d40b}
+A volte é consigliabile dividere i grandi compiti in compiti più
+piccoli, piccoli compiti gestibili. Puoi farlo creando una struttura
+ad albero con sotto elementi TODO, con dettagliati i sottocompiti
+dell'albero. Per avere un'anteprima della frazione dei sottocompiti
+che hai già segnato come fatti, inserisci \texttt{[/]} o \texttt{[\%]} dove vuoi
+nell'intestazione. Questi cookie saranno aggiornati ogni volta che lo
+stato dei TODO figli cambia o quando premi C-c C-c nel
+cookie. Per esempio:
+
+\begin{verbatim}
+* Organizzare un party [33%]
+** TODO Chiamare le persone [1/2]
+*** TODO Peter
+*** DONE Sarah
+** TODO Buy food
+** DONE Parlare con il vicino
+\end{verbatim}
+
+\subsection{Liste selezionabili}
+\label{sec:org62ce715}
+Ogni elemento in una lista ( vedi \ref{sec:orgd18e700} ) può essere
+trasformata in una casella di controllo ( checkbox ) che deve iniziare con
+la stringa \texttt{[ ]}. Le checkbox non sono incluse nella lista di TODO
+globale, sono molto comode per dividere un compito in un numero di
+semplici step.
+
+Qui c'é un esempio di una lista di checkbox.
+
+\begin{verbatim}
+* TODO Organizzare un party [2/4]
+ - [-] Chiamare le persone
+  - [ ] Peter
+  - [X] Sarah
+ - [X] Ordinare il cibo
+\end{verbatim}
+
+Le caselle di controllo lavorano in maniera gerarchica, quindi se un
+elemento checkbox ha figli che sono checkbox, attivando una casella di
+controllo figlia si fa in modo che nella casella di controllo padre
+venga riflesso se nessuno, alcuni o tutti i figli sono stati selezionati.
+
+I seguenti comandi operano con le checkbox:
+
+\begin{description}
+\item[{C-c C-c, C-u C-c C-c (\texttt{org-toggle-checkbox})}] Aggiorna lo stato di una checkbox o---con un argomento
+prefisso---cambia la presenza della checkbox nel punto.
+
+\item[{M-S-RET (\texttt{org-insert-todo-heading})}] Inserisce un nuovo elemento con una checkbox. Questo funziona solo
+se ci si trova in un elemeto della lista ( vedi \ref{sec:orgd18e700} ).
+\end{description}
+
+\section{TAG}
+\label{sec:org384d6f8}
+Un modo eccellente per implementare le label ed i contesti, per le
+informazioni incrociate correlate, é quello di assegare dei \emph{tag} alle
+intestazioni. La modalità Org ha un supporto molto esteso per i tag.
+
+Ogni intestazione puo contenere una lista di tag; sono messi alla fine
+delle intestazioni. I tag sono normali parole che contangono lettere,
+numeri, \texttt{\_} e \texttt{@}. I tag sono preceduti e succeduti da un singolo
+duepunti, es. \texttt{:work:}. Alcuni tag possono essere specificati come in
+\texttt{:work:urgent:}. I tag di default sono in grassetto dello stesso
+colore dell'intestazione.
+
+\subsection*{Ereditazione dei tag}
+\label{sec:orgcc2d20c}
+I tag usano la struttura gerarchica dell'albero di outline. Se
+un'intesatzione ha un certo tag, tutti i sottotitoli ereditano il
+tag. Per esempio nella lista
+
+\begin{verbatim}
+* Incontro con il gruppo Francese     :work:
+** Sommario di Frank                  :boss:notes:
+*** TODO Prepara le slide per lui     :action:
+\end{verbatim}
+
+l'intestazione finale ha i tag \texttt{work}, \texttt{boss}, \texttt{notes} ed \texttt{action} anche se nel titolo finale non vengono segnati
+questi tag.
+
+Puoi anche impostare i tag che tutte gli elementi nel file devono
+ereditare semplicemente come se questi tag fossero definiti in un
+ipotetico livello zero che sovrasta l'intero file. Usando una linea
+del genere\footnote{Come tutto nelle impostazioni del buffer, premendo C-c C-c si attiva ogni cambiamento nella linea.}:
+
+\begin{verbatim}
+#+FILETAGS: :Peter:Boss:Secret:
+\end{verbatim}
+
+\subsection*{Impostare i taga}
+\label{sec:org8d5182e}
+I tag possono essere semplicemente inserite nel buffer alla fine di un
+titolo. Dopo i duepunti, M-TAB offre il completamento dei
+tag. Ci sono anche altri comandi speciali per inserire i tag:
+
+\begin{description}
+\item[{C-c C-q (\texttt{org-set-tags-command})}] Inserisce un nuovo tag nel titolo corrente. Org mode, inoltre, offre
+il completamento o una speciale singola-chiave di interfaccia per
+impostare i tag, vedi sotto.
+
+\item[{C-c C-c (\texttt{org-set-tags-command})}] Quando il punto é in un'intestazione, questo compie la stessa azione di
+C-c C-q.
+\end{description}
+
+Org supporta l'inserimento dei tag da una \emph{lista di tag}. Di default
+questa lista é costruita dinamicamente, contiene tutti i tag usati, al
+momento, nel buffer. Puoi anche specificare una lista fissa globale
+con la variabile \texttt{org-tag-alist}. In fine puoi impostare i tag di
+default da mettere in un file usando la keyword \texttt{TAGS}, tipo
+
+\begin{verbatim}
+#+TAGS: @work @home @tennisclub
+#+TAGS: laptop car pc sailboat
+\end{verbatim}
+
+
+Di default Org mode usa la funzionalità standard di completamento del minibuffer per inserire i
+tag. Comunque, implementa anche un'altro metodo di selezione, veloce, del tag chiamato \emph{fast tag
+selection}. Questo ti permette di selezionare e deselezionare i tag con solo una presione di
+una singola chiave. Per questo scopo é bene assegnare una singola lettera ai tuoi tag più
+comunemente usati. Puoi fare questo globalmente configurando la variabile \texttt{org-tag-alist} nel tuo file
+di init di Emacs. Per esempio, puoi trovare utile assegnare a degli elementi in diversi file con
+\texttt{@home}. In questo caso puoi impostare qualcosa di simile:
+
+\begin{verbatim}
+(setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
+\end{verbatim}
+
+Se il tag é rilevante solo per il file su cui stai lavorando, allora
+puoi inserire ed impostare la keyword \texttt{TAGS} come:
+
+\begin{verbatim}
+#+TAGS: @work(w)  @home(h)  @tennisclub(t)  laptop(l)  pc(p)
+\end{verbatim}
+
+\subsection*{Ragruppare i tag}
+\label{sec:orgc7ee942}
+Un tag puo essere definito come un \emph{gruppo di tag} per un insieme di
+altri tag. Il gruppo di tag può essere visto come il ``termine più
+ampio'' per un insieme di tag.
+
+Puoi impostare un gruppo di tag usando le parentedi ed inserendo i
+duepunti tra il gruppo di tag ed i tag relazionati:
+
+\begin{verbatim}
+#+TAGS: [ GTD : Control Presp ]
+\end{verbatim}
+
+
+o se i tag nel gruppo sono mutualmente esclusivi:
+
+\begin{verbatim}
+#+TAGS: { COntext : @Home @Work }
+\end{verbatim}
+
+
+Quando cerchi per un gruppo di tag, ti vengono ritornati tutti i membri del gruppo e i
+sottogruppi. Nella visualizzazione agenda, filtrando per un gruppo di tag mostra o nasconde i titoli
+segnati con almeno uno dei membri o del gruppo o ogniuno dei sottogruppi.
+
+Se vuoi, temporaneamente, ingnorare i gruppi di tag, cambia il gruppo
+dei dag supportati con \texttt{org-toggle-tags-groups}, mappato con
+C-c C-x q.
+
+\subsection*{Ricerca dei tag}
+\label{sec:org156e7ff}
+\begin{description}
+\item[{C-c / m o C-c $\backslash$ (\textasciitilde{} org-match-sparse-tree\textasciitilde{})}] Crea un albero sparso con tutti i titoli che corrispondono ad un tag
+cercato. Con un argomento prefisso C-u, ignora i titoli
+che non sono una linea TODO.
+
+\item[{M-x org-agenda m (\texttt{org-tags-views})}] Crea una lista glabale di tag corrispondenti, da tutti i file
+dell'agenda. vedi \ref{sec:org17b9282}.
+
+\item[{M-x org-agenda M (\texttt{org-tags-views})}] Crea una lista globale di tag corrispondenti, da tutti i file
+dell'agenda, ma controlla solo gli elementi TODO.
+\end{description}
+
+Tutti questi comandi richiedono una stringa di corrispondenza che
+rispetti la logia booleana di base \texttt{+boss+urgent-project1}, per
+trovare gli elementi con i tag \texttt{boss} e \texttt{urgent}, ma non \texttt{project},
+oppure \texttt{Kathy|Sally} per trovare un elemento che sia segnato come
+\texttt{Kathy} o \texttt{Sally}. La sintassi completa per cercare queste stringhe é
+ricca e permette anche la ricerca all'interno di keyword TODO, di
+livelli e di proprieta'. Pe una più dettagliata descrizione con
+diversi esempi, vedi \ref{sec:org17b9282}.
+
+\section{Proprietà}
+\label{sec:org306bfd2}
+Le proprieta sono un associazione di chiave-valore associate ad un
+oggetto. Risiedono in speciali drawer con nome \texttt{PROPERTIES}. Ogni
+proprietà è specificata su una linea singola, con la chiave prima (
+circondata dai duepunti ) ed il valore dopo.
+
+\begin{verbatim}
+* CD collection
+** Classic
+*** Goldberg Variations
+    :PROPERTIES:
+    :Title:     Goldberg Variations
+    :Composer:  J.S. Bach
+    :Publisher: Deutsche Grammophon
+    :NDisks:    1
+    :END:
+\end{verbatim}
+
+Potresti definire i valori permessi per una particolare proprietà
+\texttt{Xyz} settando una proprietà \texttt{Xyz\_ALL}. Questa speciale proprietà è
+\emph{ereditata}, quindi se lo imposti nell'oggetto di livello 1, viene
+applicato agli oggetti dell'albero. Quando i valori permessi sono
+definiti, l'impostazione della corrispondente proprietà diventa più
+semplice e meno soggetta ad errori di battitura. Per l'esempio con la
+collezione di CD, possiamo predefinire la casa discografica ed il
+numero di dischi nella custodia tipo:
+
+\begin{verbatim}
+* CD collection
+  :PROPERTIES:
+  :NDisks_ALL:  1 2 3 4
+  :Publisher_ALL: "Deutsche Grammophon" Philips EMI
+  :END:
+\end{verbatim}
+
+Se vuoi impostare una proprietaà che può essere ereditata da ogni
+oggetto nel file, usa una linea tipo:
+
+\begin{verbatim}
+#+PROPERTY: NDisks_ALL 1 2 3 4
+\end{verbatim}
+
+
+Il seguente comando aiuta a lavorare con le proprietà:
+
+\begin{description}
+\item[{C-c C-x p (\texttt{org-set-property})}] Imposta una proprietà. Questo richiede un nome ed un valore.
+
+\item[{C-c C-c d (\texttt{org-delete-property})}] Rimuove una proprietà dall'oggetto corrente.
+\end{description}
+
+Per creare un albero sparso e liste speciali con la selezione basata
+sulle proprietà, gli stessi comandi sono usati per cercare tag ( vedi
+[BROKEN LINK: *Tag] ) . La sintassi per la stringa di ricerca è descritta nella
+sezione \ref{sec:org17b9282}.
+
+\section{Data e orario}
+\label{sec:org733fa6d}
+Per assistere la pianificazione, gli elementi TODO possono essere
+etichettati con una data e/o un orario. La speciale stringa formattata
+trasporta le informazioni di data ed orario chiamata, in Org mode,
+timestamp. Questo può creare un pò di confusione in quanto il
+timestamp é a volte usato per indicare quando qualcosa é stato creato
+o l'ultimo cambiamento. Comunque, nella modalità Org questo termine
+viene usato in questo senso più ampio.
+
+Timestamp può essere usato per pianificare appuntamenti, schedulare
+impegni, impostare scadenze, tracciare il tempo ed altro. La sezione
+seguente descrive il formato timestamp e gli strumenti che Org mode ci
+mette a disposizione per i casi d'uso che riguardano il tempo e gli
+intervalli di tempo.
+
+\subsection{Timestamp}
+\label{sec:orgffbfc92}
+Un timestamp é una specifica data---possibilemente con un orario o un
+range di orari---in uno speciale formato, come \texttt{<2003-09-16 Tue>} o
+\texttt{<2003-09-16 Tue 09:39>} oppure \texttt{<2003-09-16 Tue 12:00-12:30>}.
+Un timestamp puo essere inserito ovunque nelle intestazioni o nel corpo di un
+elemento dell'albero Org. La sua presenza genera la visualizzazione di
+un elemento in una specifica data nell'agenda ( vedi [BROKEN LINK: L'aggenda Settimanale/Giornaliera] ). Distinguiamoli:
+
+\begin{description}
+\item[{Timestamp semplici; Eventi; Appuntamenti}] Un semplice timestamp che assegna ad un elemeto una
+data/orario. Questo é come scrivere un appuntamento o un evento in
+un'agenda di carta.
+
+\begin{verbatim}
+* Incontro con Peter al cinema
+  <2006-11-01 Wd 19:15>
+* Discussione sui cambiamenti climatici
+  <2006-11-02 Thu 20:00-22:00>
+* Giorni di ferie
+  <2006-11-03 Fri>
+  <2006-11-06 Mon>
+\end{verbatim}
+
+\item[{Timestamp con un intervallo che si ripete}] Un timestamp contenente un \emph{intervallo di ripetizione}, indica
+che, lo stesso, non si ripeta solo una volta ma ancora e ancorra
+dopo un certo intervallo di N ore (h), giorni (d), settimane (w),
+mesi (m) o anni (y). Di seguito ne mostriamo uno che si ripete ogni
+Marcoledì:
+
+\begin{verbatim}
+* Prendere Sam da scuola
+  <2007-05-16 Wed 12:30 +1w>
+\end{verbatim}
+
+\item[{Espressioni per gli elementi in stile diario}] Per specificare diverse date complesse, Org mode supporta l'uso di
+speciali espressioni di elementi diario, implementati nel pacchetto
+Emacs Calendar. Per esempio, con un tempo opzionale
+
+\begin{verbatim}
+* 22:00-23-00 L'incontro dei nerd ogni secondo Giovedi del mese
+  <%%(diary-float t 4 2)>
+\end{verbatim}
+
+\item[{Range di tempo}] Un range é un timestamp connesso da due \texttt{-}.
+
+\begin{verbatim}
+* Discussione sui cambiamenti climatici
+  <2006-11-02 Thu 10:00-12:00>
+\end{verbatim}
+
+\item[{Range di Tempo/Data}] Due timestamp connessi da \texttt{-{}-{}} denotano un range. Nell'agenda,
+l'intestazione é mostrata nella prima e nell'ultima data del range,
+e in ogni data che rientra nel range. Il primo esempio é specificato
+soltanto le data del range invece nel secondo esempio viene
+specificato un intervallo di tempo per entrambe le date.
+
+\begin{verbatim}
+** Incontro ad Amsterdam
+   <2004-08-23 Mon>--<2004-08-26 Thu>
+** Riunioni del comitato di questa settimana
+   <2004-08-23 Mon 10:00-11:00>--<2004-08-26 Thu 10:00-11:00>
+\end{verbatim}
+
+\item[{Timestamp inattivo}] Come un semplice timestamp, ma con le parentesi quadre al posto
+delle angolari. Questo timestamp sarà inattivo nel senso che \emph{non}
+innescherà un elemento da mostrare nell'agenda.
+
+\begin{verbatim}
+* Gillian arriva tardi per la quinta volta
+  [2006-11-01 Wed]
+\end{verbatim}
+\end{description}
+
+\subsection{Creare un timestamp}
+\label{sec:org816e6ea}
+Per fare in modo che Org mode possa riconoscere i timestamp devono
+essere in uno specifico formato. Tutti i comandi descritti sotto
+producono un timestamp nella modalità corretta.
+
+\begin{description}
+\item[{C-c . (\texttt{org-timestamp})}] Richiede una date ed inserisce un corrispondete timestamp. Quando il
+punto é in un timestamp pre esistente nel buffer, il comando viene
+usato per modificare questo timestamp invece di inserine uno
+nuovo. Quando questo comando viene usato due volte in successione un
+range di tempo viene inserito. Con un argomento prefisso aggiunge
+anche l'orario corrente.
+
+\item[{C-c ! (\texttt{org-timestamp-inactive})}] Come C-c ., ma inserisce un timestamp inattivo che non
+genera un elemento agenda.
+
+\item[{S-SINISTRA (\texttt{org-timestamp-down-day}), S-DESTRA (\texttt{org-timestamp-up-day})}] Cambia la data, di un giorno, nel punto corrente.
+
+\item[{S-SU (\texttt{org-timestamp-up}), S-GIU (\texttt{org-timestamp-down})}] All'inizio o sulle parentesi graffe di un timestamp, ne cambia il
+tipo. All'interno di un timestamp ne modifica l'elemento al
+punto. Il punto può essere un anno, un mese, un giorno, un'ora o un
+minuto. Quando il timestamp contiene un intervallo di tempo tipo
+\texttt{15:30-16:30}, modificando il primo verrà modificato anche il
+secondo, spostando, il blocco di tempo, di lunghezza costante. Per
+cambiare la lunghezza si deve modificare il secondo orario.
+\end{description}
+
+Quando Org mode richiede una data/orario, accetta qualsiasi stringa
+contenente delle informazione su data e/o orario e,
+intelligentemente, interpreta la stringa, ricavando valori predefiniti
+per le informazioni non specificate dalla data e ora correnti. Puoi
+anche selezionare una data nel calendario pop-up. Consulta il \href{org}{manuale}
+per ulteriori informazioni su come funziona esattamente la richiesta
+di data/orario.
+
+\subsection{Scadenze e schedulazioni}
+\label{sec:org0e40b68}
+Un timestamp potrebbe essere preceduto da delle speciali keyword per
+facilitarne la pianificazione:
+
+\begin{description}
+\item[{C-c C-d (\texttt{org-deadline})}] Inserisce la parola chiave \texttt{DEADLINE} assieme al timestamp, nella
+linea dopo l'intestazione.
+
+Significato: l'attività---molto probabilemte una voce TODO, anche se
+non necessariamente---si suppone sia stata completata in quella
+data.
+
+Nella data di scadenza, il task é mostrato nell'agenda. Inoltre,
+l'agenda per \emph{oggi} mostra un avviso riguardante l'approssimarsi o
+la mancata scadenza, a paritre da \texttt{org-deadline-warning-days} prima
+della data di scadenza e continuando fino a che l'elemento non sarà
+segnato come fatto. Un esempio:
+
+\begin{verbatim}
+*** TODO Scrivere un articolo sulla Terra per la Guida
+    DEADLINE: <2004-02-29 Sun>
+    L'editore in carica e' [[bbdb:Ford Prefect]]
+\end{verbatim}
+
+\item[{C-c C-s (\texttt{org-schedule})}] Inserisce la parola \texttt{SCHEDULED} con il timestamp sotto la linea
+dell'intestazione.
+
+Significato: Hai pianificato di iniziare quel lavoro in quella data\footnote{Questo é completamente diverso da ciò che normalmente si intende
+\emph{pianificare un appuntamento}, che in Org viene eseguita semplicemente
+inserendo un timestamp senza keyword.}
+
+Il titolo é mostrato nella data\footnote{Sarà comunque mostrato in quella data anche se verrà
+contrassegnato come fatto. Se non ti piace, imposta la variabile
+\texttt{org-agenda-skip-scheduled-if-done}.} impostata. In aggiunta, nella
+compilazione per \emph{oggi}, é presente un promemoria che la data
+pianificata é trascorsa, fino a che l'elemento non sarà segnato come
+fatto, ovvero l'attività viene automaticamente inoltrata fino al
+completamento.
+
+\begin{verbatim}
+*** TODO Chiamare Trillian per un appuntamento a New Years Eve.
+    SCHEDULED: <2004-12-25 Sat>
+\end{verbatim}
+\end{description}
+
+Spesso i compiti hanno la necessità di essere ripetuti ancora ed
+ancora. Org mode aiuta nell'organizzare di questi lavori usando un, così
+detto, repeater in una \texttt{DEADLINE}, \texttt{SCHEDULED} o in un timestamp
+semplice. Nel seguente esempio:
+
+\begin{verbatim}
+** TODO Paga l'affitto
+   DEADLINE: <2005-10-01 Sat +1m>
+\end{verbatim}
+
+il \texttt{+1m} é un repeater; l'interpretazione che si intende é che il
+lavoro ha una data di scadenza nel \texttt{<2005-10-01>} e si ripete ogni (
+un ) mese partendo da quella data.
+
+\subsection{Cronometra il tempo di lavoro}
+\label{sec:orgc68efae}
+La modalità Org ti permette di cronometrare quanto tempo ti serve per
+uno specifico proggetto.
+
+\begin{description}
+\item[{C-c C-x C-i (\texttt{org-clock-in})}] Fa partire il cronometro nell'elemento corrente (clock-in). Questo
+inserisce la parola chiave \texttt{CLOCK} assieme ad un timestamp. Quando
+viene richiamato assimen ad un argomento prefisso, seleziona il task
+da una lista di task chiusi di recente.
+
+\item[{C-c C-x C-o (\texttt{org-clock-out})}] Ferma il timer (clock-out). Questo inserisce un'ulteriore timestamp
+nella stessa posizione dove il cronometro aveva inserito l'ultimo
+inizio. Viene anche direttamente calcolato ed inserito il tempo dopo
+il range di tempo nella forma \texttt{=>HH:MM}.
+
+\item[{C-c C-x C-e (\texttt{org-clock-modify-effort-estimate})}] Aggiorna lo sforzo richiesto per il corrente timer di lavoro.
+
+\item[{C-c C-x C-q (\texttt{org-clock-cancel})}] Cancella il cronometro corrente. Questo é utile se il cronometro é
+partito per sbaglio o se finisci di lavorare o altro.
+
+\item[{C-c C-x C-j (\texttt{org-clock-goto})}] Salta al titolo del lavoro del corrente timer in lavoro. Con un argomento
+prefisso C-u seleziona il lavoro targhet da una lista di lavori
+cronometrati di recente.
+\end{description}
+
+La chiave l viene solitamente usata nell'agenda ( vedi
+[BROKEN LINK: *L'aggenda Settimanale/Giornaliera] ), mostra su quali task stai
+lavorando o quelli che hai chiuso durante il giorno.
+
+\section{Cattura, sposta e archivia}
+\label{sec:org15f3948}
+Una parte importante di ogni sistema di organizzazione é l'abilità di
+catturare rapidamente nuove idee e task, e associare il materiale di
+riferimento con esse. Org lo fa usando un processo detto
+\emph{capture}. Può anche archiviare i relativi file di un lavoro (
+\emph{allegati} ) in una speciale directory. Una volta nel sistema, le
+attività ed i processi devono essere spostati. Muovere completamente
+un albero di proggetto in un archivio di file rende il sistema
+compatto e veloce.
+
+\subsection{Cattura}
+\label{sec:org1358116}
+Capture ti permette di archiviare velocemente le note con una piccola
+interruzione del tuo processo di lavoro. Puoi definire modelli per i
+nuovi elementi ed associarli con differenti target per salvare le
+note.
+
+\subsubsection*{Impostare capture}
+\label{sec:org8936a99}
+L'impostazione sequente setta un file target\footnote{Usando i modelli di capture, puoi avere un controllo più preciso
+sulla posizione della cattura. vedi \hyperref[sec:org14346c5]{Modelli di cattura}} di default per le
+note.
+
+\begin{verbatim}
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+\end{verbatim}
+
+Puoi anche definire una combinazione globale per catturare nuovo
+materiale ( vedi \hyperref[sec:org316fc0b]{Attivazione} ).
+
+\subsubsection*{Usare capture}
+\label{sec:org0c11add}
+\begin{description}
+\item[{m-x org-capture (\texttt{org-capture})}] Inizia il processo di cattura, ti posiziona in un buffer limitato
+per la modifica.
+
+\item[{C-c C-c (\texttt{org-capture-finalize})}] Uno volta che hai finito di inserire le informazioni nel buffer di
+cattura, C-c C-c ti riporta nella finestra da dove hai
+fatto partire il processo, in modo che tu possa riprendere il lavoro
+senza altre distrazioni.
+
+\item[{C-c C-w (\texttt{org-capture-refile})}] Finalizza il processo di cattura mettendo le note in una
+differente posizione ( vedi [BROKEN LINK: Soposta e Copia] ).
+
+\item[{C-c C-k (\texttt{org-capture-kill})}] Annulla il processo di cattura e ti riporta allo stato precedente.
+\end{description}
+
+\subsubsection*{Modelli di cattura}
+\label{sec:org14346c5}
+Puoi usare i modelli per differenti tipi di oggetti di cattura, e per
+differenti posizioni. Per dire se vuoi usare un template per creare
+degli oggetti TODO generali, e se vuoi mettere questi elementi sotto
+un intestazione \texttt{Tasks} nel tuo file \texttt{\textasciitilde{}/org/gtd.org}. Puoi anche
+catturare degli oggetti giornalieri come un albero di date nel file
+\texttt{journal.org}. Una possibile configurazione protrebbe essere simile a
+questa:
+
+\begin{verbatim}
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+\end{verbatim}
+
+Se premi t quando sei nel menu di capture, Org preparerà il
+template per te in questo modo:
+
+\begin{verbatim}
+* TODO
+  [[file:COLLEGAMENTO DI DOVE HAI INIZIATO LA CATTURA]]
+\end{verbatim}
+
+
+Durante l'espansione del template, il carattere speciale di escape
+\% \footnote{Se hai bisogno di una di queste sequenze letterali, usa il
+carattere di escape \texttt{\textbackslash{}} con \texttt{\%}.} permette l'inserimento dinamico del contenuto. Qui c'é una
+piccola selezione di possibilità, consulta il \href{manual}{manuale} per averne di
+più.
+
+\begin{center}
+\begin{tabular}{ll}
+\texttt{\%a} & annotazione, normalmente il link creato con \texttt{org-store-link}\\[0pt]
+\texttt{\%i} & contenuto iniziale, la regione dove capture é chiamata con C-u\\[0pt]
+\texttt{\%t \%T\%} & timestamp, solo data o data ed orario.\\[0pt]
+\texttt{\%u \%U} & come sopra ma per i timestamp inattivi\\[0pt]
+\texttt{\%?} & dopo avere completato il template, posiziona il punto li.\\[0pt]
+\end{tabular}
+\end{center}
+
+\subsection{Sposta e Copia}
+\label{sec:org800e315}
+Quando revisioni i dati catturati, potresti volere spostare o copiare
+alcuni dei tuoi elementi in una lista differente, per esempio in un
+progetto. Tagliare, cercare la posizione corretta e poi incollare la
+nota é scomodo. Per semplificare il processo puoi usare gli speciali
+comandi di seguito:
+
+\begin{description}
+\item[{C-c C-w (\texttt{org-agenda-refile})}] Sposta gli oggetti o le regioni in un punto. Questo comando offre
+possibili posizioni dove spostare gli oggetti e ti permette di
+selezionarne uno con il completamento. L'oggetto ( o tutti gli
+oggetti nella regione ) é inserito sotto l'intestazione target come
+sotto oggetti.
+
+Di default, tutti i livelli 1 delle intestazioni nel buffer corrente
+sono considerati come target, ma puoi avere delle definizioni molto
+più complesse riguardo un certo numero di file. Vedi la variabile
+\texttt{org-refile-targets} per dettagli.
+
+\item[{C-c C-c C-w (\texttt{org-agenda-refile})}] Usa l'interfaccia di spostameto per saltare ad un titolo.
+
+\item[{C-c Cu C-c C-w (\texttt{org-refile-goto-last-stored})}] Salta ad una posizione dove \texttt{org-refile} ha spostato l'albero
+l'ultima volta.
+
+\item[{C-c M-w (\texttt{org-refile-copy})}] La copia funziona come lo spostamento, fatta eccezione che le note
+originali non vengono cancellate.
+\end{description}
+
+\subsection{Archiviare}
+\label{sec:org892e25f}
+Quando un progetto rappresentato da un (sotto)albero é concluso,
+potresti volerlo spostare fuori dai piedi e interrompere i suoi
+contributi all'agenda. L'archiviazione é importante per tenere i tuoi
+file di lavoro compatti e la vista della ricerca globale della'agenda
+più veloce.
+
+La più comune azione di archiviazione é di spostare un albero di
+progetto in un altro file, il file di archivio.
+
+\begin{description}
+\item[{C-c C-x C-a (\texttt{org-archive-subtree-default})}] Archivia il corrente elemento usando un comando specificato nella
+variabile \texttt{org-archive-default-command}.
+
+\item[{C-c C-x C-s o brevemente C-c \$ (\texttt{org-archive-subtree})}] Archivia il sottoalbero partendo dalla posizione del punto nella
+posizione data da \texttt{org-archive-location}.
+\end{description}
+
+La posizione di archiviazione standard é un file nella stessa
+directory del file corrente, con il nome derivato aggiungendo
+\texttt{\_archive} al nome del file corrente. Puoi anche scegliere sotto quale
+intestazione archiviare gli elementi, con la possibilità di
+aggiungerli ad un albero delle date in un file. Per informazioni ed
+esempi su come specificare il file e le intestazioni, vedi la documentazione
+sulla stringa della variabile \texttt{org-archive-location}.
+
+C'é anche un'opzione nel buffer per settare questa variabile, per
+esempio:
+
+\begin{verbatim}
+#+ARCHIVE: %s_done::
+\end{verbatim}
+
+\section{Visualizzazioni Agenda}
+\label{sec:org3ad7d0f}
+A causa del modo in cui lavora Org, gli elementi TODO, gli elementi di
+timestamp ed i titoli taggati possono essere ovunque nel file o in
+file diversi. Per avere un visione delle azioni in corso o degli
+eventi che sono importanti per una data particolare, queste
+informazioni devono essere raccolte, ordinate e visualizzate in modo
+organizzato.
+
+Le informazioni estratte sono mostrate in uno speciale \emph{buffer
+agenda}. Questo buffer é in sola lettura, ma fornisce comandi per
+visitare le corrispondenti posizioni nei file Org originali e anche
+modificare questi file da remoto. La modifica remota dal buffer agenda
+significa, per esempio, che puoi cambiare le date di una scadenza e
+gli appuntamenti da quel buffer agenda. Per una lista di comandi
+avviabili nel buffer Agenda, vedi \ref{sec:org15525c6}.
+
+\subsection{File agenda}
+\label{sec:orgb467595}
+L'informazione mostrata è normalmente raccolta da tutti i \emph{file
+agenda}, i file sono listati nella variabile \texttt{org-agenda-files}.
+
+\begin{description}
+\item[{C-c [ (\texttt{org-agenda-file-to-front})}] Aggiunge il file corrente nella lista dei file agenda. Il file è
+aggiunto all'inizio della lista dei file. Se si trova già nella
+lista, viene spostato all'inizio. Con un argomento prefisso, il file
+viene aggiunto/spostato alla fine.
+
+\item[{C-c ] (\texttt{org-remove-file})}] Rimuove il corrente file dalla lista dei file agenda.
+
+\item[{C-' / C-$\backslash$ (\texttt{org-cycle-agenda-files})}] Cicla tra la lista dei file agenda, visita un file dopo l'altro.
+\end{description}
+
+\subsection[Agenda Dispatcher]{Il Distributore Agenda}
+\label{sec:orga0feddf}
+Le viste sono create attraverso un distributore, accessibile con
+M-x org-agenda, o, meglio abbinato ad una chiave globale (
+vedi \hyperref[sec:org316fc0b]{Attivazione} ). Mostra un menu in cui una lettera aggiuntiva
+viene richiesta per eseguire il comando. Il distributore offre i
+seguenti comandi predefiniti:
+
+\begin{description}
+\item[{a}] Crea un agenda tipo calendario ( vedi \ref{sec:orgdc310a7} ).
+
+\item[{t, T}] Crea una lista di tutti gli elementi TODO ( vedi \ref{sec:org0f74436}
+).
+
+\item[{m, M}] Crea una lista di titoli corrispondenti all'espressione data ( vedi
+\ref{sec:org17b9282} ).
+
+\item[{s}] Crea una lista di oggetti selezionati tramite un espressione
+booleana di keyword e/o espressioni regolari che deve o non deve
+verificarsi nelgli oggetti.
+\end{description}
+
+\subsection[Built-in Agenda Views]{L'agenda Settimanale/Giornaliera}
+\label{sec:orgdc310a7}
+Il proposito dell'\emph{agenda} settimanale/giornaliera é di funzionare
+come una pagina di un agenda cartacea, mostrando tutti i lavori per la
+settimana od il giorno corrente.
+
+\begin{description}
+\item[{M-x org-agenda a (\texttt{org-agenda-list})}] Compila un agenda per la settimana corrente da una lista di file
+Org. L'agenda mostra gli oggetti per ogni giorno.
+\end{description}
+
+Org mode capisce la sintassi del diario e ti permette di usare degli
+elementi espressione agenda direttamente nei file Org:
+
+\begin{verbatim}
+* Holidays
+  :PROPERTIES:
+  :CATEGORY: Holiday
+  :END:
+%%(org-calendar-holiday)   ; Funzione speciale per il nome holiday
+
+* Birthdays
+  :PROPERTIES:
+  :CATEGORY: Ann
+  :END:
+%%(org-anniversary 1956  5 14) Arthur Dent is %d years old
+%%(org-anniversary 1869 10  2) Mahatma Gandhi would be %d years old
+\end{verbatim}
+
+Org può interagire con la funzione di nodifica degli appuntamenti di
+Emacs. Per aggiungere un appuntamento ai tuoi file agneda, usa il
+comando \texttt{org-agenda-to-appt}.
+
+\subsection[Global TODO List]{Lista globale TODO}
+\label{sec:org0f74436}
+La lista globale dei TODO contiene tutti gli oggetti TODO, non
+completati, formattati e raggruppati in un singolo punto. La modifica
+remota degli elementi TODO ti da la possibilità di cambiare lo stato
+di un oggetto TODO con una singola pressione di un tasto. Per i
+comandi avviabili nella TODO list, vedi \ref{sec:org15525c6}.
+
+\begin{description}
+\item[{M-x org-agenda t (\texttt{org-todo-list})}] Mostra la lista globale dei TODO. Questo ragruppa gli elementi TODO
+da tutti i file agenda ( vedi \ref{sec:org3ad7d0f} ) in un unico
+buffer.
+
+\item[{M-x org-agenda T (\texttt{org-todo-list})}] Come sopra, ma permette la selezione di uno specifica keyword TODO.
+\end{description}
+
+\subsection{Trova i tag e le proprietà}
+\label{sec:org17b9282}
+Se le intestazioni nel file agenda sono marcati con i \emph{tags} ( vedi
+[BROKEN LINK: *Tag] ), o ha delle proprietà ( vedi \ref{sec:org306bfd2} ), puoi selezionare le
+intestazioni in base a questi metadati e raccoglierli in un buffer
+agenda. La stessa cosa qui descittta é applicabile anche quando crei
+gli alberi sparsi con C-c / m.
+
+\begin{description}
+\item[{M-x org-agenda m (\texttt{org-tags-views})}] Produce una lista di tutte le intestazioni che trova con un dato set
+di tag. Il comando richiede l'inserimento di un criterio di
+selezione, che é un espressione logica booleana con tag, come
+\texttt{+work+urgent-witboss} o \texttt{work|home} ( vedi [BROKEN LINK: *Tag] ). Se usi spesso
+una specifica ricerca, puoi definire un comando personalizzato (
+vedi \ref{sec:orga0feddf} ).
+
+\item[{M-x org-agenda M(\texttt{org-tags-view})}] Tipo m ma seleziona solo i titoli che sono oggetti TODO.
+\end{description}
+
+Una stringa di ricerca puo usare operatori Booleani \texttt{\&} per AND e \texttt{|}
+per OR. \texttt{\&} si lega più fortemente di \texttt{|}. Le parentesi non sono
+ancora implementate. Ogni elemento nella ricerca ha o un tag,
+un'espressione regolare che trova un tag o un espressione tipo
+\texttt{PROPERTY OPERATOR VALUE} con un operatore di comparazione, accede ad
+una valore proprietà. Ogni elemento dev'essere preceduto da \texttt{-} per
+non selezionarlo e un \texttt{+} che é zucchero sintattico per la selezione
+positiva. L'operatore AND \texttt{\&} é opzionale quando \texttt{+} o \texttt{-} sono
+presenti. Eccco alcuni esempi, usando solo i tag.
+
+\begin{description}
+\item[{\texttt{+work-boss}}] Seleziona i titoli taggati con \texttt{work}, ma scarta quelli che sono
+marcati \texttt{boss}
+
+\item[{\texttt{work|laptop}}] Seleziona le linee taggate \texttt{work} o \texttt{laptop}.
+
+\item[{\texttt{work|laptop+night}}] Come sopra ma richiede che le linee \texttt{laptop} siano anche segnate
+come \texttt{nihgt}.
+\end{description}
+
+Puoi anche cercare le proprietà e i tag nello stesso tempo, vedi il
+\href{manul}{manuale} per informazinoi aggiuntive.
+
+\subsection{Vista di ricerca}
+\label{sec:orgb24d7ca}
+Questa vista agenda é una funzione di ricerca generale del testo per
+gli oggetti Org mode. É particolamente utile per trovare le note.
+
+\begin{description}
+\item[{M-x org-agenda s (\texttt{org-search-view})}] Questo é una speciale ricerca che permette di selezionare gli
+elementi che corrispondono ad una sottostringa o a specifiche voci
+usando la logica booleana.
+\end{description}
+
+Per esempio, la stringa di ricerca \texttt{computer equipment} trofva gli
+elementi che contengono \texttt{computer equipment} come una sotto stringa.
+
+La vista di ricerca può anche ricercare per specifiche keyword negli
+oggetti, usando la logica booleana. La stringa di ricerca \texttt{+computer
++wifi -ethernet -\{8`.11[bg]\}} trova le note che tengono le parole
+chiave \texttt{computer} e \texttt{wifi} ma non la keyword \texttt{ethernet} e che non
+corrispondano all'espressione regolare \texttt{8\textbackslash{}.11[bg]}. che esclude sia
+\texttt{8.11b} che \texttt{8.11g}.
+
+Nota che in aggiunta ai file agenda, questo comando cerca anche nei
+file elencati in \texttt{org-agenda-text-search-extra-files}.
+
+\subsection[Agenda Commands]{Comandi nel Buffer Agenda}
+\label{sec:org15525c6}
+Gli oggetti nel buffer agenda sono un rimando ai file Org o ai file
+del diario da dove vengono generati. Non ti é permesso modificare lo
+stesso buffer agenda, ma i comandi ti permettono di vedere e di
+saltare agli oggetti nella posizione originale e modificare i file Org
+originarli da ``remoto'' partendo dal buffer agenda. Questa é solo una
+selezione dei principali comandi, esplora il menu agenda ed il \href{manual}{manuale}
+per la lista completa.
+
+\subsubsection*{Movimento}
+\label{sec:orgbbfd5f2}
+\begin{description}
+\item[{n (\texttt{org-agenda-next-line})}] Linea succesiva ( come GIU e C-n ).
+
+\item[{p (\texttt{org-agenda-previous-line})}] Linea precedente ( come SU e C-p ).
+\end{description}
+
+\subsubsection*{Vedere/Andare ad un file Org}
+\label{sec:orgc00560c}
+\begin{description}
+\item[{SPC (\texttt{org-agenda-show-and-scroll-up})}] Mostra la posizione originale dell'elemento in un'altra
+finestra. Con un argomento prefisso, si assicura che i drawers
+rimangano chiusi.
+
+\item[{TAB (\texttt{org-agenda-goto})}] Va alla posizione originale dell'oggetto in un'altra finestra.
+
+\item[{RET (\texttt{org-agenda-switch-to})}] Va alla posizione originale dell'oggetto e chiude le altre finestre.
+\end{description}
+
+\subsubsection*{Cambia visualizzazione}
+\label{sec:org1ca9781}
+\begin{description}
+\item[{o (\texttt{delete-other-windows})}] Elimina le altre finestre.
+
+\item[{v d o brevemente d (\texttt{org-agenda-day-view})}] Passa alla vista del giorno
+
+\item[{v w o brevemente w (\texttt{org-agenda-week-view})}] Passa alla vista della settimana
+
+\item[{f (\texttt{org-agenda-later})}] Va avanti nel tempo per visualizzare l'intervallo successivo a
+quello corrente. Per esempio, se la visualizzazione copre la
+settimana, passa alla settimana seguente.
+
+\item[{b (\texttt{org-agenda-earlier})}] Torna indietro nel tempo per visualizzare le date precedenti.
+
+\item[{. (\texttt{org-agenda-goto-today})}] Va ad oggi.
+
+\item[{j (\texttt{org-agenda-goto-date})}] Richiede una data e ci va.
+
+\item[{v l or v L o brevemente l (\texttt{org-agenda-log-mode})}] Attiva/disattiva la modalità Logbook. Nella modalità Logbook gli
+oggetti che sono segnati come completati, mentre era attiva la
+registrazione ( vedi la variabile \texttt{org-log-done} ), sono mostrati
+nell'agenda, così come le voci che sono state cronometrate in quel
+giorno. Quando chiamato con un argomento prefisso C-u,
+mostra tutti i possibili oggetti logbook, includendo i cambi di
+stato.
+
+\item[{r, g (\texttt{org-agenda-redo})}] Ricarica il buffer agenda, per esempio per aggiornare i cambiamenti
+dopo una modifica del timestamp degli items.
+
+\item[{s (\texttt{org-save-all-org-buffers})}] Salva tutti i buffer Org nella sessione di Emacs corrente e anche la
+posizione degli ID.
+\end{description}
+
+\subsubsection*{Modifica remota}
+\label{sec:orga5c6d00}
+\begin{description}
+\item[{0--9}] Agomento numerico
+
+\item[{t (\texttt{org-agenda-todo})}] Cambia lo stato TODO dell'elemento, sia nell'agenda che nel file di
+origine.
+
+\item[{C-k (\texttt{org-agenda-kill})}] Cancella l'oggetto corrente dall'agenda e lungo l'intero sottoalbero
+nell'file Org originale.
+
+\item[{C-c C-w (\texttt{org-agenda-refile})}] Muove l'oggetto al punto.
+
+\item[{a (\texttt{org-agenda-archive-default-with-confirmation})}] Archivia il sottoalbero corrispondente all'elemento del punto usando
+il comando di archiviazione di default impostato con nella variabile
+\texttt{org-archive-default-command}.
+
+\item[{\$ (\texttt{org-adenda-archive})}] Archivia il sottoalbero corrispondente all'intestazione corrente.
+
+\item[{C-c C-s (\texttt{org-agenda-schedule})}] Schedula questo elemento. Con un argomento prefisso, rimuove il
+timestamp schedulato.
+
+\item[{C-c C-d (\texttt{org-agenda-deadline})}] Imposta una scadenza per questo elemento. Con un argomento prefisso,
+rimuove la scadenza.
+
+\item[{S-DESTRA (\texttt{org-agenda-do-date-later})}] Cambia il timestamp associato alla linea corrente con un giorno nel
+futuro.
+
+\item[{S-SINISTRA (\texttt{org-agenda-do-date-earlier})}] Cambia il timestamp associato alla linea corrente con un giorno nel
+passato.
+
+\item[{I (\texttt{org-agenda-clock-in})}] Inizia il cronometro nell'elemento corrente.
+
+\item[{O (\texttt{org-agenda-clock-out})}] Ferma il cronometro precedentemente attivato.
+
+\item[{X (\texttt{org-agenda-clock-cancel})}] Cancella il cronometro attivo.
+
+\item[{J (\texttt{org-agenda-clock-goto})}] Va all'orologio corrente in un'altra finestra.
+\end{description}
+
+\subsubsection*{Chiudi ed esci}
+\label{sec:org743c9e3}
+\begin{description}
+\item[{q (\texttt{org-agenda-quit})}] Chiude l'agenda, rimuove il buffer agenda
+
+\item[{x (\texttt{org-agenda-ecit})}] Esce dall'agenda, rimuove il buffer agenda e tutti i buffer caricati
+da Emacs per la compilazione dell'agenda.
+\end{description}
+
+\subsection{Personalizzare la vista agenda}
+\label{sec:org9401c07}
+La prima applicazione di personalizzazione di ricerca é la definizione
+di una combinazione per la ricerca usata più frequentemente, o creando
+un ordine del giorno oppure uno sparse tree ( la lettera copre soltanto
+il buffer corrente).
+
+I comandi personalizzati sono configurati nella variabile
+\texttt{org-agenda-custom-commands}. Puoi personalizzare questa variabile,
+per esempio premendo C dal dispacher agenda ( vedi \ref{sec:orga0feddf} ). Poui anche impostarla direttamente con Emacs
+Lisp nel file di init di Emacs. Il seguente esempio continete tutte
+viste valide dell'agenda.
+
+\begin{verbatim}
+(setq org-agenda-custom-commands
+      '(("w" todo "WAITING")
+        ("u" tags "+boss-urgent")
+        ("v" tags-todo "+boss-urgent")))
+\end{verbatim}
+
+La stringa iniziale in ogni elemento definisce le chiavi che puoi
+premere dopo l'avvio del comando del dispacher per poter accedere al
+comando. Solitamente questo é di un solo carattere. Il secondo
+parametro é il tipo di ricerca, seguito dalla stringa o espressione
+regolare da usare per la selezione. L'esempio sopra quindi definirà:
+
+\begin{description}
+\item[{w}] Come per la ricerca globale per gli oggetti TODO con \texttt{WAITING} come
+parola chiave del TODO
+
+\item[{u}] Come per la ricerca globale di tags per i titoli segnati \texttt{boss} ma
+non \texttt{urgent}.
+
+\item[{v}] La stessa ricerca, ma limitata per i titoli che sono anche elementi
+TODO.
+\end{description}
+
+\section[Markup]{Markup per contenuti ricchi}
+\label{sec:org3563413}
+Org sopratutto riguarda l'organizza e la ricerca all'interno delle tue
+note di testo semplice. Comunque, fornisce un leggero ma robusto
+linguaggio di markup per la foramattazione del testo ed altro. Usato
+assieme al framework di espostazione ( vedi \ref{sec:orgc8db748} ), con Org
+puoi produrre documenti molto belli.
+
+\subsection{Paragrafi}
+\label{sec:orgb9f47e4}
+I paragrafi sono separati tra loro da una linea vuota. Se hai bisogno
+di forzare un'interruzione di linea all'interno di un paragrafo, usa
+\texttt{\textbackslash{}\textbackslash{}} alla fine della linea.
+
+Per preservare l'interruzione di linea, indentazione e linee bianche
+in una regione, ma anche usare la formattazione normale, puoi usare
+questo costrutto, puoi anche usarlo per formattare la poesia.
+
+\begin{verbatim}
+#+BEGIN_VERSE
+ Great clouds overhead
+ Tiny black birds rise and fall
+ Snow covers Emacs
+
+    ---AlexSchroeder
+#+END_VERSE
+\end{verbatim}
+
+Quando quoti un passaggio da un'altro documento, é costume formattarlo
+come un paragrafo che é indentato in entrambi i margini sinistro e
+destro. Puoi mettere questa citazione in un documento Org nel modo
+seguente:
+
+\begin{verbatim}
+#+BEGIN_QUOTE
+Everything should be made as simple as possible,
+but not any simpler ---Albert Einstein
+#+END_QUOTE
+\end{verbatim}
+
+Se vuoi centrare del testo, devi fare in questo modo:
+
+\begin{verbatim}
+#+BEGIN_CENTER
+Everything should be made as simple as possible, \\
+but not any simpler
+#+END_CENTER
+\end{verbatim}
+
+\subsection{Enfasi e monospace}
+\label{sec:org29c1023}
+Puoi creare parole \texttt{*bold*}, \texttt{/italic/}, \texttt{\_sottolineate\_},
+\texttt{=verbatim=} e \texttt{\textasciitilde{}codice\textasciitilde{}}, e, se non basta, \texttt{+barrato+}. Il testo
+nelle stringhe codice e verbatim non viene processato dalla specifica
+sintassi di Org; Viene esportato in verbatim.
+
+\subsection{\LaTeX{} integrato}
+\label{sec:orge5e5c4d}
+Per le note scentifiche che hanno bisogno di contenere simboli
+matematici e per le formule occasionali, Org mode supporta
+l'integrazione di codice \LaTeX{} nei sui file. Puoi usare direttamente
+una sintassi simile al \TeX{} per simboli speciali, inserire formule e
+interi ambienti \LaTeX{}.
+
+\begin{verbatim}
+The radius of the sun is R_sun = 6.96 x 10^8 m.  On the other hand,
+the radius of Alpha Centauri is R_{Alpha Centauri} = 1.28 x R_{sun}.
+
+\begin{equation}                        % arbitrary environments,
+x=\sqrt{b}                              % even tables, figures
+\end{equation}                          % etc
+
+If $a^2=b$ and \( b=2 \), then the solution must be
+either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
+#+end_
+\end{verbatim}
+
+\subsection{Esempi letterali}
+\label{sec:org513e2ea}
+Puoi inserire esempi letterali che non saranno soggetti al
+markup. Come gli esempi in monospace, questi sono trattati come i
+codici sorgente ed esempi simili.
+
+\begin{verbatim}
+#+BEGIN_EXAMPLE
+  Some example from a text file.
+#+END_EXAMPLE
+\end{verbatim}
+
+Per semplicità quando usi un piccolo esempio, puoi anche fare iniziare
+la linea dell'esempio con un duepunti seguito da uno spazio. Ci
+possono essere anche diversi spazzi dopo il primo spazio vuoto che
+segue i duepunti:
+
+\begin{verbatim}
+Qui c'é un esempio
+  : Qualche esempio per un file di testo.
+\end{verbatim}
+
+Se l'esempio é del codice sorgente proveniente da un linguaggio di
+programmazione, o ogni altro tipo di testo che possa essere elaborato
+da Font Lock in Emacs, puoi chiedere che l'esempio sia mostrato tipo
+un buffer Emacs fontificato.
+
+\begin{verbatim}
+#+BEGIN_SRC emacs-lisp
+  (defun org-xor (a b)
+    "Exclusive or."
+    (if a (not b) b))
+ #+END_SRC
+\end{verbatim}
+
+Per modificare l'esempio in un buffer speciale che supporti questo
+linguaggio, usa C-' sia per entrare che per uscire dal
+buffer di modifica.
+
+\subsection{Immagini}
+\label{sec:orgdde4c03}
+Un'immagine é un link ad un file immagine che non ha la parte
+descrittiva, per esempio
+
+\begin{verbatim}
+./img/cat.jpg
+\end{verbatim}
+
+
+Se desideri definire una descrizione per l'imagine e una label per un
+riferimento interno ( vedi \ref{sec:org651b8f7} ), assicurati
+che il link abbia una linea che lo precede con le parole chiave
+\texttt{CAPTION} e \texttt{NAME} come sotto:
+
+\begin{verbatim}
+#+CAPTION: This is the caption for the next figure link (or table)
+#+NAME:   fig:SED-HR4049
+[[./img/a.jpg]]
+\end{verbatim}
+
+\subsection{Creare note a piè di pagina}
+\label{sec:org41b63bd}
+Una nota a piè di pagina é definita in un paragrafo che inizia con un
+markatore di footnote tra parentesi quadrate nella colonna 0,
+non sono permesse indentazioni. I riferimenti alle note a piè di
+pagina sono dei semplici marcatori nelle parentesi quadrate, con
+dentro del testo. Per esempio:
+
+\begin{verbatim}
+The Org website[fn:1] now looks a lot better than it used to.
+...
+[fn:1] The link is: https://orgmode.org
+\end{verbatim}
+
+I seguenti comandi gestiscono i footnote
+
+\begin{description}
+\item[{C-c C-x f (\texttt{org-footnote-action})}] Il comando azione dei footnote. Quando il punto é su un riferimento
+al footnote, salta alla definizione. Quando é in una definizione,
+salta al (primo) riferimento. Altrimenti, crea un nuovo
+footnote. Quando questo comando é chiamato con un argomento
+prefisso, un menu aggiuntivo di opzioni, incluso la renumerazione,
+viene mostrato.
+
+\item[{C-c C-c (\texttt{org-ctrl-c-ctrl-c})}] Salta tra la definizione e il riferimento.
+\end{description}
+
+\section{Esportazione}
+\label{sec:orgc8db748}
+Org può convertire ed esportare i documenti in un varietà di altri
+formati che potresti ritenere meglio strutturati ( vedi \ref{sec:orga976bef} ) e markup ( vedi \ref{sec:org3563413} ) se
+possibile.
+
+\subsection{Il dispatcher di esportazione}
+\label{sec:org10d3efc}
+L'interfaccia di esportazione é l'interfaccia principale per
+l'esportazione Org. Un menu gerarchico presenta la configurazione
+corrente per i formati di esportazione. Le opzioni vengono mostrate
+come semplici bottoni nella stessa schermata.
+
+\begin{description}
+\item[{C-c C-e (\texttt{org-export-dispacher})}] Richiama l'interfaccia di esportazione,
+\end{description}
+
+Org di default esporta l'intero buffer. Se il buffer Org ha una
+regione attiva, allora Org esporta solo quella regione.
+
+\subsection{Impostazioni di esportazione}
+\label{sec:org1416194}
+L'esportatore riconosce delle linee speciali nel buffer che forniscono
+informazioni aggiuntive. Queste linee possono essere inserite in ogni
+punto del file:
+
+\begin{verbatim}
+#TITLE: I'm in the Mood for Org
+\end{verbatim}
+
+
+La principali opzioni di esportazione includono:
+
+\begin{center}
+\begin{tabular}{ll}
+\texttt{TITLE} & Il titolo che deve essere mostrato\\[0pt]
+\texttt{AUTHOR} & L'autore ( di default viene da \texttt{user-full-name})\\[0pt]
+\texttt{DATE} & una data, fissa, oppure un timestamp Org\\[0pt]
+\texttt{EMAIL} & email ( di default viene da \texttt{user-mail-address})\\[0pt]
+\texttt{LANGUAGE} & il codice di linguaggio, es. \texttt{it}\\[0pt]
+\end{tabular}
+\end{center}
+
+Il set di opzioni keyword possono essere impostate dal dispatcher (
+vedi \ref{sec:org10d3efc} ) usando il comando \texttt{Insert
+template} premendo \#
+
+\subsection{Tabelle dei contenuti}
+\label{sec:org4d93ca5}
+La tabella dei contenuti include tutte le intestazioni del
+documento. Va in profondità nello stesso modo di come sono i livelli
+delle intestazioni nel file. Se vuoi usare una differente profondità,
+o sisabilitarlo per intero, imposta la variabile
+\texttt{org-export-with-toc}. Puoi fare la stessa cosa per ogni file, usando
+i seguenti elementi \texttt{toc} nella parola chiave \texttt{OPTIONS}:
+
+\begin{verbatim}
+#+OPTIONS: toc:2          (include solo due livelli nella TOC)
+#+OPTIONS: toc:nil        (non esporta la TOC)
+\end{verbatim}
+
+Org normalmente inserisce la tabella dei contenuti direttamente prima
+del primo titolo nel file.
+
+\subsection{Includere file}
+\label{sec:orgec9b04c}
+Durante l'esportazione, puoi includere il contenuto di un'altro
+file. Per esempio, per includere il tuo file \texttt{.emacs}, puoi usare:
+
+\begin{verbatim}
+#+INCLUDE: "~/.emacs" src emacs-lisp
+\end{verbatim}
+
+
+Il primo parametro é il nome del file da includere. Il secondo
+parametro, opzionale, specifica il tipo di blocco \texttt{example}, \texttt{export}
+o \texttt{src}. Il terzo parametro, anchesso opzionale, specifica il
+linguggio del codice sorgente da usare per formattare il
+contenuto. Questo é rilevante sia per il tipo di blocchi \texttt{export} che
+\texttt{src}.
+
+Puoi vedere il file incluso con C-c '.
+
+\subsection{Linee di commento}
+\label{sec:org1e53647}
+Le linee che iniziano con zero o più spazzi bianchi seguiti da un \texttt{\#}
+e da uno spazzio bianco sono trattati come commenti e, come tali, non
+vengono esportati.
+
+Come del resto, le zone circondate da \texttt{\#+BEGIN\_COMMENT}
+\ldots{} \texttt{\#+END\_COMMENT} non sono esportate.
+
+In fine, una keyword \texttt{COMMENT} all'inizio di un elemento, ma prima di
+un'altra parola chiave o cookie, commenta l'intero sottoalbero. Il
+comando sotto aiuta a cambiare lo stato di commento di un titolo.
+
+\begin{description}
+\item[{C-c ; (\texttt{org-toggle-comment})}] Attiva/Disattiva la parola chiave \texttt{COMMENT} all'inizio di un
+elemento
+\end{description}
+
+\subsection{Exportazione ASCII/UTF-8}
+\label{sec:orgc4a76ca}
+L'esportazione ASCII produce in output un file di soli caratteri
+ASCII. Questo é il più semplice e diretto testo di output. Non
+contiene nessun markup Org. L'esportazione UTF-8 usa caratteri
+aggiuntivi e simboli avviabili in questo standard di codifica.
+
+\begin{description}
+\item[{C-c C-e t a, C-c C-e t u (\texttt{org-ascii-export-to-ascii})}] Esporta come file ASCII con estensione \texttt{.txt}. Con \texttt{myfile.org} Org
+esporta \texttt{myfile.txt}, riscrivendolo senza warning. Per \texttt{myfile.txt},
+Org esporta in \texttt{myfile.txt.txt} per prevenire il rischio di perdita
+dei dati.
+\end{description}
+
+\subsection{Esportazione HTML}
+\label{sec:org9ee3273}
+La modalità Org contiene un esportatore in HTML con estensione HTML e
+formatta compatibile con XHTML 1.0 strict standard.
+
+\begin{description}
+\item[{C-c C-e h h (\texttt{org-html-export-to-html})}] Esporta con file HTML con estensione \texttt{.html}. Per \texttt{myfile.org}, Org
+lo esporta come \texttt{myfile.html}, sovrascrivendolo senza
+warning. C-c C-e h o esporta in HTML e apre il file nel
+browser web.
+\end{description}
+
+Il backend di esportazione trasforma le \texttt{<} e \texttt{>} in \texttt{\&lt;} e \texttt{\&gt;}.
+Per inserire del puro codice HTML nel file Org in modo che il backend
+di esportazione possa includerlo nell'output, usa questa sintassi in
+linea: \texttt{@@html:...@@}. Per esempio:
+
+\begin{verbatim}
+@@html:<b>@@bold text@@html:</b>@@
+\end{verbatim}
+
+
+Per un blocco di codice HTML puro più ampio usa questo blocco di
+codice di esportazione:
+
+\begin{verbatim}
+#+HTML: Literal HTML code for export
+
+#+BEGIN_EXPORT html
+  Tutte le linee tra questi marker sono esportati letteralmente.
+#+END_EXPORT
+\end{verbatim}
+
+\subsection{Esoprtazione \LaTeX{}}
+\label{sec:org0dd162a}
+L'esportazione \LaTeX{} può elaborare documenti complessi, incorporando
+classi \LaTeX{} standar o personalizzate, genera documenti usando engine
+\LaTeX{} alternativi, e producendo un un file PDF con indici,
+bibliografie e tabelle dei contenuti, destinato alla visione
+interattiva o per la pubblicazione di stampa di alta qualità.
+
+Di default, l'output \LaTeX{} usa la classe \emph{article}. Puoi cambiarlo
+aggiungendo, nel tuo file, un opzione tipo questa \texttt{\#+LATEX\_CLASS:
+myclass}. Le classi possono essere inserite in \texttt{org-latex-classes}.
+
+\begin{description}
+\item[{C-c c-e l l (\texttt{org-latex-export-to-latex})}] Esporta in un file \LaTeX{} con estensione \texttt{.tex}. Per \texttt{myfile.org},
+Org lo esporta in \texttt{myfile.tex}, sovrascrivendo senza warning.
+
+\item[{C-c C-e l p (\texttt{org-latex-esport-to-pdf})}] Esposta come file \LaTeX{} e lo converte in file PDF.
+
+\item[{C-c C-e l o (\texttt{<no corresponding named command>})}] Esporta come file \LaTeX{} e lo converte in PDF, dopo di che apre il
+file PDF usando il visualizzatore di default.
+\end{description}
+
+Il backend di esportazione \LaTeX{} può inserire codice \LaTeX{} arbitrario,
+vedi \ref{sec:orge5e5c4d}. Ci sono tre modi per inserire del codice nel
+file Org e ogniuno usa una sintassi di quotazione diversa.
+
+Inserimento in linea quota con i simboli @:
+
+\begin{verbatim}
+Code embedded in-line @@latex:any arbitrary LaTeX code@@ in a paragraph.
+\end{verbatim}
+
+
+Inserendo una o più linee con keyword nel file Org:
+
+\begin{verbatim}
+#+LATEX: any arbitrary LaTeX code
+\end{verbatim}
+
+
+Inserendo un blocco di esportazione nel file Org, dove il beckend
+esporterà tutto il codice tra il marcatore di inizio e fine:
+
+\begin{verbatim}
+#+BEGIN_EXPORT latex
+  any arbitrary LaTeX code
+#+END_EXPORT
+\end{verbatim}
+
+\subsection{Esportazione iCalendar}
+\label{sec:org38863d6}
+L'enorme successo dell'interoperabilità della modalità Org é l'abilità
+di esportare ed importare da applicazioni esterne. Il backend di
+esportazione iCalendar prende le date di calendario dai file Org e le
+esporta nel formato standard iCalendar.
+
+\begin{description}
+\item[{C-c C-e c f (\texttt{org-icalendar-export-to-ics})}] Crea un elemento iCalendar dal buffer Org corrente e lo memorizza
+nella stessa directory, usando un file con estensione \texttt{.ics}.
+
+\item[{C-c C-e c c (\texttt{org-icalendar-combine-agenda-files}) }] Crea un file iCalendar combinando i file Org provenienti da
+\texttt{org-agenda-files} e scrivendoli nel nome di file
+\texttt{org-icalendar-combined-agenda-file}.
+\end{description}
+
+\section{Pubblicare}
+\label{sec:org3d565e7}
+Org include un sistema di gestione delle pubblicazione che ti permette
+di configurare una conversione HTML automatica dei \emph{proggeti} composta
+dai file Org collegati internamente. Puoi anche configurare Org in
+modo che carichi in outomatico le pagine HTML e relativi allegati,
+come immagini e file di codice sorgente, in un server web.
+
+Puoi anche usare Org per convertire i file in PDF, o anche combinando
+la conversione HTML e PDF in modo che questi file siano disponibili in
+entrambi i formati sul server.
+
+Per delle istruzioni dettagliate sulle impostazioni, vedi
+\url{manual}. Qui c'é un esempio:
+
+\begin{verbatim}
+(setq org-publish-project-alist
+      '(("org"
+         :base-directory "~/org/"
+         :publishing-function org-html-publish-to-html
+         :publishing-directory "~/public_html"
+         :section-numbers nil
+         :with-toc nil
+         :html-head "<link rel=\"stylesheet\"
+                    href=\"../other/mystyle.css\"
+                    type=\"text/css\"/>")))
+\end{verbatim}
+
+\begin{description}
+\item[{C-c C-e P x (\texttt{org-publish})}] Mostra un prompt per uno specifico progetto e pubblica tutti i file
+che lo riguardano.
+
+\item[{C-c C-e P p (\texttt{org-publish-current-project})}] Pubblica il progetto che contiene il file corrente.
+
+\item[{C-c C-e P f (\texttt{org-publish-current-file})}] Pubblica solo il file corrente.
+
+\item[{C-c C-e P a (\texttt{org-publish-all})}] Pubblica tutti i progetti.
+\end{description}
+
+Org usa il timestamp per tenere traccia di quando un file viene
+cambiato. Le funziona sopra normalmente pubblicano solo i file
+modificati. Puoi bypassare questo e forzare la pubblicazione di tutti i
+file dando un argomento prefisso ad ogni comando visto sopra.
+
+\section{Lavorare con il codice sorgente}
+\label{sec:org1624326}
+Org mode fornisce un numero di funzionalità per lavorare con i codici
+sorgenti, incluso la modifica di blocchi di codice nella loro
+major-mode, valutazione del blocco di codice, tangling di blocchi di
+codice e esportazione di blocchi di codice e del loro risultato in
+diversi formati.
+
+Un blocco di codice si forma con questa struttura:
+
+\begin{verbatim}
+#+NAME: <name>
+#+BEGIN_SRC <language> <switches> <header arguments>
+  <body>
+#+END_SRC
+\end{verbatim}
+
+dove:
+
+\begin{itemize}
+\item \texttt{<name>} é una stringa usata per dare un nome univoco al blocco di
+codice,
+\item \texttt{<language>} specifica il linguaggio del blocco di codice,
+es. \texttt{emacs\_lisp}, \texttt{shell}, \texttt{R}, \texttt{python} ecc..
+\item \texttt{<switches>} può essere usato per controllare l'esportazione del
+blocco di codice
+\item \texttt{<header arguments>} può essere usato per controllare diversi
+aspetti del comportamento del blocco di codice come dimostrato sotto
+\item \texttt{<body>} contiene il codice sorgente.
+\end{itemize}
+
+Usa C-c ' per modificare il blocco di codice corrente. Apre
+un nuovo buffer di modifica nella major-mod contenente il sorgente del
+blocco di codice, pronto per ogni modifica. Usando C-c '
+nuovamente chiude il buffer e torna al buffer Org.
+
+\subsection*{Usare argomenti di intestazione}
+\label{sec:orgdf5a339}
+Un argomento di intestazione viene specificato con un carattere
+duepunti iniziale seguito nome dall'argomento in minuscolo.
+
+Gli argomenti di intestazione possono essere impostati in diversi
+modi; Org gli assegna delle priorità per evitare che ci siano delle
+sovrapposizioni o dei conflitti dando alle impostazioni locali la
+priorità più alta.
+
+\begin{description}
+\item[{Argomenti di intestazione a livello di sistema}] Questi sono specificati pesonalizzando la variabile
+\texttt{org-bable-default-header-args}, o, per uno specifico linguaggio
+LANG \texttt{org-babel-default-header-args:LANG}.
+
+\item[{Argomenti di intestazione nelle proprietà}] Puoi impostarlo usando la proprietà \texttt{header-args} ( vedi \ref{sec:org306bfd2}
+)---o \texttt{header-args:LANG} per linguaggio LANG. Gli
+argomenti di intestazione nelle proprietà vengono applicati nei
+sotoalberi dei livelli sotto.
+
+\item[{Argomenti di intestazione nei blocchi di codice}] Gli argomenti di intestazione sono comunemente usati per impostare
+il sorgente dei blocchi di codice, nella linea \texttt{BEGIN\_SRC}:
+
+\begin{verbatim}
+#+NAME: factorial
+#+BEGIN_SRC haskell :results silent :exports code :var n=0
+  fac 0 = 1
+  fac n = n * fac (n-1)
+#+END_SRC
+\end{verbatim}
+
+Gli argomenti di intestazione nei blocchi di codice possono essere
+su più linee usando la parola chiave \texttt{HEADER} su ogni linea.
+\end{description}
+
+\subsection*{Valutare i blocci di codice}
+\label{sec:orgee6c181}
+Usa C-c C-c per valutare il blocco di codice corrente ed
+inserire il risultato nel documento Org. Di default, é abilitata solo
+la valutazione dei blocchi di codice \texttt{emacs-lisp}, comunque esiste il
+supporto per la valutazione di blocchi di codice in diversi
+linguaggi. Per una lista completa dei linguaggi suportati guarda il
+\href{manual}{manuale}. Di seguito viene mostrato un blocco di codice ed il suo
+risultato.
+
+\begin{verbatim}
+#+BEGIN_SRC emacs-lisp
+  (+ 1 2 3 4)
+#+END_SRC
+
+#+RESULTS:
+: 10
+\end{verbatim}
+
+La sintasso qui sotto viene usata per passare un argomento al blocco
+di codice usando l'argomento di intestazione \texttt{var}.
+
+\begin{verbatim}
+:var NAME=ASSIGN
+\end{verbatim}
+
+
+NAME é il nome della variabile usata nel corpo del
+blocco di codice. ASSIGN é il valore letterale, come una
+stringa, un numero, un riferimento ad una tabella, una lista, un
+esempio letterale, un'altro blocco di codice---con o senza argomenti
+---o il risultato della valutazione di un blocco di codice.
+
+\subsection*{Risultato della valutazione}
+\label{sec:org5d7f2fa}
+Il modo in cui Org gestisce i risultati dell'esecuzione di un blocco
+di codice dipende da come i molti argomenti dell'intestazione lavorano
+assieme. Il fattore determinante, tuttavia, è l'argomento
+dell'intestazione \texttt{result}. Lui controlla la \emph{collezione}, \emph{tipo},
+\emph{formato} e \emph{manipolazione} dei risultati dei blocchi di codice.
+
+\begin{description}
+\item[{Collezione}] Come il risultato debba essere collezionato dal blocco di
+codice. Puoi scegliere tra \texttt{output} o \texttt{value} (il default).
+
+\item[{Tipo}] Che tipo di risultato mi aspetto dall'esecuzione del blocco di
+codice. Puoi scegliere tra \texttt{table}, \texttt{list}, \texttt{scalar} e \texttt{file}. Org
+prova ad indovinare se non lo hai impostato.
+
+\item[{Formaato}] Come Org processa il risultato. Alcuni possibili valori sono \texttt{code},
+\texttt{drawer}, \texttt{html}, \texttt{latex}, \texttt{link} e \texttt{raw}.
+
+\item[{Maipolazione}] Come viene inserito il risultato una volata formattato
+appropriatamente. I valori consentiti sono \texttt{silent}, \texttt{replace} ( il
+default ), \texttt{append} o \texttt{prepend}.
+\end{description}
+
+I blocchi di codice con i risultati di output in file---es.:
+grafici, diagrammi e figure---possono accettare un argomento di
+intestazione \texttt{:file FILENAME}, in questo caso i risultati sono salvati
+nel file nomitato, e un link al file viene inserito nel buffer.
+
+\subsection*{Esportazione dei blocchi di codice}
+\label{sec:org172dff4}
+É possibile esportare il \emph{codice} del blocco di codice, il \emph{risultato}
+della valutazione del blocco di codice, \emph{entrambe} il codice ed il
+risultato della valutazione del blocco di codice, o \emph{niente}. Org di
+default, per diversi linguaggi, esporta il \emph{codice}.
+
+L'argomento di intestazione \texttt{exports} server ad informare che quella
+parte di codice viene esportata, per esempio, nel formato HTML o
+\LaTeX{}. Può essere impostato a \texttt{code}, \texttt{results}, \texttt{both} o \texttt{none}.
+
+\subsection*{Estrazione del codice sorgente}
+\label{sec:orgffc8e33}
+Usa C-c C-v t per creare un file con solo il codice
+sorgente estratto dal blocco di codice del buffer corrente. Questo
+viene definito come ``tangling''---un termine adottato dalla comunità di
+programmazione letterale. Durante il tangling del blocco di codice il
+suo corpo viene espanso usando \texttt{org-balble-expand-src-block}, che può
+espandere sia i riferimenti di tipo variabile che quelli di tipo
+``Noweb''. Per fare il tangle di un blocco di codice, il blocco, deve
+avere un argomento di intestazione \texttt{tangle}, vedi il \href{manual}{manuale} per
+maggiori dettagli.
+
+\section{Miscelanee}
+\label{sec:org62c1089}
+\subsection*{Completion}
+\label{sec:org2ef7f0e}
+Org ha il completamento nel buffer con M-TAB. Il minibuffer
+non é coinvolto. Digita una o più lettere per poi usare la
+combinazione di scelta rapida per completare il testo sul posto.
+
+Per esempio, questo comando completerà i simboli Tex dopo \texttt{\textbackslash{}}, le
+keyword TODO all'inizio di una intestazione e i tag dopo i \texttt{:} nelle
+intestazioni.
+
+\subsection*{Modelli di struttura}
+\label{sec:orgcea2100}
+Per inserire velocemente dei blocchi strutturati vuoti, come
+\texttt{+BEGIN\_SRC} \ldots{} \texttt{\#+END\_SRC}, o per racchiudere il testo in un blocco,
+usa:
+
+\begin{description}
+\item[{C-c C-, (\texttt{org-insert-structure-template})}] Mostra un prompt per i tipi di strutture a blocchi, e inserisce il
+blocco nel punto. Se la regione é attiva, la racchiude nel blocco.
+\end{description}
+
+\subsection*{Viste pulite}
+\label{sec:orge7a72b1}
+L'outline di default di Org con asterischi e senza indentazione può
+andare bene per piccoli documenti. Per lunghi documenti come \emph{libri},
+l'effetto non é evidente. Org fornisce un'alternativa per gli
+asterischi e uno schema di indentazione, come mostrato alla destra
+della seguente tabella. Usa un solo asterisco e indenta il testo per
+allinearlo al'intestazione:
+
+\begin{verbatim}
+* Top level headline             |    * Top level headline
+** Second level                  |      * Second level
+*** Third level                  |        * Third level
+    some text                     |          some text
+*** Third level                  |        * Third level
+    more text                     |          more text
+* Another top level headline     |    * Another top level headline
+\end{verbatim}
+
+Questo tipo di visualizzazione può essere ottenuta dinamicamente sul
+display usando la modalità Org Indent ( M-x org-indent-mode RET ), che inserisce uno spazio intangibile su ogni riga. Puoi
+attivare la modalità Org Indent per tutti i file personalizzando la
+variabile \texttt{org-startup-indented}, oppure puoi attivarlo in ogni file
+usando:
+
+\begin{verbatim}
+#+STARTUP: indent
+\end{verbatim}
+
+
+Se si desidera che l'indentazione sia costituita da caratteri di
+spazio fisso, in modo che il file di testo semplice appaia il più
+possibile simile alla visualizzazione di Emacs. Org aiuta a rientrare
+( con TAB ) il testo sotto ogni titolo, a nascondere le
+stelle iniziali e a usare solo i livelli 1, 3, ecc.., per ottenere un
+rientro di due caratteri per ogni livello. Per ottenere questo in un
+file usa
+
+\begin{verbatim}
+#+STARTUP: hidestarts odd
+\end{verbatim}
+
+\section{Traduzione}
+\label{sec:orgd57a2c3}
+Il titolo originale di questo documento é \textbf{Org Mode Compact Guide} che potete
+trovare all'indirizzo \url{https://orgmode.org/orgguide.html}, la mia é una
+traduzione non ufficiale di tale documento.
+\end{document}
