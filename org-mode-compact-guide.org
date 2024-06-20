@@ -33,16 +33,17 @@ modify this GNU manual."
 :DESCRIPTION: Welcome!
 :END:
 
-Org é una modalità per prendere note, mantenere liste TODO ed a pianificare
-proggetti con un sistema di testo semplice veloce ed effettivo. È anche un
-sistema di creazione e publicazione e supporta il lavoro con i blocchi di
-codice per la programmazione letterale e la ricerca riproducibile.
+Org é una modalità per prendere note, mantenere liste TODO ed a
+pianificare proggetti con un sistema di testo semplice veloce ed
+efficace. È anche un sistema di creazione e publicazione che supporta
+il lavoro con i blocchi di codice per la programmazione letterale e la
+ricerca riproducibile.
 
-Questo documento é un derivato molto compresso dal più completo [[https://www.gnu.org/software/emacs/manual/html_mono/org.html#Top][manuale Org
-mode]]. Contiene tutte le funzionalità ed i comandi di base, assieme a
-importanti suggerimenti per la personalizzazione. È destinato ai
-principianti che potrebbero tirarsi indietro, a causa delle dimensioni,
-davanti ad un manuale di 200 pagine.
+Questo documento é un derivato molto compresso dal più completo
+[[https://www.gnu.org/software/emacs/manual/html_mono/org.html#Top][manuale Org mode]]. Contiene tutte le funzionalità ed i comandi di base,
+assieme ad importanti suggerimenti per la personalizzazione. È
+destinato ai principianti che potrebbero tirarsi indietro, a causa
+delle dimensioni, davanti ad un manuale di 200 pagine.
 
 ** Installazione
 :PROPERTIES:
@@ -52,14 +53,14 @@ davanti ad un manuale di 200 pagine.
 #+attr_texinfo: :tag Important
 #+begin_quote
  Se usi una versione di Org che fa parte della distribuzione di Emacs,
- perfavore salta questa sezione e vai direttamente a [[*Attivazione]].
+ perfavore salta questa sezione e vai direttamente all'[[*Attivazione]].
 #+end_quote
 
-Se hai scaricato Org dal web, solitamente viene distribuito come file =.zip=
-o =.tar= oppure come archivio Git, é meglio avviarlo direttamente dalla
-directory di distribuzione. Hai bisogno di aggiungere la sottodirectory
-=lips/= alla path di Emacs. Per fare questo aggiungi la seguente linea nel
-tuo file di inizializzazione:
+Se hai scaricato Org dal web, solitamente viene distribuito come file
+=.zip= , =.tar= oppure come archivio Git, é meglio avviarlo
+direttamente dalla directory di distribuzione. Hai bisogno di
+aggiungere la sottodirectory =lips/= alla path di Emacs. Per fare
+questo aggiungi la seguente linea nel tuo file di inizializzazione:
 
 : (add-to-list 'load-path "~/path/to/orgdir/lisp")
 
@@ -102,14 +103,15 @@ sui bug, guarda il [[info:org][manuale pricipale]].
 :DESCRIPTION: A tree works like your brain.
 :END:
 
-Org è uno schematizzatore. La schematizzazione permette al documento di
-essere organizzato in strutture gerarchiche, che, almeno per me, sono la
-migliore rappresentazione delle note e dei pensieri. Un'osservazione di
-questa struttura si ottiene piegando, es, nascondendo larghe porzioni del
-documento per mostrarne solo la struttura generale e la parte dove al
-momento si sta. Org semplifica molto bene l'uso delle outline comprimendo
-l'intera vista e nascondendo le funzionalita in un singolo comando
-~org-cycle~ che é legato al tasto {{{kbd(TAB)}}}.
+Org è uno schematizzatore. La schematizzazione permette al documento
+di essere organizzato in strutture gerarchiche, che, almeno per me,
+sono la migliore rappresentazione delle note e dei
+pensieri. Un'osservazione di questa struttura si ottiene piegando,
+es. nascondendo larghe porzioni del documento per mostrarne solo la
+struttura generale e la parte dove al momento si sta lavorando. Org
+semplifica molto bene l'uso delle strutture comprimendo l'intera vista e
+nascondendo le funzionalita con un singolo comando ~org-cycle~ che é
+legato al tasto {{{kbd(TAB)}}}.
 
 ** Intestazioni
 :PROPERTIES:
@@ -121,30 +123,31 @@ intestazioni in Org iniziano dal margine sinistro[fn:1] con uno o più
 asterischi seguiti da uno spazio. Per esempio:
 
 #+begin_example
-  ,* Livello iniziale dei titoli
-  ,** Secondo livello
-  ,*** Terzo livello
-  Un po di testo
-  ,*** Terzo livello
-  Altro testo
-  ,* Un'altro livello iniziale
+,* Livello iniziale dei titoli
+,** Secondo livello
+,*** Terzo livello
+Un po di testo
+,*** Terzo livello
+Altro testo
+,* Un'altro livello iniziale
 #+end_example
 
-Nota che un'intestazione nominata dopo ~org-footnote-section~, che di default
-é detto =Footnotes=, é considerato come speciale. Un sottoalbero con questa
-intestazione sarà ignorata silenziosamente dalla funzione di esportazione.
+Nota che un'intestazione nominata dopo ~org-footnote-section~, che di
+default é detto =Footnotes=, é considerato come speciale. Un
+sottoalbero con questa intestazione sarà ignorata silenziosamente
+dalla funzione di esportazione.
 
-Alcune persone trovano i vari asterischi troppo fastidiosi e preferiscono
-uno schema con degli spazzi vuoti seguiti da un singolo asterisco. Guarda
-nelle [[*Miscelanee]] per un setup che lo realizza.
+Alcune persone trovano i vari asterischi troppo fastidiosi e
+preferiscono uno schema con degli spazzi vuoti seguiti da un singolo
+asterisco. Guarda nelle [[*Miscelanee]] per un setup che lo realizza.
 
 ** Ciclo di visualizzazione
 :PROPERTIES:
 :DESCRIPTION: Show and hide, much simplified.
 :END:
 
-Gli schemi rendono possibile nascondere parte del testo nel buffer. Org usa
-giusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
+Gli schemi rendono possibile nascondere parte del testo del buffer. Org usa
+qgiusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
 ~org-shifttab~ ) per scambiare la visibilita nel buffer.
 
 #+attr_texinfo: :sep ,
@@ -169,12 +172,12 @@ giusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
 
   Mostra tutto incluso i drawer.
 
-  Quando Emacs visita per la prima volta un file Org, lo stato globle é
-  settato a OVERVIEW, es. solo i livelli più alti delle intestazione sono
-  visibili. Questo può essere configurato tramite la variabile
-  ~org-startup-folder~ o nell'intestazione del file aggiungendo una keyword
-  =STARTUP= con =overview=, =content=, =shoall=, =showeverything= o =show<n>levels= (n
-  = 2..5 ) tipo:
+  Quando Emacs visita per la prima volta un file Org, lo stato globale
+  é settato a OVERVIEW, es. solo i livelli più alti delle intestazione
+  sono visibili. Questo può essere configurato tramite la variabile
+  ~org-startup-folder~ o nell'intestazione del file aggiungendo una
+  keyword =STARTUP= con =overview=, =content=, =shoall=,
+  =showeverything= o =show<n>levels= (n = 2..5 ) tipo:
 
   : #+STARTUP: content
 
@@ -183,16 +186,17 @@ giusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
 :DESCRIPTION: Jumping to other headlines.
 :END:
 
-I comandi seguenti ti fanno saltare ad altri titoli nel buffer
+I comandi seguenti ti fanno saltare ad altre intestazioni nel buffer
 
-- {{{kbd(C-c C-n)}}} (~org-next-visible-heading~) :: Titolo sucessivo
-- {{{kbd(C-c C-p)}}} (~org-previous-visible-heading~) :: Titolo precedente
+- {{{kbd(C-c C-n)}}} (~org-next-visible-heading~) :: Intestazione sucessivo
+- {{{kbd(C-c C-p)}}} (~org-previous-visible-heading~) :: Intestazione precedente
 
-- {{{kbd(C-c C-f)}}} (~org-backward-headling-same-level~) :: Titolo sucessivo nello stesso livello
+- {{{kbd(C-c C-f)}}} (~org-backward-headling-same-level~) :: Intestazione sucessivo nello stesso livello
 
-- {{{kbd(C-c C-b)}}} (~outline-backward-same-level~) :: Titolo precedente nello stesso livello
+- {{{kbd(C-c C-b)}}} (~outline-backward-same-level~) :: Instestazione precedente nello stesso livello
 
-- {{{kbd(C-c C-u)}}} (~outline-up-heading~) :: Torna al titolo più altro
+- {{{kbd(C-c C-u)}}} (~outline-up-heading~) :: Torna all'intestazione
+  più in alto
 
 ** Modificare la struttura
 :PROPERTIES:
@@ -202,14 +206,15 @@ I comandi seguenti ti fanno saltare ad altri titoli nel buffer
 #+attr_texinfo: :sep ,
 - *{{{kbd(M-RET)}}}* (~org-meta-return~) ::
 
-  Inserisce un nuovo titolo con lo stesso livello del corrente. Se il punto
-  é una lista di oggetti, viene creato un nuovo oggetto (vedere [[Liste
-  semplici]]). Quando questo comando viene usato nel mezzo di una linea, la
-  linea viene divisa e il resto della linea diventa il nuovo titolo[fn:2]
+  Inserisce un nuovo titolo con lo stesso livello del corrente. Se il
+  punto é una lista di oggetti, viene creato un nuovo oggetto (vedere
+  [[Liste semplici]]). Quando questo comando viene usato nel mezzo di
+  una linea, la linea viene divisa e il resto della linea diventa la
+  nuova intestazione[fn:2]
 
 - {{{kbd(M-S-RET)}}} (~org-inser-todo-heading~) ::
 
-  Inserisce un nuovo oggetto TODO con lo stesso livello del titolo corrente
+  Inserisce un nuovo oggetto TODO con lo stesso livello dell'intestazione corrente
 
 - {{{kbd(TAB)}}} (~org-cycle~) in un oggetto vuoto ::
 
@@ -218,12 +223,12 @@ I comandi seguenti ti fanno saltare ad altri titoli nel buffer
 
 - {{{kbd(M-SINISTRA)}}} (~org-metaleft~), {{{kbd(M-DESTRA)}}} (~org-metaright~) ::
 
-  Promuove o retrocede il titolo corrente di un livello
+  Promuove o retrocede l'intestazione corrente di un livello
 
 - {{{kbd(M-SU)}}} (~org-move-subtree-up~), {{{kbd(M-GIÙ)}}} (~org-move-subtree-down~) ::
 
   Muove il sotttoalbero su o giù es. scambia con il precedente o il
-  successivo sottoalbero con lo stesso livello.
+  successivo sottoalbero nello stesso livello.
 
 - {{{kbd(C-c C-w)}}} (~org-refile~) ::
 
@@ -235,7 +240,7 @@ I comandi seguenti ti fanno saltare ad altri titoli nel buffer
   Allarga il buffer al corrente sottoalbero e lo nasconde nuovamente
 
 Quando c'é una regione attiva (Modalità Contrasegno di transito), promuove
-e retrocede lavorando su tutti i titoli nella regione.
+o retrocede lavorando su tutti i titoli nella regione.
 
 ** Alberi sparsi
 :PROPERTIES:
@@ -264,7 +269,7 @@ questi comandi si può accedere attraverso uno dispacher.
   sottolineata; La sottolineatura svanisce se si preme {{{kbd(C-c C-c)}}}.
   
   L'altro comando di sparse tree seleziona le intestazioni basandosi sulle
-  chiavi dei TODO, tags o proprietà che verrà discusso più aventi in questo
+  chiavi dei TODO, tags o proprietà che verrà discusso più avanti in questo
   documento.
 
 ** Liste semplici
@@ -324,7 +329,7 @@ numero).
   Inserisce un nuovo elemento con un casella di controllo ( vedere
   [[*Liste selezionabili]] ).
 
-- {{{kbd(M-S-SU*)}}} (~org-move-item-up~), {{{kbd(M-S-GIU)}}} (~org-move-item-down~) ::
+- {{{kbd(M-S-SU)}}} (~org-move-item-up~), {{{kbd(M-S-GIU)}}} (~org-move-item-down~) ::
 
   Muove l'elemento, inclusi i sottoelementi, su/giù ( spostandoli con
   il precedente/successivo elemento nella medesima indentazione ). Se
@@ -347,7 +352,7 @@ numero).
 
 - {{{kbd(C-c -)}}} (~org-cycle-list-bullet~) ::
 
-  Scorre tra la lisata dei livelli degli elementi attraverso
+  Scorre tra la lista dei livelli degli elementi attraverso
   differenti tipi di puntatori ( =-=, =+=, =*=, =1.=, =1)=).
 
 * Tabelle
@@ -355,14 +360,14 @@ numero).
 :DESCRIPTION: Pure magic for quick formatting.
 :END:
 
-Org ha un veloce ed intuitivo editor di tabelle. Come per i fogli di
+Org ha un editor di tabelle veloce ed intuitivo. Come per i fogli di
 calcolo sono supportati i calcoli, in connessione con il pacchetto
 Emacs Calc (vedere [[https://www.gnu.org/software/emacs/manual/html_mono/calc.html#Top][GNU Emacs Calculator Manuale]] ).
 
-Org rende facile formattare le tabelle in semplice ACSII. Ogni linea
-con =|= come primo carattere senza spazi viene considerato come parte
-di una tabella. Il carattere =|= é anche un separatore di colonne. Una
-tabella si presenta tipo questa:
+Org rende facile formattare le tabelle in semplice codice ACSII. Ogni
+linea con =|= come primo carattere senza spazi viene considerato come
+parte di una tabella. Il carattere =|= é anche un separatore di
+colonne. Una tabella si presenta in questo modo:
 
 #+begin_example
   | Name  | Phone | Age |
@@ -393,7 +398,7 @@ seguito da {{{kbd(C-c RET)}}}.
 Quando digiti un testo in un campo, Org tratta {{{kbd(DEL)}}},
 {{{kbd(Backspace)}}} e tutti gli altri caratteri, in un modo speciale,
 in modo che l'inserimento e la cancellazione non sposti gli altri
-campi. Inoltre quando digiti /subito dopo che il punto viene mosso in
+campi. Inoltre quando digiti, /subito dopo che il punto viene mosso in
 un nuvo campo con {{{kbd(TAB)}}}, {{{kbd(S-TAB)}}} o {{{kbd(RET)}}}/,
 il campo viene automaticamente creato bianco.
 
@@ -406,8 +411,8 @@ il campo viene automaticamente creato bianco.
 
   Converte la regione attiva in una tabella. Se ogni linea contiene
   almeno un carattere {{{kbd(TAB)}}}, la funzione assume che le cose
-  siano separato da tab. Se ogni linea é separata da virgola (CSV)
-  assume che sia un file separatoda virgole. Se no, le linee sono
+  siano separate da tab. Se ogni linea é separata da virgola (CSV)
+  assume che sia un file separato da virgole. Altrimenti, le linee sono
   divise in capi tramite gli spazzi bianchi.
 
   Se non ci sono regioni attive, questo comando crea una tabella Org
@@ -510,7 +515,7 @@ od in alternativa
 
 Quando un link nel buffer é completo, con tutte le parentesi, Org
 cambia la sua visualizzazione con =DESCRIZIONE= al posto di
-=[[LINK]DESCRIZIONE]]= e in =LINK= al posto di =[[LINK]]=. Per
+=[[LINK][DESCRIZIONE]]= e in =LINK= al posto di =[[LINK]]=. Per
 modificare la parte invisibile del {{{kbd(LINK)}}} usa {{{kbd(C-c
 C-l)}}} con il punto sul link.
 
@@ -519,24 +524,24 @@ C-l)}}} con il punto sul link.
 :UNNUMBERED: notoc
 :END:
 
-Se i link non sono rappresentati come URL, vengono considerati come
-interni al file corrente. Il caso più importante é un link tipo
-=[[#my-custom-id]]= che viene collegata ad un elemento con la
+Se i link non sono rappresentati come URI, vengono considerati come
+interni al file corrente. Il caso più rilevante é un link tipo
+=[[#my-custom-id]]= che viene collegato ad un elemento con la
 proprietà =CUSTOM_ID= settata a =my-custom-id=.
 
-Link tipo =[[My Target]]= o =[[My Targhet][Find my target]]= va, nel
-file corrente, alla ricerca di un testo che corrisponda al targhet
-come =<<My Target>>=.
+Link tipo =[[My Target]]= o =[[My Targhet][Find my target]]= cerca,
+nel file corrente, un testo che corrisponda al targhet =<<My
+Target>>=.
 
 ** Link esterni
 :PROPERTIES:
 :UNNUMBERED: notoc
 :END:
 
-Org supporta i lin ai file, siti web, Usenet, messagi email, elementi
-BBDB database ed sia le conversazioni che i logs IRC. I collegamenti
+Org supporta i link ai file, siti web, Usenet, messagi email, elementi
+BBDB database e sia le conversazioni che i logs IRC. I collegamenti
 sono simili agli URL. Iniziano con una breve stringa di
-indentificazione se quita dai duepunti *:*. Non ci sono spazzi dopo i
+indentificazione seguita dai duepunti *:*. Non ci sono spazzi dopo i
 duepunti. Ecco alcuni esempi:
 
 | =http://www.astro.uva.nl/=dominikper=     | Nel web                                             |
@@ -597,7 +602,7 @@ generalmente, agiscono sui link.
 
 - {{{kbd(C-c C-l)}}} (Che punta ad un link esistente) (~org-insert-link~) ::
 
-  Quando il punto é un link esistente, {{{kbd(C-c C-l)}}} permette la
+  Quando il punto é su un link esistente, {{{kbd(C-c C-l)}}} permette la
   modifica del link e della parte della descrizione.
 
 - {{{kbd(C-c C-o)}}} (~open-link-at-point~) ::
@@ -617,14 +622,14 @@ generalmente, agiscono sui link.
 :END:
 
 Org mode non necessita che le liste TODO risiedano in documenti
-separati. Tantè che gli elementi TODO sono parte delle file di note,
+separati. Tantè che gli elementi TODO sono parte deli file di note,
 perché gli elementi TODO vengono solitamente usati quando si prendono
 note! Con la modalità Org, semplicemente si marca un oggeto in un
 albero mettendo all'inizio un elemento TODO. In questo modo, le
 informazioni non vengono duplicate e gli elementi TODO rimangono nel
 contesto in modo che emergano.
 
-La modalità Org ti fornisce dei metodi per una visione di insieme
+La modalità Org ti fornisce dei metodi per una visione d'insieme
 delle cose che devi fare, raccogliendoli da diversi file.
 
 ** Funzionalità base dei TODO
@@ -675,14 +680,14 @@ I comandi più importanti quando si lavora con i TODO sono:
   Inserisce un nuovo oggetto TODO sotto al corrente.
 
 Cambiando lo stato di un TODO può anche cambiare i tag. Vedi la
-docstring dell'opzinoe ~org-todo-state-tags-triggers~ per dettagli.
+docstring dell'opzione ~org-todo-state-tags-triggers~ per dettagli.
 
 ** Workflow multi-stato
 :PROPERTIES:
 :DESCRIPTION: More than just on/off.
 :END:
 
-Puoi usare le parole chiave TODO per indicare un stato di lavoro
+Puoi usare le parole chiave TODO per indicare uno stato di lavoro
 /sequenziale/:
 
 #+begin_src emacs-lisp
@@ -698,7 +703,7 @@ stato =DONE=. Con questo setup, il comando {{{kbd(C-c C-t)}}} cicla un
 oggetto da =TODO= a =FEEDBACK= quindi =VERIFY= ed in fine =DONE= e
 =DELEGATED=.
 
-A volte vorresti usare, in parallelo, diversi insiemi di parole chiave
+A volte vorresti usare, contemporaneamente, diversi insiemi di parole chiave
 TODO. Per esempio, potresti voler avere il basico =TODO=/=DONE=, ma
 anche un workflow per il bug fix. Il tuo setup potrebbe essere simile
 a questo:
@@ -777,8 +782,8 @@ Se vuoi registrare una nota con il timestamp usa[fn:5]
 #+end_src
 
 #+texinfo: @noindent
-Ti verrà mostrato un prompt dove inserire la note e questa nota sarà
-registrata sotto l'oggetto con un titolo =Closing Note=.
+Ti verrà mostrato un prompt dove inserire la nota e questa nota sarà
+registrata sotto l'oggetto con un'intestazione =Closing Note=.
 
 *** Tenere traccia degli stati TODO
 :PROPERTIES:
@@ -786,7 +791,7 @@ registrata sotto l'oggetto con un titolo =Closing Note=.
 :END:
 
 Potresti voler tenere traccia dello stato del TODO. Puoi registrare
-solo un timestamp o un time stamp con nota pre un cambiamento. Queste
+solo un timestamp o un timestamp con nota per un cambiamento. Queste
 registrazioni sono inserite dopo il titolo come elemeneti di
 lista. Quando prendi una gran quantità di note, potresti volere tenere
 le note esternamente in un drawer. Per questa funzionalità customizza
