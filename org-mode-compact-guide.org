@@ -818,7 +818,7 @@ a =DONE=, e che una nota sia registrata quando si cambia a =WAIT= o
 
 Se usi la modalità Org in maniera estesa, potresti trovarti con tanti
 elementi TODO e quindi potrebbe aver senso dargli delle priorità. Si
-possono dare priorità mettendo una /priority cookie/ nel titolo
+possono dare priorità mettendo un /priority cookie/ nell'intestazione
 dell'elemento TODO, tipo questo:
 
 : *** TODO [#A] Write letter to Sam Fortune
@@ -830,13 +830,13 @@ differenza solo nell'agenda.
 #+attr_texinfo: :sep ,
 - {{{kbd(C-c \,)}}} (~org-priority~) ::
 
-  Imposta la priorità nel titolo corrente. Premi {{{kbd(A)}}},
+  Imposta la priorità nell'intestazione corrente. Premi {{{kbd(A)}}},
   {{{kbd(B)}}} o {{{kbd(C)}}} per selezionare la priorità o =SPC= per
   rimuovere il cookie.
 
 - {{{kbd(S-SU)}}} (~org-priority-up~); {{{kbd(S-GIU)}}} (~org-priority-down~) ::
 
-  Aumentano/diminuiscono la piorità del titolo corrente.
+  Aumentano/diminuiscono la piorità dell'intestazione corrente.
 
 ** Dividi i compiti in sotto compiti
 :PROPERTIES:
@@ -845,8 +845,8 @@ differenza solo nell'agenda.
 :END:
 
 A volte é consigliabile dividere i grandi compiti in compiti più
-piccoli, piccoli compiti gestibili. Puoi farlo creando una struttura
-ad albero con sotto elementi TODO, con dettagliati i sottocompiti
+piccoli, e gestibili. Puoi farlo creando una struttura
+ad albero con sottoelementi TODO, con dettagliati i sottocompiti
 dell'albero. Per avere un'anteprima della frazione dei sottocompiti
 che hai già segnato come fatti, inserisci =[/]= o =[%]= dove vuoi
 nell'intestazione. Questi cookie saranno aggiornati ogni volta che lo
@@ -910,7 +910,7 @@ informazioni incrociate correlate, é quello di assegare dei /tag/ alle
 intestazioni. La modalità Org ha un supporto molto esteso per i tag.
 
 Ogni intestazione puo contenere una lista di tag; sono messi alla fine
-delle intestazioni. I tag sono normali parole che contangono lettere,
+delle intestazioni. I tag sono normali parole che contengono lettere,
 numeri, =_= e =@=. I tag sono preceduti e succeduti da un singolo
 duepunti, es. =:work:=. Alcuni tag possono essere specificati come in
 =:work:urgent:=. I tag di default sono in grassetto dello stesso
@@ -941,13 +941,13 @@ del genere[fn:6]:
 
 : #+FILETAGS: :Peter:Boss:Secret:
 
-** Impostare i taga
+** Impostare i tag
 :PROPERTIES:
 :UNNUMBERED: notoc
 :END:
 
-I tag possono essere semplicemente inserite nel buffer alla fine di un
-titolo. Dopo i duepunti, {{{kbd(M-TAB)}}} offre il completamento dei
+I tag possono essere semplicemente inserite nel buffer alla fine di
+una intestazione. Dopo i duepunti, {{{kbd(M-TAB)}}} offre il completamento dei
 tag. Ci sono anche altri comandi speciali per inserire i tag:
 
 - {{{kbd(C-c C-q)}}} (~org-set-tags-command~) ::
@@ -996,7 +996,7 @@ Un tag puo essere definito come un /gruppo di tag/ per un insieme di
 altri tag. Il gruppo di tag può essere visto come il "termine più
 ampio" per un insieme di tag.
 
-Puoi impostare un gruppo di tag usando le parentedi ed inserendo i
+Puoi impostare un gruppo di tag usando le parentesi ed inserendo i
 duepunti tra il gruppo di tag ed i tag relazionati:
 
 : #+TAGS: [ GTD : Control Presp ]
@@ -1004,11 +1004,11 @@ duepunti tra il gruppo di tag ed i tag relazionati:
 #+texinfo: @noindent
 o se i tag nel gruppo sono mutualmente esclusivi:
 
-: #+TAGS: { COntext : @Home @Work }
+: #+TAGS: { Context : @Home @Work }
 
 Quando cerchi per un gruppo di tag, ti vengono ritornati tutti i membri del gruppo e i
 sottogruppi. Nella visualizzazione agenda, filtrando per un gruppo di tag mostra o nasconde i titoli
-segnati con almeno uno dei membri o del gruppo o ogniuno dei sottogruppi.
+segnati con almeno uno dei membri, del gruppo o ogniuno dei sottogruppi.
 
 Se vuoi, temporaneamente, ingnorare i gruppi di tag, cambia il gruppo
 dei dag supportati con ~org-toggle-tags-groups~, mappato con
@@ -1021,9 +1021,9 @@ dei dag supportati con ~org-toggle-tags-groups~, mappato con
 
 - {{{kbd(C-c / m)}}} o {{{kbd(C-c \)}}} (~ org-match-sparse-tree~) ::
 
-  Crea un albero sparso con tutti i titoli che corrispondono ad un tag
-  cercato. Con un argomento prefisso {{{kbd(C-u)}}}, ignora i titoli
-  che non sono una linea TODO.
+  Crea un albero sparso con tutte le intestazioni che corrispondono ad
+  un tag cercato. Con un argomento prefisso {{{kbd(C-u)}}}, ignora le
+  intestazioni che non sono una linea TODO.
 
 - {{{kbd(M-x org-agenda m)}}} (~org-tags-views~) ::
 
@@ -1100,7 +1100,7 @@ Il seguente comando aiuta a lavorare con le proprietà:
 
 Per creare un albero sparso e liste speciali con la selezione basata
 sulle proprietà, gli stessi comandi sono usati per cercare tag ( vedi
-[[*Tag]] ) . La sintassi per la stringa di ricerca è descritta nella
+[[TAG]] ) . La sintassi per la stringa di ricerca è descritta nella
 sezione [[*Trova i tag e le proprietà]].
 
 * Data e orario
@@ -1112,11 +1112,11 @@ Per assistere la pianificazione, gli elementi TODO possono essere
 etichettati con una data e/o un orario. La speciale stringa formattata
 trasporta le informazioni di data ed orario chiamata, in Org mode,
 timestamp. Questo può creare un pò di confusione in quanto il
-timestamp é a volte usato per indicare quando qualcosa é stato creato
-o l'ultimo cambiamento. Comunque, nella modalità Org questo termine
-viene usato in questo senso più ampio.
+timestamp é usato, a volte, per indicare quando qualcosa é stato
+creato o l'ultima modifica. Comunque, nella modalità Org questo
+termine viene usato in questo senso più ampio.
 
-Timestamp può essere usato per pianificare appuntamenti, schedulare
+Il timestamp può essere usato per pianificare appuntamenti, schedulare
 impegni, impostare scadenze, tracciare il tempo ed altro. La sezione
 seguente descrive il formato timestamp e gli strumenti che Org mode ci
 mette a disposizione per i casi d'uso che riguardano il tempo e gli
@@ -1132,7 +1132,7 @@ range di orari---in uno speciale formato, come =<2003-09-16 Tue>= o
 =<2003-09-16 Tue 09:39>= oppure =<2003-09-16 Tue 12:00-12:30>=.
 Un timestamp puo essere inserito ovunque nelle intestazioni o nel corpo di un
 elemento dell'albero Org. La sua presenza genera la visualizzazione di
-un elemento in una specifica data nell'agenda ( vedi [[L'aggenda
+un elemento in una specifica data nell'agenda ( vedi [[L'agenda
 Settimanale/Giornaliera]] ). Distinguiamoli:
 
 - Timestamp semplici; Eventi; Appuntamenti ::
@@ -1217,13 +1217,13 @@ Settimanale/Giornaliera]] ). Distinguiamoli:
 
 Per fare in modo che Org mode possa riconoscere i timestamp devono
 essere in uno specifico formato. Tutti i comandi descritti sotto
-producono un timestamp nella modalità corretta.
+producono un timestamp nella forma corretta.
 
 #+attr_texinfo: :sep ,
 - {{{kbd(C-c .)}}} (~org-timestamp~) ::
 
   Richiede una date ed inserisce un corrispondete timestamp. Quando il
-  punto é in un timestamp pre esistente nel buffer, il comando viene
+  punto é in un timestamp preesistente nel buffer, il comando viene
   usato per modificare questo timestamp invece di inserine uno
   nuovo. Quando questo comando viene usato due volte in successione un
   range di tempo viene inserito. Con un argomento prefisso aggiunge
@@ -1249,12 +1249,12 @@ producono un timestamp nella modalità corretta.
   cambiare la lunghezza si deve modificare il secondo orario.
 
 Quando Org mode richiede una data/orario, accetta qualsiasi stringa
-contenente delle informazione su data e/o orario e,
-intelligentemente, interpreta la stringa, ricavando valori predefiniti
-per le informazioni non specificate dalla data e ora correnti. Puoi
-anche selezionare una data nel calendario pop-up. Consulta il [[info:org][manuale]]
-per ulteriori informazioni su come funziona esattamente la richiesta
-di data/orario.
+contenente delle informazione su data e/o orario e, intelligentemente,
+interpreta la stringa, ricavando valori predefiniti per le
+informazioni non specificate dalla data ed ora correnti. Puoi anche
+selezionare una data nel calendario pop-up. Consulta il [[info:org][manuale]] per
+ulteriori informazioni su come funziona esattamente la richiesta di
+data/orario.
 
 ** Scadenze e schedulazioni
 :PROPERTIES:
@@ -1292,7 +1292,7 @@ facilitarne la pianificazione:
 
   Significato: Hai pianificato di iniziare quel lavoro in quella data[fn:7]
 
-  Il titolo é mostrato nella data[fn:8] impostata. In aggiunta, nella
+  L'intestazione é mostrata nella data[fn:8] impostata. In aggiunta, nella
   compilazione per /oggi/, é presente un promemoria che la data
   pianificata é trascorsa, fino a che l'elemento non sarà segnato come
   fatto, ovvero l'attività viene automaticamente inoltrata fino al
@@ -1304,8 +1304,8 @@ facilitarne la pianificazione:
   #+end_example
 
 Spesso i compiti hanno la necessità di essere ripetuti ancora ed
-ancora. Org mode aiuta nell'organizzare di questi lavori usando un, così
-detto, repeater in una =DEADLINE=, =SCHEDULED= o in un timestamp
+ancora. Org mode aiuta nell'organizzazione di questi lavori usando un,
+così detto, repeater in una =DEADLINE=, =SCHEDULED= o in un timestamp
 semplice. Nel seguente esempio:
 
 #+begin_example
@@ -1314,7 +1314,7 @@ semplice. Nel seguente esempio:
 #+end_example
 
 #+texinfo: @noindent
-il =+1m= é un repeater; l'interpretazione che si intende é che il
+il =+1m= é un repeater; quello che si intende é che il
 lavoro ha una data di scadenza nel =<2005-10-01>= e si ripete ogni (
 un ) mese partendo da quella data.
 
@@ -1330,7 +1330,7 @@ uno specifico proggetto.
 
   Fa partire il cronometro nell'elemento corrente (clock-in). Questo
   inserisce la parola chiave =CLOCK= assieme ad un timestamp. Quando
-  viene richiamato assimen ad un argomento prefisso, seleziona il task
+  viene richiamato assieme ad un argomento prefisso, seleziona il task
   da una lista di task chiusi di recente.
 
 - {{{kbd(C-c C-x C-o)}}} (~org-clock-out~) ::
@@ -1351,12 +1351,12 @@ uno specifico proggetto.
 
 - {{{kbd(C-c C-x C-j)}}} (~org-clock-goto~) ::
 
-  Salta al titolo del lavoro del corrente timer in lavoro. Con un argomento
+  Salta all'intestazionv del lavoro, nel corrente timer in lavoro. Con un argomento
   prefisso {{{kbd(C-u)}}} seleziona il lavoro targhet da una lista di lavori
   cronometrati di recente.
 
 La chiave {{{kbd(l)}}} viene solitamente usata nell'agenda ( vedi
-[[*L'aggenda Settimanale/Giornaliera]] ), mostra su quali task stai
+[[L'agenda Settimanale/Giornaliera]] ), mostra su quali task stai
 lavorando o quelli che hai chiuso durante il giorno.
 
 * Cattura, sposta e archivia
@@ -1418,7 +1418,7 @@ materiale ( vedi [[Attivazione]] ).
 - {{{kbd(C-c C-w)}}} (~org-capture-refile~) ::
 
   Finalizza il processo di cattura mettendo le note in una
-  differente posizione ( vedi [[Soposta e Copia]] ).
+  differente posizione ( vedi [[Sposta e Copia]] ).
 
 - {{{kbd(C-c C-k)}}} (~org-capture-kill~) ::
 
@@ -1457,7 +1457,7 @@ Durante l'espansione del template, il carattere speciale di escape
 piccola selezione di possibilità, consulta il [[info:manual][manuale]] per averne di
 più.
 
-| =%a=     | annotazione, normalmente il link creato con ~org-store-link~              |
+| =%a=     | annotazione, di norma il link creato con ~org-store-link~                 |
 | =%i=     | contenuto iniziale, la regione dove capture é chiamata con {{{kbd(C-u)}}} |
 | =%t %T%= | timestamp, solo data o data ed orario.                                    |
 | =%u %U=  | come sopra ma per i timestamp inattivi                                    |
@@ -1471,8 +1471,8 @@ più.
 Quando revisioni i dati catturati, potresti volere spostare o copiare
 alcuni dei tuoi elementi in una lista differente, per esempio in un
 progetto. Tagliare, cercare la posizione corretta e poi incollare la
-nota é scomodo. Per semplificare il processo puoi usare gli speciali
-comandi di seguito:
+nota é scomodo. Per semplificare il processo puoi usare i comandi
+speciali che trovi di seguito:
 
 - {{{kbd(C-c C-w)}}} (~org-agenda-refile~) ::
 
@@ -1489,7 +1489,7 @@ comandi di seguito:
 
 - {{{kbd(C-c C-c C-w)}}} (~org-agenda-refile~) ::
 
-  Usa l'interfaccia di spostameto per saltare ad un titolo.
+  Usa l'interfaccia di spostameto per saltare ad una intestazione.
 
 - {{{kbd(C-c Cu C-c C-w)}}} (~org-refile-goto-last-stored~) ::
 
@@ -1509,7 +1509,7 @@ comandi di seguito:
 Quando un progetto rappresentato da un (sotto)albero é concluso,
 potresti volerlo spostare fuori dai piedi e interrompere i suoi
 contributi all'agenda. L'archiviazione é importante per tenere i tuoi
-file di lavoro compatti e la vista della ricerca globale della'agenda
+file di lavoro compatti e la vista della ricerca globale dell'agenda
 più veloce.
 
 La più comune azione di archiviazione é di spostare un albero di
@@ -1544,8 +1544,8 @@ esempio:
 :END:
 
 A causa del modo in cui lavora Org, gli elementi TODO, gli elementi di
-timestamp ed i titoli taggati possono essere ovunque nel file o in
-file diversi. Per avere un visione delle azioni in corso o degli
+timestamp ed i titoli taggati possono essere presenti nel file o in
+file diversi. Per avere una visione delle azioni in corso o degli
 eventi che sono importanti per una data particolare, queste
 informazioni devono essere raccolte, ordinate e visualizzate in modo
 organizzato.
@@ -1590,7 +1590,7 @@ agenda/, i file sono listati nella variabile ~org-agenda-files~.
 :END:
 
 Le viste sono create attraverso un distributore, accessibile con
-{{{kbd(M-x org-agenda)}}}, o, meglio abbinato ad una chiave globale (
+{{{kbd(M-x org-agenda)}}}, o, meglio se abbinato ad una chiave globale (
 vedi [[*Attivazione]] ). Mostra un menu in cui una lettera aggiuntiva
 viene richiesta per eseguire il comando. Il distributore offre i
 seguenti comandi predefiniti:
@@ -1608,14 +1608,14 @@ seguenti comandi predefiniti:
 
 - {{{kbd(m)}}}, {{{kbd(M)}}} ::
 
-  Crea una lista di titoli corrispondenti all'espressione data ( vedi
+  Crea una lista di intastazioni che corrispondono all'espressione data ( vedi
   [[*Trova i tag e le proprietà]] ).
 
 - {{{kbd(s)}}} ::
 
   #+kindex: s @r{(Agenda dispacher)}
-  Crea una lista di oggetti selezionati tramite un espressione
-  booleana di keyword e/o espressioni regolari che deve o non deve
+  Crea una lista di oggetti selezionati tramite un'espressione
+  booleana di keyword e/o espressioni regolari che devono o non devono
   verificarsi nelgli oggetti.
 
 ** L'agenda Settimanale/Giornaliera
@@ -1630,7 +1630,7 @@ settimana od il giorno corrente.
 
 - {{{kbd(M-x org-agenda a)}}} (~org-agenda-list~) ::
 
-  Compila un agenda per la settimana corrente da una lista di file
+  Compila una agenda per la settimana corrente da una lista di file
   Org. L'agenda mostra gli oggetti per ogni giorno.
 
 Org mode capisce la sintassi del diario e ti permette di usare degli
@@ -1683,9 +1683,9 @@ comandi avviabili nella TODO list, vedi [[*Comandi nel Buffer Agenda]].
 :END:
 
 Se le intestazioni nel file agenda sono marcati con i /tags/ ( vedi
-[[*Tag]] ), o ha delle proprietà ( vedi [[*Proprietà]] ), puoi selezionare le
+[[*TAG]] ), o hanno delle proprietà ( vedi [[*Proprietà]] ), puoi selezionare le
 intestazioni in base a questi metadati e raccoglierli in un buffer
-agenda. La stessa cosa qui descittta é applicabile anche quando crei
+agenda. La stessa cosa qui descritta é applicabile anche quando crei
 gli alberi sparsi con {{{kbd(C-c / m)}}}.
 
 - {{{kbd(M-x org-agenda m)}}} (~org-tags-views~) ::
@@ -1693,13 +1693,13 @@ gli alberi sparsi con {{{kbd(C-c / m)}}}.
   Produce una lista di tutte le intestazioni che trova con un dato set
   di tag. Il comando richiede l'inserimento di un criterio di
   selezione, che é un espressione logica booleana con tag, come
-  =+work+urgent-witboss= o =work|home= ( vedi [[*Tag]] ). Se usi spesso
+  =+work+urgent-witboss= o =work|home= ( vedi [[*TAG]] ). Se usi spesso
   una specifica ricerca, puoi definire un comando personalizzato (
   vedi [[*Il Distributore Agenda]] ).
 
 - {{{kbd(M-x org-agenda M)}}}(~org-tags-view~) ::
 
-  Tipo {{{kbd(m)}}} ma seleziona solo i titoli che sono oggetti TODO.
+  Come {{{kbd(m)}}} ma seleziona solo le intestazion che sono oggetti TODO.
 
 Una stringa di ricerca puo usare operatori Booleani =&= per AND e =|=
 per OR. =&= si lega più fortemente di =|=. Le parentesi non sono
@@ -1713,8 +1713,8 @@ presenti. Eccco alcuni esempi, usando solo i tag.
 
 - =+work-boss= ::
 
-  Seleziona i titoli taggati con =work=, ma scarta quelli che sono
-  marcati =boss=
+  Seleziona le intestazioni taggate con =work=, ma scarta quelle che sono
+  marcate =boss=
 
 - =work|laptop= ::
 
@@ -1744,14 +1744,14 @@ gli oggetti Org mode. É particolamente utile per trovare le note.
   elementi che corrispondono ad una sottostringa o a specifiche voci
   usando la logica booleana.
 
-Per esempio, la stringa di ricerca =computer equipment= trofva gli
+Per esempio, la stringa di ricerca =computer equipment= trova gli
 elementi che contengono =computer equipment= come una sotto stringa.
 
 La vista di ricerca può anche ricercare per specifiche keyword negli
 oggetti, usando la logica booleana. La stringa di ricerca =+computer
-+wifi -ethernet -{8`.11[bg]}= trova le note che tengono le parole
++wifi -ethernet -{8`.11[bg]}= trova le note che contengono le parole
 chiave =computer= e =wifi= ma non la keyword =ethernet= e che non
-corrispondano all'espressione regolare =8\.11[bg]=. che esclude sia
+corrispondono all'espressione regolare =8\.11[bg]=. che esclude sia
 =8.11b= che =8.11g=.
 
 Nota che in aggiunta ai file agenda, questo comando cerca anche nei
@@ -1981,12 +1981,12 @@ regolare da usare per la selezione. L'esempio sopra quindi definirà:
 
 - {{{kbd(u)}}} ::
 
-  Come per la ricerca globale di tags per i titoli segnati =boss= ma
+  Come per la ricerca globale di tags per le intestazion segnate =boss= ma
   non =urgent=.
 
 - {{{kbd(v)}}} ::
 
-  La stessa ricerca, ma limitata per i titoli che sono anche elementi
+  La stessa ricerca, ma limitata per le intestazioni che sono anche elementi
   TODO.
 
 * Markup per contenuti ricchi
@@ -2010,7 +2010,7 @@ I paragrafi sono separati tra loro da una linea vuota. Se hai bisogno
 di forzare un'interruzione di linea all'interno di un paragrafo, usa
 =\\= alla fine della linea.
 
-Per preservare l'interruzione di linea, indentazione e linee bianche
+Per preservare l'interruzione di linea, l'indentazione e le linee bianche
 in una regione, ma anche usare la formattazione normale, puoi usare
 questo costrutto, puoi anche usarlo per formattare la poesia.
 
@@ -2150,7 +2150,7 @@ che il link abbia una linea che lo precede con le parole chiave
 Una nota a piè di pagina é definita in un paragrafo che inizia con un
 markatore di footnote tra parentesi quadrate nella colonna 0,
 non sono permesse indentazioni. I riferimenti alle note a piè di
-pagina sono dei semplici marcatori nelle parentesi quadrate, con
+pagina sono dei semplici marcatori di parentesi quadrate, con
 dentro del testo. Per esempio:
 
 #+begin_example
@@ -2167,7 +2167,7 @@ I seguenti comandi gestiscono i footnote
   al footnote, salta alla definizione. Quando é in una definizione,
   salta al (primo) riferimento. Altrimenti, crea un nuovo
   footnote. Quando questo comando é chiamato con un argomento
-  prefisso, un menu aggiuntivo di opzioni, incluso la renumerazione,
+  prefisso, un menu aggiuntivo di opzioni, incluso la rinumerazione,
   viene mostrato.
 
 - {{{kbd(C-c C-c)}}} (~org-ctrl-c-ctrl-c~) ::
@@ -2747,7 +2747,7 @@ quanto contesto mostrare attorno ad ogni selezione.
 logenotedone=.
 
 [fn:6] Come tutto nelle impostazioni del buffer, premendo {{{kbd(C-c
-C-c)}}} si attiva ogni cambiamento nella linea.
+C-c)}}} si attivano i cambiamenti nella linea.
 
 [fn:7] Questo é completamente diverso da ciò che normalmente si intende
 /pianificare un appuntamento/, che in Org viene eseguita semplicemente
