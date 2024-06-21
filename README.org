@@ -1,0 +1,12 @@
+* Descrizione
+
+Questo proggetto nasce dalla voglia di condividere e rendere disponibile alla maggiorparte di persone possibile un potentissimo pezzo di software, almeno a mio avviso, che abbianato a [[https://www.gnu.org/software/emacs/][GNU Emacs]] fanno parte della mia personalissima classifica di software più utili, quindi potete trovare la traduzione, in italiano, della [[https://orgmode.org/orgguide.html][Org Mode compact guide]] che spero di integrare presto con la guida completa [[https://orgmode.org/org.html][The Org Manual]].
+
+* Files
+
+- [[/main/doc-setup.org][doc-setup.org]] :: File di configurazione per l'esportazione
+- [[/main/org-mode-compact-guide.org][org-mode-compact-guide.org]] :: File con la traduzione
+- [[/main/orgguide.pdf][orgguide.pdf]] :: File di esportazione in pdf
+- [[/main/orgguide.tex][orgguide.tex]] :: File di esportazione in tex
+
+Per la traduzione è sufficente lavorare con il file =org-mode-compact-guide.org= gli altri file sono utile in caso di esportazione ma in quel caso si devono fare alcune implementazioni in emacs ed usare alcuni file che si trovano nella [[https://git.savannah.gnu.org/cgit/emacs/org-mode.git/][repo originale]] del manuale.
