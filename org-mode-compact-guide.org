@@ -916,7 +916,7 @@ due-punti, es. =:work:=. Alcuni tag possono essere specificati come in
 =:work:urgent:=. I tag di default sono in grassetto dello stesso
 colore dell'intestazione.
 
-** Ereditazione dei tag
+** Ereditare i tag
 :PROPERTIES:
 :UNNUMBERED: notoc
 :END:
