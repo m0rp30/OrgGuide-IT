@@ -34,8 +34,8 @@ modify this GNU manual."
 :END:
 
 Org é una modalità per prendere note, mantenere liste TODO ed a
-pianificare proggetti con un sistema di testo semplice veloce ed
-efficace. È anche un sistema di creazione e publicazione che supporta
+pianificare progetti con un sistema di testo semplice veloce ed
+efficace. È anche un sistema di creazione e pubblicazione che supporta
 il lavoro con i blocchi di codice per la programmazione letterale e la
 ricerca riproducibile.
 
@@ -53,7 +53,7 @@ delle dimensioni, davanti ad un manuale di 200 pagine.
 #+attr_texinfo: :tag Important
 #+begin_quote
  Se usi una versione di Org che fa parte della distribuzione di Emacs,
- perfavore salta questa sezione e vai direttamente all'[[*Attivazione]].
+ per favore salta questa sezione e vai direttamente all'[[*Attivazione]].
 #+end_quote
 
 Se hai scaricato Org dal web, solitamente viene distribuito come file
@@ -75,9 +75,9 @@ seguente comando per generare le informazioni di autoload.
 :UNNUMBERED: notoc
 :END:
 
-Aggiiungi le seguenti linee al tuo file di init per definire delle chiavi
+Aggiungi le seguenti linee al tuo file di init per definire delle chiavi
 /globali/ per tre comandi che sono utili in ogni buffer Emacs, non solo nel
-buffer Org. Perfavore scegli le chiavi più comode per te.
+buffer Org. Per favore scegli le chiavi più comode per te.
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c l") #'org-store-link)
@@ -94,23 +94,23 @@ Org.
 :END:
 
 Se riscontri dei problemi con Org o se hai delle domande, osservazioni o
-idee a riguardo, perfavore invia una mail alla mailing list
+idee a riguardo, per favore invia una mail alla mailing list
 [[mailto:emacs-orgmode@gnu.org]].  Per informazioni su come inviare dei report
-sui bug, guarda il [[info:org][manuale pricipale]].
+sui bug, guarda il [[info:manual][[[info:org][manuale principale]].
 
 * Struttura del documento
 :PROPERTIES:
 :DESCRIPTION: A tree works like your brain.
 :END:
 
-Org è uno schematizzatore. La schematizzazione permette al documento
+Org è uno schematizzato-re. La schematizzazione permette al documento
 di essere organizzato in strutture gerarchiche, che, almeno per me,
 sono la migliore rappresentazione delle note e dei
 pensieri. Un'osservazione di questa struttura si ottiene piegando,
 es. nascondendo larghe porzioni del documento per mostrarne solo la
 struttura generale e la parte dove al momento si sta lavorando. Org
 semplifica molto bene l'uso delle strutture comprimendo l'intera vista e
-nascondendo le funzionalita con un singolo comando ~org-cycle~ che é
+nascondendo le funzionalità con un singolo comando ~org-cycle~ che é
 legato al tasto {{{kbd(TAB)}}}.
 
 ** Intestazioni
@@ -134,12 +134,12 @@ Altro testo
 
 Nota che un'intestazione nominata dopo ~org-footnote-section~, che di
 default é detto =Footnotes=, é considerato come speciale. Un
-sottoalbero con questa intestazione sarà ignorata silenziosamente
+sotto-albero con questa intestazione sarà ignorata silenziosamente
 dalla funzione di esportazione.
 
 Alcune persone trovano i vari asterischi troppo fastidiosi e
 preferiscono uno schema con degli spazzi vuoti seguiti da un singolo
-asterisco. Guarda nelle [[*Miscelanee]] per un setup che lo realizza.
+asterisco. Guarda nelle [[*Miscellanee]] per un setup che lo realizza.
 
 ** Ciclo di visualizzazione
 :PROPERTIES:
@@ -147,15 +147,15 @@ asterisco. Guarda nelle [[*Miscelanee]] per un setup che lo realizza.
 :END:
 
 Gli schemi rendono possibile nascondere parte del testo del buffer. Org usa
-qgiusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
-~org-shifttab~ ) per scambiare la visibilita nel buffer.
+giusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
+~org-shifttab~ ) per scambiare la visibilità nel buffer.
 
 #+attr_texinfo: :sep ,
 - {{{kbd(TAB)}}} (~org-cycle~) ::
 
-  /Ciclo del sottoalbero/: Ruota il sottoalbero corrente attraverso gli stai
+  /Ciclo del sotto-albero/: Ruota il sotto-albero corrente attraverso gli stai
 
-  : ,-> CHIUSO -> FIGLI -> SOTTOALBERO --.
+  : ,-> CHIUSO -> FIGLI -> SOTTO-ALBERO --.
   : '------------------------------------'
 
   Quando viene chiamato con l'argomento prefisso ({{{kbd(C-u TAB)}}}) o con
@@ -181,17 +181,17 @@ qgiusto due comandi, legati a {{{kbd(TAB)}}} e {{{kbd(S-TAB)}}} (~org-cycle~ e
 
   : #+STARTUP: content
 
-** Movimeto
+** Movimento
 :PROPERTIES:
 :DESCRIPTION: Jumping to other headlines.
 :END:
 
 I comandi seguenti ti fanno saltare ad altre intestazioni nel buffer
 
-- {{{kbd(C-c C-n)}}} (~org-next-visible-heading~) :: Intestazione sucessivo
+- {{{kbd(C-c C-n)}}} (~org-next-visible-heading~) :: Intestazione successivo
 - {{{kbd(C-c C-p)}}} (~org-previous-visible-heading~) :: Intestazione precedente
 
-- {{{kbd(C-c C-f)}}} (~org-backward-headling-same-level~) :: Intestazione sucessivo nello stesso livello
+- {{{kbd(C-c C-f)}}} (~org-backward-headling-same-level~) :: Intestazione successivo nello stesso livello
 
 - {{{kbd(C-c C-b)}}} (~outline-backward-same-level~) :: Instestazione precedente nello stesso livello
 
@@ -227,8 +227,8 @@ I comandi seguenti ti fanno saltare ad altre intestazioni nel buffer
 
 - {{{kbd(M-SU)}}} (~org-move-subtree-up~), {{{kbd(M-GIÙ)}}} (~org-move-subtree-down~) ::
 
-  Muove il sotttoalbero su o giù es. scambia con il precedente o il
-  successivo sottoalbero nello stesso livello.
+  Muove il sotto-albero su o giù es. scambia con il precedente o il
+  successivo sotto-albero nello stesso livello.
 
 - {{{kbd(C-c C-w)}}} (~org-refile~) ::
 
@@ -237,9 +237,9 @@ I comandi seguenti ti fanno saltare ad altre intestazioni nel buffer
 
 - {{{kbd(C-x n s)}}} (~org-narrow-to-subtree~), {{{kbd(C-x n w)}}} (~widen~) ::
 
-  Allarga il buffer al corrente sottoalbero e lo nasconde nuovamente
+  Allarga il buffer al corrente sotto-albero e lo nasconde nuovamente
 
-Quando c'é una regione attiva (Modalità Contrasegno di transito), promuove
+Quando c'è una regione attiva (Modalità Contrassegno di transito), promuove
 o retrocede lavorando su tutti i titoli nella regione.
 
 ** Alberi sparsi
@@ -254,7 +254,7 @@ informazioni selezionate siano comunque visibili assieme alla struttura
 dell'intestazione sopra di esso[fn:3]. Provalo subito e vedrai immediatamente
 come lavora.
 
-La modalita Org contiene diversi comandi che creano questi alberi, a tutti
+La modalità Org contiene diversi comandi che creano questi alberi, a tutti
 questi comandi si può accedere attraverso uno dispacher.
 
 - {{{kbd(C-c /)}}} (~org-sparse-tree~) ::
@@ -331,7 +331,7 @@ numero).
 
 - {{{kbd(M-S-SU)}}} (~org-move-item-up~), {{{kbd(M-S-GIU)}}} (~org-move-item-down~) ::
 
-  Muove l'elemento, inclusi i sottoelementi, su/giù ( spostandoli con
+  Muove l'elemento, inclusi i sotto-elementi, su/giù ( spostandoli con
   il precedente/successivo elemento nella medesima indentazione ). Se
   la lista é ordinata, la rinumera in automatico.
 
@@ -346,7 +346,7 @@ numero).
 
 - {{{kbd(C-c C-c)}}} (~org-toggle-checkbox~) ::
 
-  Se c'é una casella di controllo ( vedere [[*Liste selezionabili]] ) nella linea
+  Se c'è una casella di controllo ( vedere [[*Liste selezionabili]] ) nella linea
   degli elementi, cambia lo stato della checkbox. Verificando anche i
   puntatori e la consistenza del'indentazione in tutta la lista.
 
@@ -364,7 +364,7 @@ Org ha un editor di tabelle veloce ed intuitivo. Come per i fogli di
 calcolo sono supportati i calcoli, in connessione con il pacchetto
 Emacs Calc (vedere [[https://www.gnu.org/software/emacs/manual/html_mono/calc.html#Top][GNU Emacs Calculator Manuale]] ).
 
-Org rende facile formattare le tabelle in semplice codice ACSII. Ogni
+Org rende facile formattare le tabelle in semplice codice ASCII. Ogni
 linea con =|= come primo carattere senza spazi viene considerato come
 parte di una tabella. Il carattere =|= é anche un separatore di
 colonne. Una tabella si presenta in questo modo:
@@ -381,10 +381,10 @@ premuto {{{kbd(TAB)}}} o {{{kbd(RET)}}} oppure {{{kbd(C-c C-c)}}}
 quando ci si trova all'interno della tabella. Il {{{kbd(TAB)}}}
 inoltre muove il punto al campo successivo ( {{{kbd(RET)}}} alla riga
 successiva ) e crea nuove righe alla fine della tabella o prima delle
-linee orrizontali. L'indentation di una tabella é settata nella prima
+linee orizzontali. L'indentation di una tabella é settata nella prima
 linea. Ogni linea che inizia con un =|-= é considerata un separatore
-orrizzontale e viene espanso al successivo riallineamento per occupare
-tutta la lareghezza della tabella. Quindi per creare la tabella
+orizzontale e viene espanso al successivo riallineamento per occupare
+tutta la larghezza della tabella. Quindi per creare la tabella
 precedente devi solo digitare
 
 : |Name|Phone|Age|
@@ -399,7 +399,7 @@ Quando digiti un testo in un campo, Org tratta {{{kbd(DEL)}}},
 {{{kbd(Backspace)}}} e tutti gli altri caratteri, in un modo speciale,
 in modo che l'inserimento e la cancellazione non sposti gli altri
 campi. Inoltre quando digiti, /subito dopo che il punto viene mosso in
-un nuvo campo con {{{kbd(TAB)}}}, {{{kbd(S-TAB)}}} o {{{kbd(RET)}}}/,
+un nuovo campo con {{{kbd(TAB)}}}, {{{kbd(S-TAB)}}} o {{{kbd(RET)}}}/,
 il campo viene automaticamente creato bianco.
 
 ** Creazione e conversione
@@ -436,7 +436,7 @@ il campo viene automaticamente creato bianco.
 
 - {{{kbd(S-TAB)}}} (~org-table-previous-field~) ::
 
-  Ri-allinea la tabella, mouvendo nel campo precedente.
+  Ri-allinea la tabella, muovendo nel campo precedente.
 
 - {{{kbd(RET)}}} (~org-table-next-row~) ::
 
@@ -454,11 +454,11 @@ il campo viene automaticamente creato bianco.
 
 - {{{kbd(M-SINISTRA)}}} (~org-table-move-column-left~), {{{kbd(M-DESTRA)}}} (~org-table-move-column-right~) ::
 
-  Muove la colonna corrente a sinista/destra.
+  Muove la colonna corrente a sinistra/destra.
 
 - {{{kbd(M-S-SINISTRA)}}} (~org-table-delete-column~) ::
 
-  Elimnina la colonna corrente.
+  Elimina la colonna corrente.
 
 - {{{kbd(M-S-DESTRA)}}} (~org-table-insert-column~) ::
 
@@ -470,7 +470,7 @@ il campo viene automaticamente creato bianco.
 
 - {{{kbd(M-S-SU)}}} (~org-table-kill-row~) ::
 
-  Elimina la riga corrente o la linea orrizzontale.
+  Elimina la riga corrente o la linea orizzontale.
 
 - {{{kbd(M-S-GIU)}}} (~org-table-insert-row~) ::
 
@@ -484,14 +484,14 @@ il campo viene automaticamente creato bianco.
 
 - {{{kbd(C-c RET)}}} (~org-table-hline-and-move~) ::
 
-  Inserise una line sotto la corrente e muove il punto nella riga
+  Inserisce una linea sotto la corrente e muove il punto nella riga
   sotto questa linea.
 
 - {{{kbd(C-c ^)}}} (~org-table-sort-lines~) ::
 
   Ordina le linee della tabella in regioni. La posizione del punto
   indica la colonna da usare per l'ordinamento ed il range delle linee
-  é il range delle linee tra le line orrizzontali più vicine o
+  é il range delle linee tra le linee orizzontali più vicine o
   l'intera tabella.
 
 * Collegamenti ipertestuali
@@ -500,7 +500,7 @@ il campo viene automaticamente creato bianco.
 :END:
 
 Come nell'HTML, Org fornisce i link all'interno di un file, link
-esterni ad altri file, articoli Usenet, email e moltro altro.
+esterni ad altri file, articoli Usenet, email e molto altro.
 
 Org riconosce i semplici URIs, é possibile racchiuderli tra parentesi
 quadrate ed attivarli come link cliccabili. Il formato generale dei
@@ -538,11 +538,11 @@ Target>>=.
 :UNNUMBERED: notoc
 :END:
 
-Org supporta i link ai file, siti web, Usenet, messagi email, elementi
+Org supporta i link ai file, siti web, Usenet, messaggi email, elementi
 BBDB database e sia le conversazioni che i logs IRC. I collegamenti
 sono simili agli URL. Iniziano con una breve stringa di
-indentificazione seguita dai duepunti *:*. Non ci sono spazzi dopo i
-duepunti. Ecco alcuni esempi:
+identificazione seguita dai due-punti *:*. Non ci sono spazzi dopo i
+due-punti. Ecco alcuni esempi:
 
 | =http://www.astro.uva.nl/=dominikper=     | Nel web                                             |
 | =file:/home/dominik/images/jupiter.jpg=   | file, path assoluta                                 |
@@ -562,10 +562,10 @@ duepunti. Ecco alcuni esempi:
 | =info:org#Hyperlink=                      | link nodo Info                                      |
 
 I collegamento ai file possono contenere informazioni addizionali per
-consetire ad Emacs di saltare ad una particolare posizione nel file
+consentire ad Emacs di saltare ad una particolare posizione nel file
 quando si segue un link. Questa può essere un numero di linea o un
-opzione di ricerca dopo i due duepunti. Di seguito alcuni esempi,
-assime alle spiegazioni:
+opzione di ricerca dopo i due due-punti. Di seguito alcuni esempi,
+assieme alle spiegazioni:
 
 | =file:~/code/main.c::255=          | Trova la linea 255                       |
 | =file:~/xx.org::My Target=         | Trova ==<<My Target>>==                    |
@@ -583,7 +583,7 @@ La funzione principale é ~org-store-link~ richiamabile con {{{kbd(M-x
 org-store-link)}}}. Per la sua importanza, suggeriamo di abbinarlo ad
 una combinazione più comoda ( vedere [[*Attivazione][Attivazione]]
 ). Salva un link nella posizione attuale. Il link viene salvato per
-essere successiavamente inserito in un buffer Org -- vedi sotto.
+essere successivamente inserito in un buffer Org -- vedi sotto.
 
 Da un buffer Org, i comandi seguenti creano, navigano o, più
 generalmente, agiscono sui link.
@@ -596,7 +596,7 @@ generalmente, agiscono sui link.
   {{{kbd(GIU)}}} per accedere ai link salvati. Richiederà la parte di
   descrizione per il link.
 
-  Quando chiamato con l'argomento perfisso {{{kbd(C-u)}}} il
+  Quando chiamato con l'argomento prefisso {{{kbd(C-u)}}} il
   completamento dei nomi viene usato per l'inserimento di un nome di
   file.
 
@@ -622,9 +622,9 @@ generalmente, agiscono sui link.
 :END:
 
 Org mode non necessita che le liste TODO risiedano in documenti
-separati. Tantè che gli elementi TODO sono parte deli file di note,
+separati. Tant'è che gli elementi TODO sono parte del file di note,
 perché gli elementi TODO vengono solitamente usati quando si prendono
-note! Con la modalità Org, semplicemente si marca un oggeto in un
+note! Con la modalità Org, semplicemente si marca un oggetto in un
 albero mettendo all'inizio un elemento TODO. In questo modo, le
 informazioni non vengono duplicate e gli elementi TODO rimangono nel
 contesto in modo che emergano.
@@ -659,7 +659,7 @@ I comandi più importanti quando si lavora con i TODO sono:
 
 - {{{kbd(S-RIGHT)}}} (~org-shiftright~), {{{kbd(S-LEFT)}}} (~org-shiftleft~) ::
 
-  Seleziona il seguente/precedente stato TODO, similmente al cilco.
+  Seleziona il seguente/precedente stato TODO, similmente al ciclo.
 
 - {{{kbd(C-c / t)}}} (~org-show-todo-tree~) ::
 
@@ -716,7 +716,7 @@ a questo:
 
 #+texinfo: @noindent
 Le keyword dovrebbero essere tutte differenti, questo aiuta Org mode a
-tenere traccia di quale sottosequenza debbe essere usata dall'oggetto
+tenere traccia di quale sotto-sequenza debba essere usata dall'oggetto
 dato. L'esempio mostra, anche, come definire delle chiavi per un
 accesso più veloce ad un particolare stato, aggiungendo una lettera
 tra parentesi dopo ogni parola chiave - riceverai un prompt dopo aver
@@ -754,7 +754,7 @@ opzionalmente una nota quando segni un elemento TODO come DONE, o ogni
 volta che cambi lo stato di un elemento TODO. Questo sistema é
 altamente configurabile, le impostazioni possono essere basate su una
 parola chiave e possono essere localizzate in un file o ogni
-sottoalbero. Per maggiori informazioni su come cronometrare il tempo
+sotto-albero. Per maggiori informazioni su come cronometrare il tempo
 di lavoro vedi [[*Cronometra il tempo di lavoro]].
 
 *** Chiudere un elemento
@@ -792,7 +792,7 @@ registrata sotto l'oggetto con un'intestazione =Closing Note=.
 
 Potresti voler tenere traccia dello stato del TODO. Puoi registrare
 solo un timestamp o un timestamp con nota per un cambiamento. Queste
-registrazioni sono inserite dopo il titolo come elemeneti di
+registrazioni sono inserite dopo il titolo come elementi di
 lista. Quando prendi una gran quantità di note, potresti volere tenere
 le note esternamente in un drawer. Per questa funzionalità customizza
 la variabile ~org-log-into-drawer~.
@@ -805,7 +805,7 @@ parentesi dopo ogni parola chiave. Per esempio:
 : #+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELLED(c@)
 
 #+texinfo: @noindent
-definedo le keyword TODO e le chiavi per l'accesso rapido, è anche
+definendo le keyword TODO e le chiavi per l'accesso rapido, è anche
 richiesto che un tempo sia registrato quando un oggetto viene settato
 a =DONE=, e che una nota sia registrata quando si cambia a =WAIT= o
 =CANCELED=. La stessa sintassi funziona anche quando setti
@@ -824,7 +824,7 @@ dell'elemento TODO, tipo questo:
 : *** TODO [#A] Write letter to Sam Fortune
 
 Org mode supporta tre priorità =A=, =B= e =C=. =A= è la più alta, =B=
-quella di default se non specificata. Le priorita creano una
+quella di default se non specificata. Le priorità creano una
 differenza solo nell'agenda.
 
 #+attr_texinfo: :sep ,
@@ -836,7 +836,7 @@ differenza solo nell'agenda.
 
 - {{{kbd(S-SU)}}} (~org-priority-up~); {{{kbd(S-GIU)}}} (~org-priority-down~) ::
 
-  Aumentano/diminuiscono la piorità dell'intestazione corrente.
+  Aumentano/diminuiscono la priorità dell'intestazione corrente.
 
 ** Dividi i compiti in sotto compiti
 :PROPERTIES:
@@ -846,8 +846,8 @@ differenza solo nell'agenda.
 
 A volte é consigliabile dividere i grandi compiti in compiti più
 piccoli, e gestibili. Puoi farlo creando una struttura
-ad albero con sottoelementi TODO, con dettagliati i sottocompiti
-dell'albero. Per avere un'anteprima della frazione dei sottocompiti
+ad albero con sotto-elementi TODO, con dettagliati i sotto-compiti
+dell'albero. Per avere un'anteprima della frazione dei sotto-compiti
 che hai già segnato come fatti, inserisci =[/]= o =[%]= dove vuoi
 nell'intestazione. Questi cookie saranno aggiornati ogni volta che lo
 stato dei TODO figli cambia o quando premi {{{kbd(C-c C-c)}}} nel
@@ -873,7 +873,7 @@ la stringa =[ ]=. Le checkbox non sono incluse nella lista di TODO
 globale, sono molto comode per dividere un compito in un numero di
 semplici step.
 
-Qui c'é un esempio di una lista di checkbox.
+Qui c'è un esempio di una lista di checkbox.
 
 #+begin_example
   ,* TODO Organizzare un party [2/4]
@@ -898,7 +898,7 @@ I seguenti comandi operano con le checkbox:
 - {{{kbd(M-S-RET)}}} (~org-insert-todo-heading~) ::
 
   Inserisce un nuovo elemento con una checkbox. Questo funziona solo
-  se ci si trova in un elemeto della lista ( vedi [[*Liste semplici]] ).
+  se ci si trova in un elemento della lista ( vedi [[*Liste semplici]] ).
 
 * TAG
 :PROPERTIES:
@@ -906,13 +906,13 @@ I seguenti comandi operano con le checkbox:
 :END:
 
 Un modo eccellente per implementare le label ed i contesti, per le
-informazioni incrociate correlate, é quello di assegare dei /tag/ alle
+informazioni incrociate correlate, é quello di assegnare dei /tag/ alle
 intestazioni. La modalità Org ha un supporto molto esteso per i tag.
 
-Ogni intestazione puo contenere una lista di tag; sono messi alla fine
+Ogni intestazione può contenere una lista di tag; sono messi alla fine
 delle intestazioni. I tag sono normali parole che contengono lettere,
 numeri, =_= e =@=. I tag sono preceduti e succeduti da un singolo
-duepunti, es. =:work:=. Alcuni tag possono essere specificati come in
+due-punti, es. =:work:=. Alcuni tag possono essere specificati come in
 =:work:urgent:=. I tag di default sono in grassetto dello stesso
 colore dell'intestazione.
 
@@ -922,7 +922,7 @@ colore dell'intestazione.
 :END:
 
 I tag usano la struttura gerarchica dell'albero di outline. Se
-un'intesatzione ha un certo tag, tutti i sottotitoli ereditano il
+un'intestazione ha un certo tag, tutti i sottotitoli ereditano il
 tag. Per esempio nella lista
 
 #+begin_example
@@ -947,7 +947,7 @@ del genere[fn:6]:
 :END:
 
 I tag possono essere semplicemente inserite nel buffer alla fine di
-una intestazione. Dopo i duepunti, {{{kbd(M-TAB)}}} offre il completamento dei
+una intestazione. Dopo i due-punti, {{{kbd(M-TAB)}}} offre il completamento dei
 tag. Ci sono anche altri comandi speciali per inserire i tag:
 
 - {{{kbd(C-c C-q)}}} (~org-set-tags-command~) ::
@@ -970,9 +970,9 @@ default da mettere in un file usando la keyword =TAGS=, tipo
 : #+TAGS: @work @home @tennisclub
 : #+TAGS: laptop car pc sailboat
 
-Di default Org mode usa la funzionalità standard di completamento del minibuffer per inserire i
+Di default Org mode usa la funzionalità standard di completamento del mini-buffer per inserire i
 tag. Comunque, implementa anche un'altro metodo di selezione, veloce, del tag chiamato /fast tag
-selection/. Questo ti permette di selezionare e deselezionare i tag con solo una presione di
+selection/. Questo ti permette di selezionare e deselezionare i tag con solo una pressione di
 una singola chiave. Per questo scopo é bene assegnare una singola lettera ai tuoi tag più
 comunemente usati. Puoi fare questo globalmente configurando la variabile ~org-tag-alist~ nel tuo file
 di init di Emacs. Per esempio, puoi trovare utile assegnare a degli elementi in diversi file con
@@ -987,17 +987,17 @@ puoi inserire ed impostare la keyword =TAGS= come:
 
 : #+TAGS: @work(w)  @home(h)  @tennisclub(t)  laptop(l)  pc(p)
 
-** Ragruppare i tag
+** Raggruppare i tag
 :PROPERTIES:
 :UNNUMBERED: notoc
 :END:
 
-Un tag puo essere definito come un /gruppo di tag/ per un insieme di
+Un tag può essere definito come un /gruppo di tag/ per un insieme di
 altri tag. Il gruppo di tag può essere visto come il "termine più
 ampio" per un insieme di tag.
 
 Puoi impostare un gruppo di tag usando le parentesi ed inserendo i
-duepunti tra il gruppo di tag ed i tag relazionati:
+due-punti tra il gruppo di tag ed i tag relazionati:
 
 : #+TAGS: [ GTD : Control Presp ]
 
@@ -1008,9 +1008,9 @@ o se i tag nel gruppo sono mutualmente esclusivi:
 
 Quando cerchi per un gruppo di tag, ti vengono ritornati tutti i membri del gruppo e i
 sottogruppi. Nella visualizzazione agenda, filtrando per un gruppo di tag mostra o nasconde i titoli
-segnati con almeno uno dei membri, del gruppo o ogniuno dei sottogruppi.
+segnati con almeno uno dei membri, del gruppo o ognuno dei sottogruppi.
 
-Se vuoi, temporaneamente, ingnorare i gruppi di tag, cambia il gruppo
+Se vuoi, temporaneamente, ignorare i gruppi di tag, cambia il gruppo
 dei dag supportati con ~org-toggle-tags-groups~, mappato con
 {{{kbd(C-c C-x q)}}}.
 
@@ -1027,7 +1027,7 @@ dei dag supportati con ~org-toggle-tags-groups~, mappato con
 
 - {{{kbd(M-x org-agenda m)}}} (~org-tags-views~) ::
 
-  Crea una lista glabale di tag corrispondenti, da tutti i file
+  Crea una lista globale di tag corrispondenti, da tutti i file
   dell'agenda. vedi [[*Trova i tag e le proprietà]].
 
 - {{{kbd(M-x org-agenda M)}}} (~org-tags-views~) ::
@@ -1041,7 +1041,7 @@ trovare gli elementi con i tag =boss= e =urgent=, ma non =project=,
 oppure =Kathy|Sally= per trovare un elemento che sia segnato come
 =Kathy= o =Sally=. La sintassi completa per cercare queste stringhe é
 ricca e permette anche la ricerca all'interno di keyword TODO, di
-livelli e di proprieta'. Pe una più dettagliata descrizione con
+livelli e di proprietà. Per una più dettagliata descrizione con
 diversi esempi, vedi [[*Trova i tag e le proprietà]].
 
 * Proprietà
@@ -1049,10 +1049,10 @@ diversi esempi, vedi [[*Trova i tag e le proprietà]].
 :DESCRIPTION: Storing information about an entry.
 :END:
 
-Le proprieta sono un associazione di chiave-valore associate ad un
+Le proprietà sono un associazione di chiave-valore associate ad un
 oggetto. Risiedono in speciali drawer con nome =PROPERTIES=. Ogni
 proprietà è specificata su una linea singola, con la chiave prima (
-circondata dai duepunti ) ed il valore dopo.
+circondata dai due-punti ) ed il valore dopo.
 
 #+begin_example
   ,* CD collection
@@ -1083,7 +1083,7 @@ numero di dischi nella custodia tipo:
     :END:
 #+end_example
 
-Se vuoi impostare una proprietaà che può essere ereditata da ogni
+Se vuoi impostare una proprietà che può essere ereditata da ogni
 oggetto nel file, usa una linea tipo:
 
 : #+PROPERTY: NDisks_ALL 1 2 3 4
@@ -1111,7 +1111,7 @@ sezione [[*Trova i tag e le proprietà]].
 Per assistere la pianificazione, gli elementi TODO possono essere
 etichettati con una data e/o un orario. La speciale stringa formattata
 trasporta le informazioni di data ed orario chiamata, in Org mode,
-timestamp. Questo può creare un pò di confusione in quanto il
+timestamp. Questo può creare un po di confusione in quanto il
 timestamp é usato, a volte, per indicare quando qualcosa é stato
 creato o l'ultima modifica. Comunque, nella modalità Org questo
 termine viene usato in questo senso più ampio.
@@ -1127,17 +1127,17 @@ intervalli di tempo.
 :DESCRIPTION: Assigning a time to a tree entry.
 :END:
 
-Un timestamp é una specifica data---possibilemente con un orario o un
+Un timestamp é una specifica data---possibilmente con un orario o un
 range di orari---in uno speciale formato, come =<2003-09-16 Tue>= o
 =<2003-09-16 Tue 09:39>= oppure =<2003-09-16 Tue 12:00-12:30>=.
-Un timestamp puo essere inserito ovunque nelle intestazioni o nel corpo di un
+Un timestamp può essere inserito ovunque nelle intestazioni o nel corpo di un
 elemento dell'albero Org. La sua presenza genera la visualizzazione di
 un elemento in una specifica data nell'agenda ( vedi [[L'agenda
 Settimanale/Giornaliera]] ). Distinguiamoli:
 
 - Timestamp semplici; Eventi; Appuntamenti ::
 
-  Un semplice timestamp che assegna ad un elemeto una
+  Un semplice timestamp che assegna ad un elemento una
   data/orario. Questo é come scrivere un appuntamento o un evento in
   un'agenda di carta.
 
@@ -1154,10 +1154,10 @@ Settimanale/Giornaliera]] ). Distinguiamoli:
 - Timestamp con un intervallo che si ripete ::
 
   Un timestamp contenente un /intervallo di ripetizione/, indica
-  che, lo stesso, non si ripeta solo una volta ma ancora e ancorra
+  che, lo stesso, non si ripeta solo una volta ma ancora e ancora
   dopo un certo intervallo di N ore (h), giorni (d), settimane (w),
   mesi (m) o anni (y). Di seguito ne mostriamo uno che si ripete ogni
-  Marcoledì:
+  Mercoledì:
 
   #+begin_example
   ,* Prendere Sam da scuola
@@ -1171,7 +1171,7 @@ Settimanale/Giornaliera]] ). Distinguiamoli:
   Emacs Calendar. Per esempio, con un tempo opzionale
 
   #+begin_example
-  ,* 22:00-23-00 L'incontro dei nerd ogni secondo Giovedi del mese
+  ,* 22:00-23-00 L'incontro dei nerd ogni secondo Giovedì del mese
     <%%(diary-float t 4 2)>
    #+end_example
 
@@ -1224,7 +1224,7 @@ producono un timestamp nella forma corretta.
 
   Richiede una date ed inserisce un corrispondete timestamp. Quando il
   punto é in un timestamp preesistente nel buffer, il comando viene
-  usato per modificare questo timestamp invece di inserine uno
+  usato per modificare questo timestamp invece di inserirne uno
   nuovo. Quando questo comando viene usato due volte in successione un
   range di tempo viene inserito. Con un argomento prefisso aggiunge
   anche l'orario corrente.
@@ -1269,13 +1269,13 @@ facilitarne la pianificazione:
   Inserisce la parola chiave =DEADLINE= assieme al timestamp, nella
   linea dopo l'intestazione.
 
-  Significato: l'attività---molto probabilemte una voce TODO, anche se
+  Significato: l'attività---molto probabilmente una voce TODO, anche se
   non necessariamente---si suppone sia stata completata in quella
   data.
 
   Nella data di scadenza, il task é mostrato nell'agenda. Inoltre,
   l'agenda per /oggi/ mostra un avviso riguardante l'approssimarsi o
-  la mancata scadenza, a paritre da ~org-deadline-warning-days~ prima
+  la mancata scadenza, a partire da ~org-deadline-warning-days~ prima
   della data di scadenza e continuando fino a che l'elemento non sarà
   segnato come fatto. Un esempio:
 
@@ -1324,7 +1324,7 @@ un ) mese partendo da quella data.
 :END:
 
 La modalità Org ti permette di cronometrare quanto tempo ti serve per
-uno specifico proggetto.
+uno specifico progetto.
 
 - {{{kbd(C-c C-x C-i)}}} (~org-clock-in~) ::
 
@@ -1351,7 +1351,7 @@ uno specifico proggetto.
 
 - {{{kbd(C-c C-x C-j)}}} (~org-clock-goto~) ::
 
-  Salta all'intestazionv del lavoro, nel corrente timer in lavoro. Con un argomento
+  Salta all'intestazione del lavoro, nel corrente timer in lavoro. Con un argomento
   prefisso {{{kbd(C-u)}}} seleziona il lavoro targhet da una lista di lavori
   cronometrati di recente.
 
@@ -1370,7 +1370,7 @@ riferimento con esse. Org lo fa usando un processo detto
 /capture/. Può anche archiviare i relativi file di un lavoro (
 /allegati/ ) in una speciale directory. Una volta nel sistema, le
 attività ed i processi devono essere spostati. Muovere completamente
-un albero di proggetto in un archivio di file rende il sistema
+un albero di progetto in un archivio di file rende il sistema
 compatto e veloce.
 
 ** Cattura
@@ -1388,7 +1388,7 @@ note.
 :UNNUMBERED: notoc
 :END:
 
-L'impostazione sequente setta un file target[fn:9] di default per le
+L'impostazione seguente setta un file target[fn:9] di default per le
 note.
 
 #+begin_src emacs-lisp
@@ -1434,7 +1434,7 @@ differenti posizioni. Per dire se vuoi usare un template per creare
 degli oggetti TODO generali, e se vuoi mettere questi elementi sotto
 un intestazione =Tasks= nel tuo file =~/org/gtd.org=. Puoi anche
 catturare degli oggetti giornalieri come un albero di date nel file
-=journal.org=. Una possibile configurazione protrebbe essere simile a
+=journal.org=. Una possibile configurazione potrebbe essere simile a
 questa:
 
 #+begin_src emacs-lisp
@@ -1453,7 +1453,7 @@ template per te in questo modo:
 
 #+texinfo: @noindent
 Durante l'espansione del template, il carattere speciale di escape
-% [fn:10] permette l'inserimento dinamico del contenuto. Qui c'é una
+% [fn:10] permette l'inserimento dinamico del contenuto. Qui c'è una
 piccola selezione di possibilità, consulta il [[info:manual][manuale]] per averne di
 più.
 
@@ -1489,7 +1489,7 @@ speciali che trovi di seguito:
 
 - {{{kbd(C-c C-c C-w)}}} (~org-agenda-refile~) ::
 
-  Usa l'interfaccia di spostameto per saltare ad una intestazione.
+  Usa l'interfaccia di spostamento per saltare ad una intestazione.
 
 - {{{kbd(C-c Cu C-c C-w)}}} (~org-refile-goto-last-stored~) ::
 
@@ -1522,7 +1522,7 @@ progetto in un altro file, il file di archivio.
 
 - {{{kbd(C-c C-x C-s)}}} o brevemente {{{kbd(C-c $)}}} (~org-archive-subtree~) ::
 
-  Archivia il sottoalbero partendo dalla posizione del punto nella
+  Archivia il sotto-albero partendo dalla posizione del punto nella
   posizione data da ~org-archive-location~.
 
 La posizione di archiviazione standard é un file nella stessa
@@ -1533,7 +1533,7 @@ aggiungerli ad un albero delle date in un file. Per informazioni ed
 esempi su come specificare il file e le intestazioni, vedi la documentazione
 sulla stringa della variabile ~org-archive-location~.
 
-C'é anche un'opzione nel buffer per settare questa variabile, per
+C'è anche un'opzione nel buffer per settare questa variabile, per
 esempio:
 
 : #+ARCHIVE: %s_done::
@@ -1608,7 +1608,7 @@ seguenti comandi predefiniti:
 
 - {{{kbd(m)}}}, {{{kbd(M)}}} ::
 
-  Crea una lista di intastazioni che corrispondono all'espressione data ( vedi
+  Crea una lista di intestazioni che corrispondono all'espressione data ( vedi
   [[*Trova i tag e le proprietà]] ).
 
 - {{{kbd(s)}}} ::
@@ -1616,7 +1616,7 @@ seguenti comandi predefiniti:
   #+kindex: s @r{(Agenda dispacher)}
   Crea una lista di oggetti selezionati tramite un'espressione
   booleana di keyword e/o espressioni regolari che devono o non devono
-  verificarsi nelgli oggetti.
+  verificarsi negli oggetti.
 
 ** L'agenda Settimanale/Giornaliera
 :PROPERTIES:
@@ -1651,8 +1651,8 @@ elementi espressione agenda direttamente nei file Org:
   %%(org-anniversary 1869 10  2) Mahatma Gandhi would be %d years old
 #+end_example
 
-Org può interagire con la funzione di nodifica degli appuntamenti di
-Emacs. Per aggiungere un appuntamento ai tuoi file agneda, usa il
+Org può interagire con la funzione di modifica degli appuntamenti di
+Emacs. Per aggiungere un appuntamento ai tuoi file agenda, usa il
 comando ~org-agenda-to-appt~.
 
 ** Lista globale TODO
@@ -1669,7 +1669,7 @@ comandi avviabili nella TODO list, vedi [[*Comandi nel Buffer Agenda]].
 
 - {{{kbd(M-x org-agenda t)}}} (~org-todo-list~) ::
 
-  Mostra la lista globale dei TODO. Questo ragruppa gli elementi TODO
+  Mostra la lista globale dei TODO. Questo raggruppa gli elementi TODO
   da tutti i file agenda ( vedi [[*Visualizzazioni Agenda]] ) in un unico
   buffer.
 
@@ -1684,7 +1684,7 @@ comandi avviabili nella TODO list, vedi [[*Comandi nel Buffer Agenda]].
 
 Se le intestazioni nel file agenda sono marcati con i /tags/ ( vedi
 [[*TAG]] ), o hanno delle proprietà ( vedi [[*Proprietà]] ), puoi selezionare le
-intestazioni in base a questi metadati e raccoglierli in un buffer
+intestazioni in base a questi meta-dati e raccoglierli in un buffer
 agenda. La stessa cosa qui descritta é applicabile anche quando crei
 gli alberi sparsi con {{{kbd(C-c / m)}}}.
 
@@ -1699,9 +1699,9 @@ gli alberi sparsi con {{{kbd(C-c / m)}}}.
 
 - {{{kbd(M-x org-agenda M)}}}(~org-tags-view~) ::
 
-  Come {{{kbd(m)}}} ma seleziona solo le intestazion che sono oggetti TODO.
+  Come {{{kbd(m)}}} ma seleziona solo le intestazioni che sono oggetti TODO.
 
-Una stringa di ricerca puo usare operatori Booleani =&= per AND e =|=
+Una stringa di ricerca può usare operatori Booleani =&= per AND e =|=
 per OR. =&= si lega più fortemente di =|=. Le parentesi non sono
 ancora implementate. Ogni elemento nella ricerca ha o un tag,
 un'espressione regolare che trova un tag o un espressione tipo
@@ -1709,7 +1709,7 @@ un'espressione regolare che trova un tag o un espressione tipo
 una valore proprietà. Ogni elemento dev'essere preceduto da =-= per
 non selezionarlo e un =+= che é zucchero sintattico per la selezione
 positiva. L'operatore AND =&= é opzionale quando =+= o =-= sono
-presenti. Eccco alcuni esempi, usando solo i tag.
+presenti. Ecco alcuni esempi, usando solo i tag.
 
 - =+work-boss= ::
 
@@ -1726,7 +1726,7 @@ presenti. Eccco alcuni esempi, usando solo i tag.
   come =nihgt=.
 
 Puoi anche cercare le proprietà e i tag nello stesso tempo, vedi il
-[[info:manul][manuale]] per informazinoi aggiuntive.
+[[info:manul][manuale]] per informazioni aggiuntive.
 
 ** Vista di ricerca
 :PROPERTIES:
@@ -1734,14 +1734,14 @@ Puoi anche cercare le proprietà e i tag nello stesso tempo, vedi il
 :END:
 
 Questa vista agenda é una funzione di ricerca generale del testo per
-gli oggetti Org mode. É particolamente utile per trovare le note.
+gli oggetti Org mode. É particolarmente utile per trovare le note.
 
 - {{{kbd(M-x org-agenda s)}}} (~org-search-view~) ::
 
   #+kindex: s @r{(Agenda dispatcher)}
   #+findex: org-search-view
   Questo é una speciale ricerca che permette di selezionare gli
-  elementi che corrispondono ad una sottostringa o a specifiche voci
+  elementi che corrispondono ad una sotto-stringa o a specifiche voci
   usando la logica booleana.
 
 Per esempio, la stringa di ricerca =computer equipment= trova gli
@@ -1778,7 +1778,7 @@ per la lista completa.
 
 - {{{kbd(n)}}} (~org-agenda-next-line~) ::
 
-  Linea succesiva ( come {{{kbd(GIU)}}} e {{{kbd(C-n)}}} ).
+  Linea successiva ( come {{{kbd(GIU)}}} e {{{kbd(C-n)}}} ).
 
 - {{{kbd(p)}}} (~org-agenda-previous-line~) ::
   
@@ -1868,7 +1868,7 @@ per la lista completa.
 
 - {{{kbd(0--9)}}} ::
 
-  Agomento numerico
+  Argomento numerico
 
 - {{{kbd(t)}}} (~org-agenda-todo~) ::
 
@@ -1877,8 +1877,8 @@ per la lista completa.
 
 - {{{kbd(C-k)}}} (~org-agenda-kill~) ::
 
-  Cancella l'oggetto corrente dall'agenda e lungo l'intero sottoalbero
-  nell'file Org originale.
+  Cancella l'oggetto corrente dall'agenda e lungo l'intero sotto-albero
+  nel file Org originale.
 
 - {{{kbd(C-c C-w)}}} (~org-agenda-refile~) ::
 
@@ -1886,13 +1886,13 @@ per la lista completa.
 
 - {{{kbd(a)}}} (~org-agenda-archive-default-with-confirmation~) ::
 
-  Archivia il sottoalbero corrispondente all'elemento del punto usando
+  Archivia il sotto-albero corrispondente all'elemento del punto usando
   il comando di archiviazione di default impostato con nella variabile
   ~org-archive-default-command~.
 
 - {{{kbd($)}}} (~org-adenda-archive~) ::
 
-  Archivia il sottoalbero corrispondente all'intestazione corrente.
+  Archivia il sotto-albero corrispondente all'intestazione corrente.
 
 - {{{kbd(C-c C-s)}}} (~org-agenda-schedule~) ::
 
@@ -1957,8 +1957,8 @@ il buffer corrente).
 I comandi personalizzati sono configurati nella variabile
 ~org-agenda-custom-commands~. Puoi personalizzare questa variabile,
 per esempio premendo {{{kbd(C)}}} dal dispacher agenda ( vedi [[*Il
-Distributore Agenda]] ). Poui anche impostarla direttamente con Emacs
-Lisp nel file di init di Emacs. Il seguente esempio continete tutte
+Distributore Agenda]] ). Puoi anche impostarla direttamente con Emacs
+Lisp nel file di init di Emacs. Il seguente esempio contiene tutte
 viste valide dell'agenda.
 
 #+begin_src emacs-lisp
@@ -1981,7 +1981,7 @@ regolare da usare per la selezione. L'esempio sopra quindi definirà:
 
 - {{{kbd(u)}}} ::
 
-  Come per la ricerca globale di tags per le intestazion segnate =boss= ma
+  Come per la ricerca globale di tags per le intestazioni segnate =boss= ma
   non =urgent=.
 
 - {{{kbd(v)}}} ::
@@ -1997,8 +1997,8 @@ regolare da usare per la selezione. L'esempio sopra quindi definirà:
 
 Org sopratutto riguarda l'organizza e la ricerca all'interno delle tue
 note di testo semplice. Comunque, fornisce un leggero ma robusto
-linguaggio di markup per la foramattazione del testo ed altro. Usato
-assieme al framework di espostazione ( vedi [[*Esportazione]] ), con Org
+linguaggio di markup per la formattazione del testo ed altro. Usato
+assieme al framework di esportazione ( vedi [[*Esportazione]] ), con Org
 puoi produrre documenti molto belli.
 
 ** Paragrafi
@@ -2045,7 +2045,7 @@ but not any simpler
 ,#+END_CENTER
 #+end_example
 
-** Enfasi e monospace
+** Enfasi e mono-space
 :PROPERTIES:
 :DESCRIPTION: Bold, italic, etc.
 :END:
@@ -2060,7 +2060,7 @@ sintassi di Org; Viene esportato in verbatim.
 :DESCRIPTION: LaTeX can be freely used inside Org documents.
 :END:
 
-Per le note scentifiche che hanno bisogno di contenere simboli
+Per le note scientifiche che hanno bisogno di contenere simboli
 matematici e per le formule occasionali, Org mode supporta
 l'integrazione di codice LaTeX nei sui file. Puoi usare direttamente
 una sintassi simile al TeX per simboli speciali, inserire formule e
@@ -2085,7 +2085,7 @@ either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
 :END:
 
 Puoi inserire esempi letterali che non saranno soggetti al
-markup. Come gli esempi in monospace, questi sono trattati come i
+markup. Come gli esempi in mono-space, questi sono trattati come i
 codici sorgente ed esempi simili.
 
 #+begin_example
@@ -2095,12 +2095,12 @@ codici sorgente ed esempi simili.
 #+end_example
 
 Per semplicità quando usi un piccolo esempio, puoi anche fare iniziare
-la linea dell'esempio con un duepunti seguito da uno spazio. Ci
+la linea dell'esempio con un due-punti seguito da uno spazio. Ci
 possono essere anche diversi spazzi dopo il primo spazio vuoto che
-segue i duepunti:
+segue i due-punti:
 
 #+begin_example
-Qui c'é un esempio
+Qui c'è un esempio
   : Qualche esempio per un file di testo.
 #+end_example
 
@@ -2131,7 +2131,7 @@ descrittiva, per esempio
 
 : ./img/cat.jpg
 
-Se desideri definire una descrizione per l'imagine e una label per un
+Se desideri definire una descrizione per l'immagine e una label per un
 riferimento interno ( vedi [[*Collegamenti ipertestuali]] ), assicurati
 che il link abbia una linea che lo precede con le parole chiave
 =CAPTION= e =NAME= come sotto:
@@ -2148,7 +2148,7 @@ che il link abbia una linea che lo precede con le parole chiave
 :END:
 
 Una nota a piè di pagina é definita in un paragrafo che inizia con un
-markatore di footnote tra parentesi quadrate nella colonna 0,
+marcatore di footnote tra parentesi quadrate nella colonna 0,
 non sono permesse indentazioni. I riferimenti alle note a piè di
 pagina sono dei semplici marcatori di parentesi quadrate, con
 dentro del testo. Per esempio:
@@ -2257,8 +2257,8 @@ file. Per esempio, per includere il tuo file =.emacs=, puoi usare:
 #+textinfo: @noindent
 Il primo parametro é il nome del file da includere. Il secondo
 parametro, opzionale, specifica il tipo di blocco =example=, =export=
-o =src=. Il terzo parametro, anchesso opzionale, specifica il
-linguggio del codice sorgente da usare per formattare il
+o =src=. Il terzo parametro, anch'esso opzionale, specifica il
+linguaggio del codice sorgente da usare per formattare il
 contenuto. Questo é rilevante sia per il tipo di blocchi =export= che
 =src=.
 
@@ -2270,14 +2270,14 @@ Puoi vedere il file incluso con {{{kbd(C-c ')}}}.
 :END:
 
 Le linee che iniziano con zero o più spazzi bianchi seguiti da un =#=
-e da uno spazzio bianco sono trattati come commenti e, come tali, non
+e da uno spazio bianco sono trattati come commenti e, come tali, non
 vengono esportati.
 
 Come del resto, le zone circondate da =#+BEGIN_COMMENT=
 ... =#+END_COMMENT= non sono esportate.
 
 In fine, una keyword =COMMENT= all'inizio di un elemento, ma prima di
-un'altra parola chiave o cookie, commenta l'intero sottoalbero. Il
+un'altra parola chiave o cookie, commenta l'intero sotto-albero. Il
 comando sotto aiuta a cambiare lo stato di commento di una intestazione.
 
 - {{{kbd(C-c ;)}}} (~org-toggle-comment~) ::
@@ -2285,7 +2285,7 @@ comando sotto aiuta a cambiare lo stato di commento di una intestazione.
   Attiva/Disattiva la parola chiave =COMMENT= all'inizio di un
   elemento
 
-** Exportazione ASCII/UTF-8
+** Esportazione ASCII/UTF-8
 :PROPERTIES:
 :DESCRIPTION: Exporting to flat files with encoding.
 :END:
@@ -2336,13 +2336,13 @@ codice di esportazione:
 ,#+END_EXPORT
 #+end_example
 
-** Esoprtazione LaTeX
+** Esportazione LaTeX
 :PROPERTIES:
 :DESCRIPTION: Exporting to @LaTeX{} and processing to PDF.
 :END:
 
 L'esportazione LaTeX può elaborare documenti complessi, incorporando
-classi LaTeX standar o personalizzate, genera documenti usando engine
+classi LaTeX standard o personalizzate, genera documenti usando engine
 LaTeX alternativi, e producendo un file PDF con indici,
 bibliografie e tabelle dei contenuti, destinato alla visione
 interattiva o per la pubblicazione di stampa di alta qualità.
@@ -2367,7 +2367,7 @@ myclass=. Le classi possono essere inserite in ~org-latex-classes~.
 
 Il backend di esportazione LaTeX può inserire codice LaTeX arbitrario,
 vedi [[*LaTeX integrato]]. Ci sono tre modi per inserire del codice nel
-file Org e ogniuno usa una sintassi di quotazione diversa.
+file Org e ognuno usa una sintassi di quotazione diversa.
 
 Inserimento in linea quota con i simboli @:
 
@@ -2377,7 +2377,7 @@ Inserimento di una o più linee con keyword nel file Org:
 
 : #+LATEX: any arbitrary LaTeX code
 
-Inserimento di un blocco di esportazione nel file Org, dove il beckend
+Inserimento di un blocco di esportazione nel file Org, dove il backend
 esporterà tutto il codice tra il marcatore di inizio e fine:
 
 #+begin_example
@@ -2413,9 +2413,9 @@ esporta nel formato standard iCalendar.
 :END:
 
 Org include un sistema di gestione delle pubblicazione che ti permette
-di configurare una conversione HTML automatica dei /proggeti/ composta
+di configurare una conversione HTML automatica dei /progetti/ composta
 dai file Org collegati internamente. Puoi anche configurare Org in
-modo che carichi in outomatico le pagine HTML e relativi allegati,
+modo che carichi in automatico le pagine HTML e relativi allegati,
 come immagini e file di codice sorgente, in un server web.
 
 Puoi anche usare Org per convertire i file in PDF, o anche combinando
@@ -2423,7 +2423,7 @@ la conversione HTML e PDF in modo che questi file siano disponibili in
 entrambi i formati sul server.
 
 Per delle istruzioni dettagliate sulle impostazioni, vedi
-[[info:manual]]. Qui c'é un esempio:
+[[info:manual]]. Qui c'è un esempio:
 
 #+begin_src emacs-lisp
 (setq org-publish-project-alist
@@ -2504,7 +2504,7 @@ nuovamente chiude il buffer e torna al buffer Org.
 :END:
 
 Un argomento di intestazione viene specificato con un carattere
-duepunti iniziale seguito dal nome dall'argomento in minuscolo.
+due-punti iniziale seguito dal nome dall'argomento in minuscolo.
 
 Gli argomenti di intestazione possono essere impostati in diversi
 modi; Org gli assegna delle priorità per evitare che ci siano delle
@@ -2513,7 +2513,7 @@ priorità più alta.
 
 - Argomenti di intestazione a livello di sistema ::
 
-  Questi sono specificati pesonalizzando la variabile
+  Questi sono specificati personalizzando la variabile
   ~org-bable-default-header-args~, o, per uno specifico linguaggio
   {{{var(LANG)}}} ~org-babel-default-header-args:LANG~.
 
@@ -2522,7 +2522,7 @@ priorità più alta.
   Puoi impostarlo usando la proprietà =header-args= ( vedi [[*Proprietà]]
   )---o =header-args:LANG= per linguaggio {{{var(LANG)}}}. Gli
   argomenti di intestazione nelle proprietà vengono applicati nei
-  sotoalberi dei livelli sotto.
+  sotto-alberi dei livelli sotto.
 
 - Argomenti di intestazione nei blocchi di codice ::
 
@@ -2549,7 +2549,7 @@ Usa {{{kbd(C-c C-c)}}} per valutare il blocco di codice corrente ed
 inserire il risultato nel documento Org. Di default, é abilitata solo
 la valutazione dei blocchi di codice =emacs-lisp=, comunque esiste il
 supporto per la valutazione di blocchi di codice in diversi
-linguaggi. Per una lista completa dei linguaggi suportati guarda il
+linguaggi. Per una lista completa dei linguaggi supportati guarda il
 [[info:manual][manuale]]. Di seguito viene mostrato un blocco di codice ed il suo
 risultato.
 
@@ -2562,7 +2562,7 @@ risultato.
 : 10
 #+end_example
 
-La sintasso qui sotto viene usata per passare un argomento al blocco
+La sintassi qui sotto viene usata per passare un argomento al blocco
 di codice usando l'argomento di intestazione =var=.
 
 : :var NAME=ASSIGN
@@ -2596,12 +2596,12 @@ dell'intestazione =result=. Lui controlla la /collezione/, /tipo/,
   codice. Puoi scegliere tra =table=, =list=, =scalar= e =file=. Org
   prova ad indovinare se non lo hai impostato.
 
-- Formaato ::
+- Formato ::
 
   Come Org processa il risultato. Alcuni possibili valori sono =code=,
   =drawer=, =html=, =latex=, =link= e =raw=.
 
-- Maipolazione ::
+- Manipolazione ::
 
   Come viene inserito il risultato una volata formattato
   appropriatamente. I valori consentiti sono =silent=, =replace= ( il
@@ -2610,7 +2610,7 @@ dell'intestazione =result=. Lui controlla la /collezione/, /tipo/,
 I blocchi di codice con i risultati di output in file---es.:
 grafici, diagrammi e figure---possono accettare un argomento di
 intestazione =:file FILENAME=, in questo caso i risultati sono salvati
-nel file nomitato, e un link al file viene inserito nel buffer.
+nel file nominato, e un link al file viene inserito nel buffer.
 
 ** Esportazione dei blocchi di codice
 :PROPERTIES:
@@ -2641,7 +2641,7 @@ espandere sia i riferimenti di tipo variabile che quelli di tipo
 avere un argomento di intestazione =tangle=, vedi il [[info:manual][manuale]] per
 maggiori dettagli.
 
-* Miscelanee
+* Miscellanee
 :PROPERTIES:
 :DESCRIPTION: All the rest which did not fit elsewhere.
 :END:
@@ -2651,7 +2651,7 @@ maggiori dettagli.
 :UNNUMBERED: notoc
 :END:
 
-Org ha il completamento nel buffer con {{{kbd(M-TAB)}}}. Il minibuffer
+Org ha il completamento nel buffer con {{{kbd(M-TAB)}}}. Il mini-buffer
 non é coinvolto. Digita una o più lettere per poi usare la
 combinazione di scelta rapida per completare il testo sul posto.
 
@@ -2683,7 +2683,7 @@ andare bene per piccoli documenti. Per lunghi documenti come /libri/,
 l'effetto non é evidente. Org fornisce un'alternativa per gli
 asterischi e uno schema di indentazione, come mostrato alla destra
 della seguente tabella. Usa un solo asterisco e indenta il testo per
-allinearlo al'intestazione:
+allinearlo all'intestazione:
 
 #+begin_example
 ,* Top level headline             |    * Top level headline
