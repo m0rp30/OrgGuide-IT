@@ -2230,11 +2230,11 @@ template= premendo {{{kbd(#)}}}
 :END:
 
 La tabella dei contenuti include tutte le intestazioni del
-documento. Va in profondità nello stesso modo di come sono i livelli
-delle intestazioni nel file. Se vuoi usare una differente profondità,
-o sisabilitarlo per intero, imposta la variabile
-~org-export-with-toc~. Puoi fare la stessa cosa per ogni file, usando
-i seguenti elementi =toc= nella parola chiave =OPTIONS=:
+documento. Va in profondità come sono i livelli delle intestazioni nel
+file. Se vuoi usare una differente profondità, o disabilitarlo per
+intero, imposta la variabile ~org-export-with-toc~. Puoi fare la
+stessa cosa per ogni file, usando i seguenti elementi =toc= nella
+parola chiave =OPTIONS=:
 
 #+begin_example
 ,#+OPTIONS: toc:2          (include solo due livelli nella TOC)
@@ -2242,7 +2242,7 @@ i seguenti elementi =toc= nella parola chiave =OPTIONS=:
 #+end_example
 
 Org normalmente inserisce la tabella dei contenuti direttamente prima
-del primo titolo nel file.
+della prima intestazione nel file.
 
 ** Includere file
 :PROPERTIES:
@@ -2278,7 +2278,7 @@ Come del resto, le zone circondate da =#+BEGIN_COMMENT=
 
 In fine, una keyword =COMMENT= all'inizio di un elemento, ma prima di
 un'altra parola chiave o cookie, commenta l'intero sottoalbero. Il
-comando sotto aiuta a cambiare lo stato di commento di un titolo.
+comando sotto aiuta a cambiare lo stato di commento di una intestazione.
 
 - {{{kbd(C-c ;)}}} (~org-toggle-comment~) ::
 
@@ -2343,7 +2343,7 @@ codice di esportazione:
 
 L'esportazione LaTeX può elaborare documenti complessi, incorporando
 classi LaTeX standar o personalizzate, genera documenti usando engine
-LaTeX alternativi, e producendo un un file PDF con indici,
+LaTeX alternativi, e producendo un file PDF con indici,
 bibliografie e tabelle dei contenuti, destinato alla visione
 interattiva o per la pubblicazione di stampa di alta qualità.
 
@@ -2358,7 +2358,7 @@ myclass=. Le classi possono essere inserite in ~org-latex-classes~.
 
 - {{{kbd(C-c C-e l p)}}} (~org-latex-esport-to-pdf~) ::
 
-  Esposta come file LaTeX e lo converte in file PDF.
+  Esporta come file LaTeX e lo converte in file PDF.
 
 - {{{kbd(C-c C-e l o)}}} (~<no corresponding named command>~) ::
 
@@ -2373,11 +2373,11 @@ Inserimento in linea quota con i simboli @:
 
 : Code embedded in-line @@latex:any arbitrary LaTeX code@@ in a paragraph.
 
-Inserendo una o più linee con keyword nel file Org:
+Inserimento di una o più linee con keyword nel file Org:
 
 : #+LATEX: any arbitrary LaTeX code
 
-Inserendo un blocco di esportazione nel file Org, dove il beckend
+Inserimento di un blocco di esportazione nel file Org, dove il beckend
 esporterà tutto il codice tra il marcatore di inizio e fine:
 
 #+begin_example
@@ -2468,7 +2468,7 @@ file dando un argomento prefisso ad ogni comando visto sopra.
 Org mode fornisce un numero di funzionalità per lavorare con i codici
 sorgenti, incluso la modifica di blocchi di codice nella loro
 major-mode, valutazione del blocco di codice, tangling di blocchi di
-codice e esportazione di blocchi di codice e del loro risultato in
+codice ed esportazione di blocchi di codice e del loro risultato in
 diversi formati.
 
 Un blocco di codice si forma con questa struttura:
@@ -2495,7 +2495,7 @@ dove:
 
 Usa {{{kbd(C-c ')}}} per modificare il blocco di codice corrente. Apre
 un nuovo buffer di modifica nella major-mod contenente il sorgente del
-blocco di codice, pronto per ogni modifica. Usando {{{kbd(C-c ')}}}
+blocco di codice, pronto per la modifica. Usando {{{kbd(C-c ')}}}
 nuovamente chiude il buffer e torna al buffer Org.
 
 ** Usare argomenti di intestazione
@@ -2504,7 +2504,7 @@ nuovamente chiude il buffer e torna al buffer Org.
 :END:
 
 Un argomento di intestazione viene specificato con un carattere
-duepunti iniziale seguito nome dall'argomento in minuscolo.
+duepunti iniziale seguito dal nome dall'argomento in minuscolo.
 
 Gli argomenti di intestazione possono essere impostati in diversi
 modi; Org gli assegna delle priorità per evitare che ci siano delle
@@ -2583,7 +2583,7 @@ Il modo in cui Org gestisce i risultati dell'esecuzione di un blocco
 di codice dipende da come i molti argomenti dell'intestazione lavorano
 assieme. Il fattore determinante, tuttavia, è l'argomento
 dell'intestazione =result=. Lui controlla la /collezione/, /tipo/,
-/formato/ e /manipolazione/ dei risultati dei blocchi di codice.
+/formato/ e la /manipolazione/ dei risultati dei blocchi di codice.
 
 - Collezione ::
 
@@ -2622,7 +2622,7 @@ della valutazione del blocco di codice, /entrambe/ il codice ed il
 risultato della valutazione del blocco di codice, o /niente/. Org di
 default, per diversi linguaggi, esporta il /codice/.
 
-L'argomento di intestazione =exports= server ad informare che quella
+L'argomento d'intestazione =exports= serve ad informare che quella
 parte di codice viene esportata, per esempio, nel formato HTML o
 LaTeX. Può essere impostato a =code=, =results=, =both= o =none=.
 
@@ -2707,8 +2707,8 @@ usando:
 Se si desidera che l'indentazione sia costituita da caratteri di
 spazio fisso, in modo che il file di testo semplice appaia il più
 possibile simile alla visualizzazione di Emacs. Org aiuta a rientrare
-( con {{{kbd(TAB)}}} ) il testo sotto ogni titolo, a nascondere le
-stelle iniziali e a usare solo i livelli 1, 3, ecc.., per ottenere un
+( con {{{kbd(TAB)}}} ) il testo sotto ad ogni suo titolo, a nascondere
+le stelle iniziali e a usare solo i livelli 1, 3, ecc.., ottenendo un
 rientro di due caratteri per ogni livello. Per ottenere questo in un
 file usa
 
